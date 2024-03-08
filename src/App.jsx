@@ -20,9 +20,9 @@ const App = () => {
             <li>
               <Link to="/home">Home</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/about">About</Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
         {/* A <Switch> looks through its children <Route>s and
