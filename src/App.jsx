@@ -10,7 +10,6 @@ import {
  */
 import Home from './components/Home'
 import Login from './components/Login'
-import Discovery from './components/Discovery'
 import Dashboard from './components/Dashboard'
 import About from './components/About'
 
@@ -36,7 +35,6 @@ const App = () => {
           </ul>
         </nav>
 
-        <Discovery />
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL.
             Furthermore, notice how the content above always renders? On each page? */}
