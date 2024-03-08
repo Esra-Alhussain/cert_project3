@@ -6,7 +6,7 @@ const Dashboard = () => {
             <h1 className="dashboardTitle">User Dashboard</h1>
             <button className="createQuiz"> Create a Quiz</button>
             <br/>
-                <div className="quizManager">
+                <div className="quizDetail">
                     <div className="quiz">
                         <h3 className="quizTitle">Quiz Name</h3>
                         <button className="editQuiz">Edit</button>
