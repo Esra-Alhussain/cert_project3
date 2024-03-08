@@ -11,6 +11,7 @@ import {
 import Home from './components/Home'
 import Login from './components/Login'
 import Discovery from './components/Discovery'
+import Dashboard from './components/Dashboard'
 import About from './components/About'
 
 const App = () => {
@@ -24,6 +25,9 @@ const App = () => {
             </li>
             <li>
               <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/dashboard">Dashboard</Link>
             </li>
            
             {/* <li>
@@ -39,6 +43,7 @@ const App = () => {
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/about" element={<About />} />
         </Routes>
       </div>
@@ -47,3 +52,4 @@ const App = () => {
 }
 
 export default App
+
