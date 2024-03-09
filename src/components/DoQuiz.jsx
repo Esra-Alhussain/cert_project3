@@ -1,12 +1,13 @@
+import React from 'react';
 
 const DoQuiz = () => {
 
     return(
         <div className="quizDisplay">
             <div className="quiz">
-                <h2 className="quizTitle">Quiz Title</h2>
+                <h1 className="quizTitle">The Weather </h1>
                    <div className="" >
-                        <h2 className="question">Q1: What is the first cause for the global warm?</h2>
+                        <h3 className="question">Q1: What is the first cause for the global warm?</h3>
                         <ul className="answers">
                             <li>First Answer</li>
                             <li>Second Answer</li>
