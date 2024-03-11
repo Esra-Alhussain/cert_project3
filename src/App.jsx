@@ -12,6 +12,8 @@ import Home from './components/Home'
 import Login from './components/Login'
 import Dashboard from './components/Dashboard'
 import About from './components/About'
+import DoQuiz from './components/DoQuiz'
+import CreateQuiz from './components/CreateQuiz'
 
 const App = () => {
   return (
@@ -42,6 +44,8 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/doQuiz" element={<DoQuiz />} />
+          <Route path="/createQuiz" element={<CreateQuiz />} />
           <Route path="/about" element={<About />} />
         </Routes>
       </div>
@@ -50,4 +54,3 @@ const App = () => {
 }
 
 export default App
-
