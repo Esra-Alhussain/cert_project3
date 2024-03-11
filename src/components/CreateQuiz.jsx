@@ -31,8 +31,25 @@ const CreateQuiz = () => {
         }
     ]
     );
+    
+ 
+     //Add a new question object to the questions Array in the state
+     const handleQuestionAdd = () => {
+         setQuizData({
+             ...quizData,
+             questions: [
+                 ...quizData.questions,
+                 {id:'',
+                  question: '',
+                  answers:[], 
+                  correctAnswer:'',
+                  points:0
+                 }
+             ]
+         })
+     };
 
-
+     
 
     return(
         <div className="createQuiz">
