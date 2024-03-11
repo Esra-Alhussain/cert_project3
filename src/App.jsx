@@ -8,22 +8,37 @@ import {
 /**
  * Importing other components
  */
-import Home from './components/Home'
 import Login from './components/Login'
 import Dashboard from './components/Dashboard'
-import About from './components/About'
 import DoQuiz from './components/DoQuiz'
-import CreateQuiz from './components/CreateQuiz'
+import CreateQuiz from './components/EditQuiz'
+import Discovery from './components/Discovery'
 
 const App = () => {
+    // State to manage quiz data
+    const [quizData, setQuizData] = useState({
+      id:'',
+      name:'',
+      difficulty:'',
+      subject:'',
+      highestScore:'',
+      likes: 0,
+      questions: [
+          {
+              id:'',
+              question:'',
+              answers:[],
+              correctAnswers:'',
+              points:0
+          }
+      ]
+  });
+
   return (
     <Router>
       <div>
         <nav>
           <ul>
-            <li>
-              <Link to="/home">Home</Link>
-            </li>
             <li>
               <Link to="/login">Login</Link>
             </li>
@@ -36,8 +51,8 @@ const App = () => {
             </li> */}
           </ul>
         </nav>
-
-        <Home />
+        <Discovery />
+       
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL.
             Furthermore, notice how the content above always renders? On each page? */}

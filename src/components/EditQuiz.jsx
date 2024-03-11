@@ -1,36 +1,7 @@
 
 
-const CreateQuiz = () => {
-    // State to manage quiz data
-    const [quizData, setQuizData] = useState({
-        id:'',
-        name:'',
-        difficulty:'',
-        subject:'',
-        highestScore:'',
-        likes: 0,
-        questions: [
-            {
-                id:'',
-                question:'',
-                answers:[],
-                correctAnswers:'',
-                points:0
-            }
-        ]
-    });
-
-    const [questions, setQuestions] = useState(
-        [
-            {
-            id:'',
-            question:'',
-            answers:[],
-            correctAnswers:'',
-            points:0
-        }
-    ]
-    );
+const EditQuiz = () => {
+  
 
     //function to handle changes in the Quiz name
     const handleQuizNameChange = (event)=> {
@@ -120,4 +91,4 @@ const CreateQuiz = () => {
     )
 }
 
-export default CreateQuiz
+export default EditQuiz

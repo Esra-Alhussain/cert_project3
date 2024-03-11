@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Link } from 'react-router-dom';
-import CreateQuiz from "./CreateQuiz"
+import CreateQuiz from "./EditQuiz"
 
 const Dashboard = () => {
 
