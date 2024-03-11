@@ -34,6 +34,45 @@ const App = () => {
       ]
   });
 
+  //Functions for Quiz editing 
+  //Delete Quiz
+  const deleteQuiz = (quizId) => {
+    //remove the quiz that match the quiz Id that have been selected
+    //filter out the Quiz with the specified Id
+    const updatedQuestions = quizData.filter((quiz) => {
+      if (quiz.id === quizId) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+  }
+
+  //Add a new question object to the questions Array in the state
+  const handleQuestionAdd = () => {
+        setQuizData({
+            ...quizData,
+            questions: [
+                ...quizData.questions,
+                {id:'',
+                 question: '',
+                 answers:[], 
+                 correctAnswer:'',
+                 points:0
+                }
+            ]
+        })
+    };
+
+  //function allows the user to edit the answers 
+  const handleAnswerEdit = (questionIndex, answerIndex, updatedAnswer) => {
+    const updatedQuestions = [...questions]
+    updatedQuestions[questionIndex].answers[answerIndex] = updatedAnswer;
+    setQuizData (updatedQuestions)
+};
+
+  
+
   return (
     <Router>
       <div>
