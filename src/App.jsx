@@ -39,22 +39,24 @@ const App = () => {
   const deleteQuiz = (quizId) => {
     //remove the quiz that match the quiz Id that have been selected
     //filter out the Quiz with the specified Id
-    const updatedQuestions = quizData.filter((quiz) => {
+    const updatedQuizzes = quizData.filter((quiz) => {
       if (quiz.id === quizId) {
         return false;
       } else {
         return true;
       }
     });
-  }
+    setQuizData(updatedQuizzes);
+  };
 
   //Add a new question object to the questions Array in the state
-  const handleQuestionAdd = () => {
+  const handleAddQuestion = () => {
         setQuizData({
             ...quizData,
             questions: [
                 ...quizData.questions,
-                {id:'',
+                {
+                  id:'',
                  question: '',
                  answers:[], 
                  correctAnswer:'',
@@ -63,6 +65,19 @@ const App = () => {
             ]
         })
     };
+
+  //Add new answers to a question
+  const AddAnswers = (questionIndex) => {
+    const updatedAnswers = [...quizData.questions[questionIndex].answers];
+    //Add new empty answer array to the answers array
+    updatedAnswers.push('');
+    //create a copy of the quizData object and update the answers array for the specified question
+    setQuizData(prevState => {
+        const updatedQuizData = { ...prevState};
+        updatedQuizData.questions[questionIndex].answers = updatedAnswers;
+        return updatedQuizData;
+    });
+  };
 
   //function allows the user to edit the answers 
   const handleAnswerEdit = (questionIndex, answerIndex, updatedAnswer) => {
