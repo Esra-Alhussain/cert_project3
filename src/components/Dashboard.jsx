@@ -1,10 +1,14 @@
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+import CreateQuiz from "./CreateQuiz"
 
 const Dashboard = () => {
 
     return(
         <div>
             <h1 className="dashboardTitle">User Dashboard</h1>
+            <Link to="/createQuiz">
             <button className="createQuiz"> Create a Quiz</button>
+            </Link>
             <br/>
                 <div className="quizDetail">
                     <div className="quiz">

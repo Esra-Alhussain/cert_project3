@@ -26,13 +26,25 @@ const CreateQuiz = () => {
                 <h1 className="quizTitle">The Weather </h1>
                     <div className="" >
                         <form className="createQuizForm">
-                            <label for="question">Q1</label>
+                            <label htmlFor="question">Question</label>
                             <input type="text" id="question" name="question" placeholder="Enter your Question"/>
                             <div className="answers">
-                                <input type="checkbox" id="answer1" name="answer" placeholder="Enter your first answer"/>
-                                <input type="checkbox" id="answer2" name="answer" placeholder="Enter your second answer"/>
-                                <input type="checkbox" id="answer3" name="answer" placeholder="Enter your third answer"/>
-                                <input type="checkbox" id="answer4" name="answer" placeholder="Enter your fourth answer"/>
+                                <div className="firstAnswer">
+                                    <input type="text" id="answer1" name="answer" placeholder="Enter your first answer"/>
+                                    <input type="checkbox" id="answer1" name="answer" /> 
+                                </div>
+                                <div className="secondAnswer">
+                                    <input type="text" id="answer2" name="answer2" placeholder="Enter your second answer"></input>
+                                    <input type="checkbox" id="answer2" name="answer" placeholder="Enter your second answer"/>
+                                </div>
+                                <div className="thirdAnswer">
+                                    <input type="text" id="answer3" name="answer" placeholder="Enter your third answer"></input>
+                                    <input type="checkbox" id="answer3" name="answer" placeholder="Enter your third answer"/>
+                                </div>
+                                <div className="fourthAnswer">
+                                    <input type="text" id="answer4" name="answer" placeholder="Enter your fourth answer"/>
+                                    <input type="checkbox" id="answer4" name="answer" placeholder="Enter your fourth answer"/>
+                                </div>
                             </div>  
                          </form>    
                     </div>
