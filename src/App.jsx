@@ -37,6 +37,7 @@ const App = () => {
           </ul>
         </nav>
 
+        <Home />
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL.
             Furthermore, notice how the content above always renders? On each page? */}
