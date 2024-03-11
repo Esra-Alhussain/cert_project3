@@ -31,8 +31,12 @@ const CreateQuiz = () => {
         }
     ]
     );
-    
- 
+
+    //function to handle changes in the Quiz name
+    const handleQuizNameChange = (event)=> {
+        setQuizData({...quizData, name:event.target.value });
+    };
+
      //Add a new question object to the questions Array in the state
      const handleQuestionAdd = () => {
          setQuizData({
@@ -58,7 +62,6 @@ const CreateQuiz = () => {
 
     //function allows the user to edit the answers 
     const handleAnswerEdit = (questionIndex, answerIndex, updatedAnswer) => {
-        //
         const updatedQuestions = [...questions]
         updatedQuestions[questionIndex].answers[answerIndex] = updatedAnswer;
         setQuizData (updatedQuestions)
