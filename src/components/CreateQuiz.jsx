@@ -71,6 +71,7 @@ const CreateQuiz = () => {
 
     return(
         <div className="createQuiz">
+          {/* Sidebar with question list */}
             <div className="sideBar">
                 <div className="questionContainer">
                     <h3 className="questionNumber">Q1</h3>
@@ -85,7 +86,7 @@ const CreateQuiz = () => {
                     </div>
                 </div>
 
-                <button className="addQuestion">Add Question</button>
+                <button className="addQuestion" onClick={handleQuestionAdd} >Add Question</button>
             </div>
 
             <div className="questions&answers">
