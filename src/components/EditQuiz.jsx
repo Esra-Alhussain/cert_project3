@@ -1,28 +1,6 @@
 
 
 const EditQuiz = () => {
-  
-
-    //function to handle changes in the Quiz name
-    const handleQuizNameChange = (event)=> {
-        setQuizData({...quizData, name:event.target.value });
-    };
-
- 
-
-      //function allows the user to edit the text of the question 
-    const handleQuestionEdit = (index, updatedQuestion) => {
-        //update the question at the specified index in the questions Array by iterating over each question
-        //map function returns a new array with the updated question at the specified index
-        setQuizData(questions.map((question, i ) => (i === index ? updatedQuestion : question )));
-    };
-
-    //function allows the user to edit the answers 
-    const handleAnswerEdit = (questionIndex, answerIndex, updatedAnswer) => {
-        const updatedQuestions = [...questions]
-        updatedQuestions[questionIndex].answers[answerIndex] = updatedAnswer;
-        setQuizData (updatedQuestions)
-    };
 
     
 
