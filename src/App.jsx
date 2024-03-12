@@ -74,17 +74,20 @@ const App = () => {
   const handleAnswerTextChange = ( questionIndex, answerIndex, newAnswer ) => {
     setQuizData(prevData => {
       const updatedAnswersQuestions = [...prevData.questions];
-      if (questionIndex >= 0 && 
-          answerIndex < updatedAnswersQuestions.length &&
-          answerIndex >= 0 &&
-          answerIndex < updatedAnswersQuestions[questionIndex].answers.length
-          ){
+      // if (questionIndex >= 0 && questionIndex < updatedAnswersQuestions.length &&
+      //     answerIndex >= 0 && answerIndex < updatedAnswersQuestions[questionIndex].answers.length
+      //     ){
+      //       //update the answer text at the specified question and answer index
+      //       updatedAnswersQuestions[questionIndex].answers[answerIndex] = newAnswer;
+      //     return { ...prevData, questions: updatedAnswersQuestions};
+      //   } else {
+      //     console.error('Invalid questions or answers index');
+      //     console.log(`this is questionIndex ${questionIndex}`);
+      //     console.log(`this is answerIndex ${answerIndex}`);
+      //     return prevData;
+      //   }
             updatedAnswersQuestions[questionIndex].answers[answerIndex] = newAnswer;
-          return { ...prevData, questions: updatedAnswersQuestions};
-        } else {
-          console.error('Invalid questions or answers index');
-          return prevData;
-        }
+            return { ...prevData, questions: updatedAnswersQuestions};
       });
     };
 
@@ -135,6 +138,7 @@ const App = () => {
     //function to handle changes in the Quiz name
     const handleQuizNameChange = (event)=> {
       setQuizData({...quizData, name:event.target.value });
+      console.log(`This is quizData: ${quizData}`)
   };
 
 
