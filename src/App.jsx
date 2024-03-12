@@ -54,9 +54,28 @@ const App = () => {
     });
     setQuizData(updatedQuizzes);
   };
-    //handle the input change for the question text
-    const handleQuestionTextChange = ( index, newText ) => {
-      setQuizData(prevState => {
+
+  //Delete a Question and their answers from a Quiz
+  const deleteQuestion = ( questionId) => {
+    //filter out the Question with the specified Id
+    const updatedQuestionsAfterDelete = quizData.questions.filter((question) => {
+      if (question.id === questionId){
+        return false;
+      } else {
+        return true;
+      }
+    });
+    setQuizData(prevState => ({
+      ...prevState,
+      questions: updatedQuestionsAfterDelete
+    }));
+    console.log(`this is index ${index}`);
+
+  };
+
+  //handle the input change for the question text
+  const handleQuestionTextChange = ( index, newText ) => {
+    setQuizData(prevState => {
         const updatedQuestions = [...prevState.questions];
         //check first if the index is valid for the updatedQuestions Array
         if (index >= 0 && index < updatedQuestions.length) { // Check if index is valid
@@ -180,7 +199,7 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard quizData= { quizData } />} />
           <Route path="/doQuiz" element={<DoQuiz />} />
-          <Route path="/createQuiz" element={<CreateQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  questionIndexes={questionIndexes} handleAnswerTextChange={ handleAnswerTextChange } />} />
+          <Route path="/createQuiz" element={<CreateQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  questionIndexes={questionIndexes} handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion }/>} />
         </Routes>
       </div>
     </Router>

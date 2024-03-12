@@ -1,6 +1,6 @@
 
 
-const CreateQuiz = ({ quizData, setQuizData ,handleQuestionTextChange, handleAddQuestion, questionIndexes, handleAddName, handleAnswerTextChange}) => {
+const CreateQuiz = ({ quizData, setQuizData ,handleQuestionTextChange, handleAddQuestion, deleteQuestion, questionIndexes, handleAddName, handleAnswerTextChange}) => {
   
     return(
         <div className="createQuiz">
@@ -54,7 +54,7 @@ const CreateQuiz = ({ quizData, setQuizData ,handleQuestionTextChange, handleAdd
                                     <button className="Delete"> Delete</button> 
                                 </div>
                             </div>  
-                            <button className="Delete"> Delete</button> 
+                            <button className="Delete" onClick= {() => { deleteQuestion(quizData.questions[index].id)}}> Delete Question </button> 
                          </form>    
                 </div> 
             ))}
