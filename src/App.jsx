@@ -5,9 +5,12 @@ import {
   Link
 } from 'react-router-dom'
 
+import React, { useState } from 'react';
+
 /**
  * Importing other components
  */
+import Home from './components/Home';
 import Login from './components/Login'
 import Dashboard from './components/Dashboard'
 import DoQuiz from './components/DoQuiz'
@@ -34,12 +37,15 @@ const App = () => {
       ]
   });
 
+   // Generate unique indexes for questions
+   const questionIndexes = Array.from(Array(quizData.questions.length).keys());
+
+
   //Functions for Quiz editing 
   //Delete Quiz
   const deleteQuiz = (quizId) => {
-    //remove the quiz that match the quiz Id that have been selected
     //filter out the Quiz with the specified Id
-    const updatedQuizzes = quizData.filter((quiz) => {
+    const updatedQuizzes = quizData.quizzes.filter((quiz) => {
       if (quiz.id === quizId) {
         return false;
       } else {
@@ -48,13 +54,28 @@ const App = () => {
     });
     setQuizData(updatedQuizzes);
   };
+    //handle the input change for the question text
+    const handleQuestionTextChange = ( index, newText ) => {
+      setQuizData(prevState => {
+        const updatedQuestions = [...prevState.questions];
+        //check first if the index is valid for the updatedQuestions Array
+        if (index >= 0 && index < updatedQuestions.length) { // Check if index is valid
+          updatedQuestions[index].question = newText;
+          return { ...prevState, questions: updatedQuestions };
+        } else {
+          console.error('Invalid question index');
+          console.log(`this is index ${index}`);
+          return prevState; // Return previous state unchanged
+        }
+      });
+  };
 
   //Add a new question object to the questions Array in the state
   const handleAddQuestion = () => {
-        setQuizData({
-            ...quizData,
+        setQuizData(prevQuizData => ({
+            ...prevQuizData,
             questions: [
-                ...quizData.questions,
+                ...prevQuizData.questions,
                 {
                   id:'',
                  question: '',
@@ -63,7 +84,7 @@ const App = () => {
                  points:0
                 }
             ]
-        })
+        }));
     };
 
   //handle adding a name to the quiz
@@ -99,7 +120,6 @@ const App = () => {
   };
 
 
-
     //function allows the user to edit the text of the question 
   const handleQuestionEdit = (index, updatedQuestion) => {
       //update the question at the specified index in the questions Array by iterating over each question
@@ -118,6 +138,9 @@ const App = () => {
               <Link to="/login">Login</Link>
             </li>
             <li>
+              <Link to="/home">Home</Link>
+            </li>
+            <li>
               <Link to="/dashboard">Dashboard</Link>
             </li>
            
@@ -126,16 +149,16 @@ const App = () => {
             </li> */}
           </ul>
         </nav>
-        <Discovery />
        
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL.
             Furthermore, notice how the content above always renders? On each page? */}
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard quizData= { quizData } />} />
           <Route path="/doQuiz" element={<DoQuiz />} />
-          <Route path="/createQuiz" element={<CreateQuiz quizData= { quizData } setQuizData = { setQuizData } />} />
+          <Route path="/createQuiz" element={<CreateQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  questionIndexes={questionIndexes}  />} />
         </Routes>
       </div>
     </Router>

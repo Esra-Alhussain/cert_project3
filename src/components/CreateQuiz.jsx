@@ -1,9 +1,7 @@
 
 
-const CreateQuiz = () => {
-
-    
-
+const CreateQuiz = ({ quizData, setQuizData ,handleQuestionTextChange, handleAddQuestion}) => {
+  
     return(
         <div className="createQuiz">
           {/* Sidebar with question list */}
@@ -21,15 +19,15 @@ const CreateQuiz = () => {
                     </div>
                 </div>
 
-                <button className="addQuestion" onClick={handleQuestionAdd} >Add Question</button>
+                <button className="addQuestion" onClick={handleAddQuestion} >Add Question</button>
+                
             </div>
-
+            {quizData.questions.map((question, index) => (
             <div className="questions&answers">
                 <h1 className="quizTitle">The Weather </h1>
-                    <div className="" >
                         <form className="createQuizForm">
                             <label htmlFor="question">Question</label>
-                            <input type="text" id="question" name="question" placeholder="Enter your Question"/>
+                            <input type="text" id="question" name="question" placeholder="Enter your Question" onChange={(e) => handleQuestionTextChange(index, e.target.value)}/>
                             <div className="answers">
                                 <div className="firstAnswer">
                                     <input type="text" id="answer1" name="answer" placeholder="Enter your first answer"/>
@@ -49,8 +47,9 @@ const CreateQuiz = () => {
                                 </div>
                             </div>  
                          </form>    
-                    </div>
-            </div>  
+                </div> 
+            ))}
+            {/* <button onClick={handleSubmit}>Submit Quiz</button>  */}
         </div>
     )
 }
