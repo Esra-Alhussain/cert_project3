@@ -1,11 +1,12 @@
 
 
-const CreateQuiz = ({ quizData, setQuizData ,handleQuestionTextChange, handleAddQuestion}) => {
+const CreateQuiz = ({ quizData, setQuizData ,handleQuestionTextChange, handleAddQuestion, questionIndexes, handleAddName}) => {
   
     return(
         <div className="createQuiz">
           {/* Sidebar with question list */}
-            <div className="sideBar">
+            {/* <div className="sideBar">
+                {questionIndexes.map(index => (
                 <div className="questionContainer">
                     <h3 className="questionNumber">Q1</h3>
                     <div className="" >
@@ -18,15 +19,18 @@ const CreateQuiz = ({ quizData, setQuizData ,handleQuestionTextChange, handleAdd
                         </ul>      
                     </div>
                 </div>
-
-                <button className="addQuestion" onClick={handleAddQuestion} >Add Question</button>
+             ))}
                 
-            </div>
-            {quizData.questions.map((question, index) => (
-            <div className="questions&answers">
-                <h1 className="quizTitle">The Weather </h1>
+            </div> */}
+            <button className="addQuestion" onClick={handleAddQuestion} >Add Question</button>
+            {questionIndexes.map((index) => (
+            <div key={index} className="questions&answers">
                         <form className="createQuizForm">
-                            <label htmlFor="question">Question</label>
+                            <div className="quizTitle">
+                            <label htmlFor={`name${index}`}>Quiz Title</label>
+                            <input type="text" id="quizTitle" name="quizTitle" placeholder="Enter the Quiz title" onChange={handleAddName}/>
+                            </div>
+                            <label htmlFor={`question${index}`}>Question</label>
                             <input type="text" id="question" name="question" placeholder="Enter your Question" onChange={(e) => handleQuestionTextChange(index, e.target.value)}/>
                             <div className="answers">
                                 <div className="firstAnswer">
@@ -49,7 +53,7 @@ const CreateQuiz = ({ quizData, setQuizData ,handleQuestionTextChange, handleAdd
                          </form>    
                 </div> 
             ))}
-            {/* <button onClick={handleSubmit}>Submit Quiz</button>  */}
+            <button >Submit Quiz</button> 
         </div>
     )
 }

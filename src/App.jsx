@@ -135,10 +135,10 @@ const App = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/login">Login</Link>
+              <Link to="/home">Home</Link>
             </li>
             <li>
-              <Link to="/home">Home</Link>
+              <Link to="/login">Login</Link>
             </li>
             <li>
               <Link to="/dashboard">Dashboard</Link>
@@ -158,7 +158,7 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard quizData= { quizData } />} />
           <Route path="/doQuiz" element={<DoQuiz />} />
-          <Route path="/createQuiz" element={<CreateQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  questionIndexes={questionIndexes}  />} />
+          <Route path="/createQuiz" element={<CreateQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  questionIndexes={questionIndexes}  />} />
         </Routes>
       </div>
     </Router>
