@@ -66,17 +66,22 @@ const App = () => {
         })
     };
 
+  //handle adding a name to the quiz
+  const handleAddName = (event) => {
+    setQuizData({ ...quizData, name:event.target.value });
+  };
+
   //Add new answers to a question
   const AddAnswers = (questionIndex) => {
-    const updatedAnswers = [...quizData.questions[questionIndex].answers];
-    //Add new empty answer array to the answers array
-    updatedAnswers.push('');
-    //create a copy of the quizData object and update the answers array for the specified question
-    setQuizData(prevState => {
-        const updatedQuizData = { ...prevState};
-        updatedQuizData.questions[questionIndex].answers = updatedAnswers;
-        return updatedQuizData;
-    });
+      const updatedAnswers = [...quizData.questions[questionIndex].answers];
+      //Add new empty answer array to the answers array
+      updatedAnswers.push('');
+      //create a copy of the quizData object and update the answers array for the specified question
+        setQuizData(prevState => {
+            const updatedQuizData = { ...prevState};
+            updatedQuizData.questions[questionIndex].answers = updatedAnswers;
+            return updatedQuizData;
+        });
   };
 
   //function allows the user to edit the answers 
