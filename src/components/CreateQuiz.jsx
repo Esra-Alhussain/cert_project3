@@ -1,6 +1,6 @@
 
 
-const EditQuiz = () => {
+const CreateQuiz = () => {
 
     
 
@@ -55,4 +55,4 @@ const EditQuiz = () => {
     )
 }
 
-export default EditQuiz
+export default CreateQuiz

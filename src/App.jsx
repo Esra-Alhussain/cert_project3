@@ -11,7 +11,7 @@ import {
 import Login from './components/Login'
 import Dashboard from './components/Dashboard'
 import DoQuiz from './components/DoQuiz'
-import CreateQuiz from './components/EditQuiz'
+import CreateQuiz from './components/CreateQuiz'
 import Discovery from './components/Discovery'
 
 const App = () => {
@@ -107,13 +107,6 @@ const App = () => {
       setQuizData(questions.map((question, i ) => (i === index ? updatedQuestion : question )));
   };
 
-  // //function allows the user to edit the answers 
-  // const handleAnswerEdit = (questionIndex, answerIndex, updatedAnswer) => {
-  //     const updatedQuestions = [...questions]
-  //     updatedQuestions[questionIndex].answers[answerIndex] = updatedAnswer;
-  //     setQuizData (updatedQuestions)
-  // };
-
   
 
   return (
@@ -139,12 +132,10 @@ const App = () => {
             renders the first one that matches the current URL.
             Furthermore, notice how the content above always renders? On each page? */}
         <Routes>
-          <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard quizData= { quizData } />} />
           <Route path="/doQuiz" element={<DoQuiz />} />
-          <Route path="/createQuiz" element={<CreateQuiz />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/createQuiz" element={<CreateQuiz quizData= { quizData } setQuizData = { setQuizData } />} />
         </Routes>
       </div>
     </Router>
