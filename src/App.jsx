@@ -70,6 +70,24 @@ const App = () => {
       });
   };
 
+  //handle the input change for the answer text
+  const handleAnswerTextChange = ( questionIndex, answerIndex, newAnswer ) => {
+    setQuizData(prevData => {
+      const updatedAnswersQuestions = [...prevData.questions];
+      if (questionIndex >= 0 && 
+          answerIndex < updatedAnswersQuestions.length &&
+          answerIndex >= 0 &&
+          answerIndex < updatedAnswersQuestions[questionIndex].answers.length
+          ){
+            updatedAnswersQuestions[questionIndex].answers[answerIndex] = newAnswer;
+          return { ...prevData, questions: updatedAnswersQuestions};
+        } else {
+          console.error('Invalid questions or answers index');
+          return prevData;
+        }
+      });
+    };
+
   //Add a new question object to the questions Array in the state
   const handleAddQuestion = () => {
         setQuizData(prevQuizData => ({
@@ -158,7 +176,7 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard quizData= { quizData } />} />
           <Route path="/doQuiz" element={<DoQuiz />} />
-          <Route path="/createQuiz" element={<CreateQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  questionIndexes={questionIndexes}  />} />
+          <Route path="/createQuiz" element={<CreateQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  questionIndexes={questionIndexes} handleAnswerTextChange={ handleAnswerTextChange } />} />
         </Routes>
       </div>
     </Router>

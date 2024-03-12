@@ -1,6 +1,6 @@
 
 
-const CreateQuiz = ({ quizData, setQuizData ,handleQuestionTextChange, handleAddQuestion, questionIndexes, handleAddName}) => {
+const CreateQuiz = ({ quizData, setQuizData ,handleQuestionTextChange, handleAddQuestion, questionIndexes, handleAddName, handleAnswerTextChange}) => {
   
     return(
         <div className="createQuiz">
@@ -34,19 +34,19 @@ const CreateQuiz = ({ quizData, setQuizData ,handleQuestionTextChange, handleAdd
                             <input type="text" id="question" name="question" placeholder="Enter your Question" onChange={(e) => handleQuestionTextChange(index, e.target.value)}/>
                             <div className="answers">
                                 <div className="firstAnswer">
-                                    <input type="text" id="answer1" name="answer" placeholder="Enter your first answer"/>
+                                    <input type="text" id="answer1" name="answer" placeholder="Enter your first answer" onChange={(e) => handleAnswerTextChange(index, 0, e.target.value) }/>
                                     <input type="checkbox" id="answer1" name="answer" /> 
                                 </div>
                                 <div className="secondAnswer">
-                                    <input type="text" id="answer2" name="answer2" placeholder="Enter your second answer"></input>
+                                    <input type="text" id="answer2" name="answer2" placeholder="Enter your second answer" onChange={(e) => { handleAnswerTextChange(index, 1, e.target.value)}}></input>
                                     <input type="checkbox" id="answer2" name="answer" placeholder="Enter your second answer"/>
                                 </div>
                                 <div className="thirdAnswer">
-                                    <input type="text" id="answer3" name="answer" placeholder="Enter your third answer"></input>
+                                    <input type="text" id="answer3" name="answer" placeholder="Enter your third answer" onChange={(e) => { handleAnswerTextChange(index, 2, e.target.value)}}></input>
                                     <input type="checkbox" id="answer3" name="answer" placeholder="Enter your third answer"/>
                                 </div>
                                 <div className="fourthAnswer">
-                                    <input type="text" id="answer4" name="answer" placeholder="Enter your fourth answer"/>
+                                    <input type="text" id="answer4" name="answer" placeholder="Enter your fourth answer" onChange={(e) => { handleAnswerTextChange(index, 3, e.target.value)}}/>
                                     <input type="checkbox" id="answer4" name="answer" placeholder="Enter your fourth answer"/>
                                 </div>
                             </div>  
