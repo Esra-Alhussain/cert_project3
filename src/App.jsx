@@ -251,6 +251,30 @@ const App = () => {
     alert("Quiz saved successfully!");
   }
 
+  const createQuiz = () => {
+    //get the QuizName and then update the state with it 
+    const newQuiz = {
+      id: uuidv4(),
+      name: '',
+      difficulty: '',
+      subject: '',
+      highestScore: '',
+      likes: 0,
+      questions: [
+          {
+              id: uuidv4(),
+              question: '',
+              answers: [],
+              correctAnswers: '',
+              points: 0
+          }
+      ]
+  };
+
+  //update the state to include the new quiz object
+  setQuizData(prevData => [...prevData, newQuiz])
+  }
+
   return (
     <Router>
       <div>
@@ -278,7 +302,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard quizData= { quizData } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange }/>} />
+          <Route path="/dashboard" element={<Dashboard quizData= { quizData } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } createQuiz={createQuiz}/>} />
           <Route path="/doQuiz" element={<DoQuiz />} />
           <Route path="/editQuiz" element={<EditQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion } />} />
         </Routes>

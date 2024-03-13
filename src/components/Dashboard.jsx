@@ -48,7 +48,7 @@ const Dashboard = ({ quizData , handleAddName,handleAddQuestion, handleAnswerTex
                             <label htmlFor="quizTitle">Quiz Title</label>
                             <input type="text"  id="quizTitle" name="quizTitle" placeholder="Enter the Quiz title" onChange={handleAddName}/>
                         </div>
-                     {quizData.map((quiz, index) => (
+                     {/* {quizData.map((quiz, index) => (
                        <><div key={quiz.id} className="questions&answers">
                              <form className="createQuizForm">
                                  <label htmlFor={`question${index}`}>Question</label>
@@ -58,14 +58,14 @@ const Dashboard = ({ quizData , handleAddName,handleAddQuestion, handleAnswerTex
                              </form>
                          </div>
                        </>
-                        ))}
+                        ))} */}
                     </div>
                 
-                <button className="addQuestion" onClick={handleAddQuestion} >Add Question</button>
+                {/* <button className="addQuestion" onClick={handleAddQuestion} >Add Question</button> */}
 
                 <br/>
                 {/* <Link to="/createQuiz"> */}
-                    <button className="createQuiz"> Create a Quiz</button>
+                    <button className="createQuiz" onClick={createQuiz}> Create a Quiz</button>
                 {/* </Link> */}
         </div>
     )
