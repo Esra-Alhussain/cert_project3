@@ -59,46 +59,8 @@ const Dashboard = ({ quizData , handleAddName,handleAddQuestion, handleAnswerTex
                                                     name={`answer${answerIndex + 1}Checkbox`} 
                                                     />
                                             <button className="Delete"> Delete</button>
-                                        </div><div className="secondAnswer">
-                                                <input 
-                                                    type="text" 
-                                                    id={`answer${answerIndex+1}-${quiz.id}`}
-                                                    name={`answer${answerIndex+1}-${quiz.id}`}
-                                                    placeholder="Enter your second answer" 
-                                                    onChange={(e) => { handleAnswerTextChange(index, answerIndex, e.target.value); } }></input>
-                                                 <input 
-                                                    type="checkbox" 
-                                                    id= {`answer${answerIndex + 1}Checkbox-${quiz.id}`} 
-                                                    name={`answer${answerIndex + 1}Checkbox`} 
-                                                    />
-                                                <button className="Delete"> Delete</button>
-                                            </div><div className="thirdAnswer">
-                                                <input 
-                                                    type="text" 
-                                                    id={`answer${answerIndex+1}-${quiz.id}`}
-                                                    name={`answer${answerIndex+1}`}
-                                                    placeholder="Enter your third answer" 
-                                                    onChange={(e) => { handleAnswerTextChange(index, answerIndex, e.target.value); } }></input>
-                                                 <input 
-                                                    type="checkbox" 
-                                                    id= {`answer${answerIndex + 1}Checkbox-${quiz.id}`} 
-                                                    name={`answer${answerIndex + 1}Checkbox`} 
-                                                    />
-                                                <button className="Delete"> Delete</button>
-                                            </div><div className="fourthAnswer">
-                                                <input 
-                                                    type="text" 
-                                                    id={`answer${answerIndex+1}-${quiz.id}`}
-                                                    name={`answer${answerIndex+1}`}
-                                                    placeholder="Enter your fourth answer" 
-                                                    onChange={(e) => { handleAnswerTextChange(index, answerIndex, e.target.value); } } />
-                                                <input 
-                                                    type="checkbox" 
-                                                    id= {`answer${answerIndex + 1}Checkbox-${quiz.id}`} 
-                                                    name={`answer${answerIndex + 1}Checkbox`} 
-                                                    />
-                                                <button className="Delete"> Delete</button>
-                                            </div></>
+                                        </div>
+                                       </>
                                     ))}
                                  </div>
                                  <button className="Delete" onClick={() => { deleteQuestion(quizData.questions[index].id); } }> Delete Question </button>
