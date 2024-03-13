@@ -22,7 +22,7 @@ const EditQuiz = ({ quizData, setQuizData ,handleQuestionTextChange, handleAddQu
              ))}
                 
             </div> */}
-             <div className="quizTitle">
+            <div className="quizTitle">
                 <label htmlFor="quizTitle">Quiz Title</label>
                 <input type="text"  id="quizTitle" name="quizTitle" placeholder="Enter the Quiz title" onChange={handleAddName}/>
             </div>

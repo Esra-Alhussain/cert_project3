@@ -16,12 +16,13 @@ import Dashboard from './components/Dashboard'
 import DoQuiz from './components/DoQuiz'
 import EditQuiz from './components/EditQuiz'
 import Discovery from './components/Discovery'
+import { v4 as uuidv4 } from 'uuid';
+
 
 const App = () => {
     // State to manage quiz data
     const [quizData, setQuizData] = useState([{
-    
-      id:'',
+      id: uuidv4(), //Generate a unique ID for the quiz object
       name:'',
       difficulty:'',
       subject:'',
@@ -29,7 +30,7 @@ const App = () => {
       likes: 0,
       questions: [
           {
-              id:'',
+              id:uuidv4(), // Generate a unique ID for the question object
               question:'',
               answers:[],
               correctAnswers:'',
@@ -42,7 +43,7 @@ const App = () => {
    // Generate unique indexes for questions
   //  const questionIndexes = Array.from(Array(quizData.questions.length).keys());
 
-//question.length+1
+ //question.length+1
   //Functions for Quiz editing 
   //Delete Quiz
   const deleteQuiz = (quizId) => {
@@ -115,12 +116,13 @@ const App = () => {
 
   //Add a new question object to the questions Array in the state
   const handleAddQuestion = () => {
+    const newQuestionId = uuidv4();
         setQuizData(prevQuizData => ({
             ...prevQuizData,
             questions: [
                 ...prevQuizData.questions,
                 {
-                  id:'',
+                  id:newQuestionId,
                  question: '',
                  answers:[], 
                  correctAnswer:'',
@@ -222,7 +224,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard quizData= { quizData } />} />
+          <Route path="/dashboard" element={<Dashboard quizData= { quizData } handleAddQuestion={ handleAddQuestion }/>} />
           <Route path="/doQuiz" element={<DoQuiz />} />
           <Route path="/editQuiz" element={<EditQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion } />} />
         </Routes>
