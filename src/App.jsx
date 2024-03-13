@@ -138,17 +138,18 @@ const App = () => {
   };
 
   //Add new answers to a question
-  const AddAnswers = (questionIndex) => {
-      const updatedAnswers = [...quizData.questions[questionIndex].answers];
-      //Add new empty answer array to the answers array
-      updatedAnswers.push('');
-      //create a copy of the quizData object and update the answers array for the specified question
-        setQuizData(prevState => {
-            const updatedQuizData = { ...prevState};
-            updatedQuizData.questions[questionIndex].answers = updatedAnswers;
-            return updatedQuizData;
-        });
-  };
+  // const AddAnswers = (questionIndex) => {
+  //     const updatedAnswers = [...quizData.questions[questionIndex].answers];
+  //     //Generate a unique ID for the new answer
+  //     //Add new empty answer array to the answers array
+  //     updatedAnswers.push('');
+  //     //create a copy of the quizData object and update the answers array for the specified question
+  //       setQuizData(prevState => {
+  //           const updatedQuizData = { ...prevState};
+  //           updatedQuizData.questions[questionIndex].answers = updatedAnswers;
+  //           return updatedQuizData;
+  //       });
+  // };
 
   //function allows the user to edit the answers 
   const handleAnswerEdit = (questionIndex, answerIndex, updatedAnswer) => {
@@ -224,7 +225,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard quizData= { quizData } handleAddQuestion={ handleAddQuestion }/>} />
+          <Route path="/dashboard" element={<Dashboard quizData= { quizData } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange }/>} />
           <Route path="/doQuiz" element={<DoQuiz />} />
           <Route path="/editQuiz" element={<EditQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion } />} />
         </Routes>

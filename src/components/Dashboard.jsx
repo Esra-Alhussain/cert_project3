@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import EditQuiz from "./EditQuiz"
 
-const Dashboard = ({ handleAddName,handleAddQuestion }) => {
+const Dashboard = ({ handleAddName,handleAddQuestion, handleAnswerTextChange,  handleQuestionTextChange}) => {
 
     return(
         <div>
@@ -23,9 +23,13 @@ const Dashboard = ({ handleAddName,handleAddQuestion }) => {
                         </Link>                        
                         <button className="deleteQuiz">Delete</button>
                     </div>
-
+                </div>
                     <div className="createQuiz">
-                    <div key={index} className="questions&answers">
+                        <div className="quizTitle">
+                            <label htmlFor="quizTitle">Quiz Title</label>
+                            <input type="text"  id="quizTitle" name="quizTitle" placeholder="Enter the Quiz title" onChange={handleAddName}/>
+                        </div>
+                       <div key={index} className="questions&answers">
                         <form className="createQuizForm">
                             <label htmlFor={`question${index}`}>Question</label>
                             <input type="text" id={`question${index}`} name="question" placeholder="Enter your Question" onChange={(e) => handleQuestionTextChange(index, e.target.value)}/>
@@ -60,15 +64,6 @@ const Dashboard = ({ handleAddName,handleAddQuestion }) => {
                         </Link>                        
                         <button className="deleteQuiz">Delete</button>
                     </div>
-                </div>
-
-                <div className="createQuiz">
-                    
-                </div>
-                <div className="quizTitle">
-                    <label htmlFor="quizTitle">Quiz Title</label>
-                    <input type="text"  id="quizTitle" name="quizTitle" placeholder="Enter the Quiz title" onChange={handleAddName}/>
-                </div>
 
                 <button className="addQuestion" onClick={handleAddQuestion} >Add Question</button>
 
