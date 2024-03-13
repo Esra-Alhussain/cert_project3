@@ -21,7 +21,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 const App = () => {
     // State to manage quiz data
-    const [quizData, setQuizData] = useState([{
+    const [quizData, setQuizData] = useState([
+      {
       id: uuidv4(), //Generate a unique ID for the quiz object
       name:'',
       difficulty:'',
@@ -37,7 +38,59 @@ const App = () => {
               points:0
           }
       ]
-   }]);
+   },
+   {
+    id: uuidv4(), //Generate a unique ID for the quiz object
+    name:'Math Quiz',
+    difficulty:'',
+    subject:'',
+    highestScore:'',
+    likes: 0,
+    questions: [
+        {
+            id:uuidv4(), // Generate a unique ID for the question object
+            question:'',
+            answers:[],
+            correctAnswers:'',
+            points:0
+        }
+    ]
+ },
+ {
+      id: uuidv4(), //Generate a unique ID for the quiz object
+      name:'',
+      difficulty:'',
+      subject:'',
+      highestScore:'',
+      likes: 0,
+      questions: [
+          {
+              id:uuidv4(), // Generate a unique ID for the question object
+              question:'',
+              answers:[],
+              correctAnswers:'',
+              points:0
+          }
+      ]
+   },
+   {
+    id: uuidv4(), //Generate a unique ID for the quiz object
+    name:'History Quiz',
+    difficulty:'',
+    subject:'',
+    highestScore:'',
+    likes: 0,
+    questions: [
+        {
+            id:uuidv4(), // Generate a unique ID for the question object
+            question:'',
+            answers:[],
+            correctAnswers:'',
+            points:0
+        }
+    ]
+ }
+  ]);
 
 
    // Generate unique indexes for questions
