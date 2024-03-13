@@ -40,29 +40,11 @@ const Dashboard = ({ quizData , handleAddName,handleAddQuestion, handleAnswerTex
                             <input type="text"  id="quizTitle" name="quizTitle" placeholder="Enter the Quiz title" onChange={handleAddName}/>
                         </div>
                      {quizData.map((quiz, index) => (
-                       <><div key={uuidv4()} className="questions&answers">
+                       <><div key={quiz.id} className="questions&answers">
                              <form className="createQuizForm">
                                  <label htmlFor={`question${index}`}>Question</label>
                                  <input type="text" id={`question${index}`} name="question" placeholder="Enter your Question" onChange={(e) => handleQuestionTextChange(index, e.target.value)} />
-                                 <div className="answers">
-                                    { [0,1,2,3].map((answerIndex) => (
-                                     <><div className={`answer${answerIndex+1}`} key={answerIndex}>
-                                            <input 
-                                                type="text" 
-                                                id={`answer${answerIndex+1}-${quiz.id}`}
-                                                name={`answer${answerIndex+1}`} 
-                                                placeholder={`Enter your ${answerIndex+1} answer`}  
-                                                onChange={(e) => handleAnswerTextChange(index, answerIndex, e.target.value)} />
-                                             <input 
-                                                    type="checkbox" 
-                                                    id= {`answer${answerIndex + 1}Checkbox-${quiz.id}`} 
-                                                    name={`answer${answerIndex + 1}Checkbox`} 
-                                                    />
-                                            <button className="Delete"> Delete</button>
-                                        </div>
-                                       </>
-                                    ))}
-                                 </div>
+        
                                  <button className="Delete" onClick={() => { deleteQuestion(quizData.questions[index].id); } }> Delete Question </button>
                              </form>
                          </div>
