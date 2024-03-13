@@ -10,7 +10,16 @@ const Dashboard = ({ quizData , handleAddName,handleAddQuestion, handleAnswerTex
             <h1 className="dashboardTitle">User Dashboard</h1>
             <br/>
                 <div className="quizDetail">
-                    <div className="quiz">
+                    {quizData.map((quiz) => (
+                        <div key={quiz.id} className="quiz">
+                        <h3 className="quizTitle">{quiz.name}</h3>
+                        <Link to="/editQuiz">
+                            <button className="editQuiz">Edit</button>
+                        </Link>
+                            <button className="deleteQuiz">Delete</button>
+                        </div>
+                    ))}
+                    {/* 
                         <h3 className="quizTitle">Quiz Name</h3>
                         <Link to="/editQuiz">
                             <button className="editQuiz">Edit</button>
@@ -31,7 +40,7 @@ const Dashboard = ({ quizData , handleAddName,handleAddQuestion, handleAnswerTex
                             <button className="editQuiz">Edit</button>
                         </Link>                        
                         <button className="deleteQuiz">Delete</button>
-                    </div>
+                    </div> */}
                     <br/>
                 </div>
                     <div className="createQuiz">
