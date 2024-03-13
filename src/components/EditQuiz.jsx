@@ -1,6 +1,6 @@
 
 
-const CreateQuiz = ({ quizData, setQuizData ,handleQuestionTextChange, handleAddQuestion, deleteQuestion, questionIndexes, handleAddName, handleAnswerTextChange}) => {
+const EditQuiz = ({ quizData, setQuizData ,handleQuestionTextChange, handleAddQuestion, deleteQuestion, questionIndexes, handleAddName, handleAnswerTextChange, saveQuiz}) => {
   
     return(
         <div className="createQuiz">
@@ -58,9 +58,9 @@ const CreateQuiz = ({ quizData, setQuizData ,handleQuestionTextChange, handleAdd
                          </form>    
                 </div> 
             ))}
-            <button className="saveQuiz">Save Quiz</button> 
+            <button className="saveQuiz" onClick={saveQuiz}>Save Quiz</button> 
         </div>
     )
 }
 
-export default CreateQuiz
+export default EditQuiz

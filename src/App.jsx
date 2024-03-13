@@ -14,12 +14,13 @@ import Home from './components/Home';
 import Login from './components/Login'
 import Dashboard from './components/Dashboard'
 import DoQuiz from './components/DoQuiz'
-import CreateQuiz from './components/CreateQuiz'
+import EditQuiz from './components/EditQuiz'
 import Discovery from './components/Discovery'
 
 const App = () => {
     // State to manage quiz data
-    const [quizData, setQuizData] = useState({
+    const [quizData, setQuizData] = useState([{
+    
       id:'',
       name:'',
       difficulty:'',
@@ -35,12 +36,13 @@ const App = () => {
               points:0
           }
       ]
-  });
+   }]);
+
 
    // Generate unique indexes for questions
-   const questionIndexes = Array.from(Array(quizData.questions.length).keys());
+  //  const questionIndexes = Array.from(Array(quizData.questions.length).keys());
 
-
+//question.length+1
   //Functions for Quiz editing 
   //Delete Quiz
   const deleteQuiz = (quizId) => {
@@ -65,12 +67,13 @@ const App = () => {
         return true;
       }
     });
+
     setQuizData(prevState => ({
       ...prevState,
       questions: updatedQuestionsAfterDelete
     }));
     console.log(`this is index ${index}`);
-
+    alert("Question deleted!")
   };
 
   //handle the input change for the question text
@@ -168,7 +171,29 @@ const App = () => {
       setQuizData(questions.map((question, i ) => (i === index ? updatedQuestion : question )));
   };
 
-  
+  //handle saving the quiz
+  const saveQuiz = (newQuiz ) => {
+    //bring all the data entered by the user
+    const quizTitle= quizData.name;
+    const questions = quizData.questions;
+    const answers = quizData.questions.answers;
+    const correctAnswers = quizData.questions.answers.correctAnswers;
+    const pointPerQuestion= quizData.questions.answers.points;
+
+    console.log("Quiz Title:", quizTitle);
+    console.log("Questions:", questions);
+
+    setQuizData(prevData => ({
+      ...prevData,
+      name: quizTitle,
+      questions: questions,
+      answers: answers,
+      correctAnswers: correctAnswers,
+      points: pointPerQuestion
+    }));
+
+    alert("Quiz saved successfully!");
+  }
 
   return (
     <Router>
@@ -199,8 +224,9 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard quizData= { quizData } />} />
           <Route path="/doQuiz" element={<DoQuiz />} />
-          <Route path="/createQuiz" element={<CreateQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  questionIndexes={questionIndexes} handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion }/>} />
+          <Route path="/editQuiz" element={<EditQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion } />} />
         </Routes>
+        {/* saveQuiz={ saveQuiz} */}
       </div>
     </Router>
   );
