@@ -16,31 +16,15 @@ import Dashboard from './components/Dashboard'
 import DoQuiz from './components/DoQuiz'
 import EditQuiz from './components/EditQuiz'
 import Discovery from './components/Discovery'
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 
 
 const App = () => {
     // State to manage quiz data
     const [quizData, setQuizData] = useState([
-      {
-      id: uuidv4(), //Generate a unique ID for the quiz object
-      name:'',
-      difficulty:'',
-      subject:'',
-      highestScore:'',
-      likes: 0,
-      questions: [
-          {
-              id:uuidv4(), // Generate a unique ID for the question object
-              question:'',
-              answers:[],
-              correctAnswers:'',
-              points:0
-          }
-      ]
-   },
+   
    {
-    id: uuidv4(), //Generate a unique ID for the quiz object
+    id: 1, //Generate a unique ID for the quiz object
     name:'Math Quiz',
     difficulty:'',
     subject:'',
@@ -48,7 +32,7 @@ const App = () => {
     likes: 0,
     questions: [
         {
-            id:uuidv4(), // Generate a unique ID for the question object
+            id:1, // Generate a unique ID for the question object
             question:'',
             answers:[],
             correctAnswers:'',
@@ -56,25 +40,8 @@ const App = () => {
         }
     ]
  },
- {
-      id: uuidv4(), //Generate a unique ID for the quiz object
-      name:'',
-      difficulty:'',
-      subject:'',
-      highestScore:'',
-      likes: 0,
-      questions: [
-          {
-              id:uuidv4(), // Generate a unique ID for the question object
-              question:'',
-              answers:[],
-              correctAnswers:'',
-              points:0
-          }
-      ]
-   },
    {
-    id: uuidv4(), //Generate a unique ID for the quiz object
+    id: 2, //Generate a unique ID for the quiz object
     name:'History Quiz',
     difficulty:'',
     subject:'',
@@ -82,7 +49,7 @@ const App = () => {
     likes: 0,
     questions: [
         {
-            id:uuidv4(), // Generate a unique ID for the question object
+            id:1, // Generate a unique ID for the question object
             question:'',
             answers:[],
             correctAnswers:'',
@@ -101,7 +68,7 @@ const App = () => {
   //Delete Quiz
   const deleteQuiz = (quizId) => {
     //filter out the Quiz with the specified Id
-    const updatedQuizzes = quizData.quizzes.filter((quiz) => {
+    const updatedQuizzes = quizData.filter((quiz) => {
       if (quiz.id === quizId) {
         return false;
       } else {
@@ -168,22 +135,22 @@ const App = () => {
     };
 
   //Add a new question object to the questions Array in the state
-  const handleAddQuestion = () => {
-    const newQuestionId = uuidv4();
-        setQuizData(prevQuizData => ({
-            ...prevQuizData,
-            questions: [
-                ...prevQuizData.questions,
-                {
-                  id:newQuestionId,
-                 question: '',
-                 answers:[], 
-                 correctAnswer:'',
-                 points:0
-                }
-            ]
-        }));
-    };
+  // const handleAddQuestion = () => {
+  //   const newQuestionId = uuidv4();
+  //       setQuizData(prevQuizData => ({
+  //           ...prevQuizData,
+  //           questions: [
+  //               ...prevQuizData.questions,
+  //               {
+  //                 id:newQuestionId,
+  //                question: '',
+  //                answers:[], 
+  //                correctAnswer:'',
+  //                points:0
+  //               }
+  //           ]
+  //       }));
+  //   };
 
   //handle adding a name to the quiz
   const handleAddName = (event) => {
@@ -214,10 +181,10 @@ const App = () => {
   
 
     //function to handle changes in the Quiz name
-    const handleQuizNameChange = (event)=> {
-      setQuizData({...quizData, name:event.target.value });
-      console.log(`This is quizData: ${quizData}`)
-  };
+  //   const handleQuizNameChange = (event)=> {
+  //     setQuizData({...quizData, name:event.target.value });
+  //     console.log(`This is quizData: ${quizData}`)
+  // };
 
 
     //function allows the user to edit the text of the question 
@@ -251,28 +218,24 @@ const App = () => {
     alert("Quiz saved successfully!");
   }
 
-  const createQuiz = () => {
+  const createQuiz = (e) => {
     //get the QuizName and then update the state with it 
+    e.preventDefault();
     const newQuiz = {
-      id: uuidv4(),
-      name: '',
+      id: quizData.length+1,
+      name: e.target.quizTitle.value,
       difficulty: '',
       subject: '',
       highestScore: '',
       likes: 0,
-      questions: [
-          {
-              id: uuidv4(),
-              question: '',
-              answers: [],
-              correctAnswers: '',
-              points: 0
-          }
-      ]
+      questions: [ ]
   };
+  const newQuizData = quizData.concat(newQuiz)
+  setQuizData(newQuizData);
 
   //update the state to include the new quiz object
-  setQuizData(prevData => [...prevData, newQuiz])
+  // setQuizData(prevData => [...prevData, newQuiz])
+  console.log("clicked")
   }
 
   return (
@@ -302,9 +265,9 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard quizData= { quizData } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } createQuiz={createQuiz}/>} />
-          <Route path="/doQuiz" element={<DoQuiz />} />
-          <Route path="/editQuiz" element={<EditQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion } />} />
+          <Route path="/dashboard" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} deleteQuiz={deleteQuiz}/>} />
+          {/* <Route path="/doQuiz" element={<DoQuiz />} /> */}
+          {/* <Route path="/editQuiz" element={<EditQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion } />} /> */}
         </Routes>
         {/* saveQuiz={ saveQuiz} */}
       </div>

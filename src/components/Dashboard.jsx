@@ -3,7 +3,7 @@ import EditQuiz from "./EditQuiz"
 import { v4 as uuidv4 } from 'uuid';
 
 
-const Dashboard = ({ quizData , handleAddName,handleAddQuestion, handleAnswerTextChange,  handleQuestionTextChange}) => {
+const Dashboard = ({ quizData , createQuiz, deleteQuiz}) => {
 
     return(
         <div>
@@ -16,7 +16,7 @@ const Dashboard = ({ quizData , handleAddName,handleAddQuestion, handleAnswerTex
                         <Link to="/editQuiz">
                             <button className="editQuiz">Edit</button>
                         </Link>
-                            <button className="deleteQuiz">Delete</button>
+                            <button className="deleteQuiz" onClick={ () => deleteQuiz(quiz.id)}>Delete</button>
                         </div>
                     ))}
                     {/* 
@@ -45,8 +45,18 @@ const Dashboard = ({ quizData , handleAddName,handleAddQuestion, handleAnswerTex
                 </div>
                     <div className="createQuiz">
                         <div className="quizTitle">
-                            <label htmlFor="quizTitle">Quiz Title</label>
-                            <input type="text"  id="quizTitle" name="quizTitle" placeholder="Enter the Quiz title" onChange={handleAddName}/>
+                            <form onSubmit={createQuiz}>
+                                <label htmlFor="quizTitle">Quiz Title</label>
+                                <input 
+                                    type="text"  
+                                    id="quizTitle" 
+                                    name="quizTitle" 
+                                    placeholder="Enter the Quiz title" 
+                                    />
+
+                                <button className="createQuiz" type="submit"> Create a Quiz</button>
+
+                            </form>
                         </div>
                      {/* {quizData.map((quiz, index) => (
                        <><div key={quiz.id} className="questions&answers">
@@ -65,7 +75,6 @@ const Dashboard = ({ quizData , handleAddName,handleAddQuestion, handleAnswerTex
 
                 <br/>
                 {/* <Link to="/createQuiz"> */}
-                    <button className="createQuiz" onClick={createQuiz}> Create a Quiz</button>
                 {/* </Link> */}
         </div>
     )
