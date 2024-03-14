@@ -1,35 +1,81 @@
 import { BrowserRouter as Router, Link } from 'react-router-dom';
-import CreateQuiz from "./CreateQuiz"
+import EditQuiz from "./EditQuiz"
+import { v4 as uuidv4 } from 'uuid';
 
-const Dashboard = () => {
+
+const Dashboard = ({ quizData , createQuiz, deleteQuiz}) => {
 
     return(
         <div>
             <h1 className="dashboardTitle">User Dashboard</h1>
-            <Link to="/createQuiz">
-            <button className="createQuiz"> Create a Quiz</button>
-            </Link>
             <br/>
                 <div className="quizDetail">
-                    <div className="quiz">
+                    {quizData.map((quiz) => (
+                        <div key={quiz.id} className="quiz">
+                        <h3 className="quizTitle">{quiz.name}</h3>
+                        <Link to="/editQuiz">
+                            <button className="editQuiz">Edit</button>
+                        </Link>
+                            <button className="deleteQuiz" onClick={ () => deleteQuiz(quiz.id)}>Delete</button>
+                        </div>
+                    ))}
+                    {/* 
                         <h3 className="quizTitle">Quiz Name</h3>
-                        <button className="editQuiz">Edit</button>
+                        <Link to="/editQuiz">
+                            <button className="editQuiz">Edit</button>
+                        </Link>
                         <button className="deleteQuiz">Delete</button>
                     </div>
 
-                    <div className="quiz">
-                        <h3 className="quizTitle">Quiz Name</h3>
-                        <button className="editQuiz">Edit</button>
-                        <button className="deleteQuiz">Delete</button>
-                    </div>
+                    <h3 className="quizTitle">Quiz Name</h3>
+                        <Link to="/editQuiz">
+                            <button className="editQuiz">Edit</button>
+                        </Link><button className="deleteQuiz">Delete</button>
+
+
 
                     <div className="quiz">
                         <h3 className="quizTitle">Quiz Name</h3>
-                        <button className="editQuiz">Edit</button>
+                        <Link to="/editQuiz">
+                            <button className="editQuiz">Edit</button>
+                        </Link>                        
                         <button className="deleteQuiz">Delete</button>
-
-                    </div>
+                    </div> */}
+                    <br/>
                 </div>
+                    <div className="createQuiz">
+                        <div className="quizTitle">
+                            <form onSubmit={createQuiz}>
+                                <label htmlFor="quizTitle">Quiz Title</label>
+                                <input 
+                                    type="text"  
+                                    id="quizTitle" 
+                                    name="quizTitle" 
+                                    placeholder="Enter the Quiz title" 
+                                    />
+
+                                <button className="createQuiz" type="submit"> Create a Quiz</button>
+
+                            </form>
+                        </div>
+                     {/* {quizData.map((quiz, index) => (
+                       <><div key={quiz.id} className="questions&answers">
+                             <form className="createQuizForm">
+                                 <label htmlFor={`question${index}`}>Question</label>
+                                 <input type="text" id={`question${index}`} name="question" placeholder="Enter your Question" onChange={(e) => handleQuestionTextChange(index, e.target.value)} />
+        
+                                 <button className="Delete" onClick={() => { deleteQuestion(quizData.questions[index].id); } }> Delete Question </button>
+                             </form>
+                         </div>
+                       </>
+                        ))} */}
+                    </div>
+                
+                {/* <button className="addQuestion" onClick={handleAddQuestion} >Add Question</button> */}
+
+                <br/>
+                {/* <Link to="/createQuiz"> */}
+                {/* </Link> */}
         </div>
     )
 }
