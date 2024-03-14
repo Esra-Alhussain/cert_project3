@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Link } from 'react-router-dom';
-import EditQuiz from "./Quiz"
+import EditQuiz from "./EditQuiz"
 import { v4 as uuidv4 } from 'uuid';
 import { Navigate } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';

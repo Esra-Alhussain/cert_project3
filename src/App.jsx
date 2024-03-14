@@ -14,7 +14,7 @@ import Home from './components/Home';
 import Login from './components/Login'
 import Dashboard from './components/Dashboard'
 import DoQuiz from './components/DoQuiz'
-import EditQuiz from './components/Quiz'
+import EditQuiz from './components/EditQuiz'
 import Discovery from './components/Discovery'
 // import { v4 as uuidv4 } from 'uuid';
 
@@ -50,11 +50,18 @@ const App = () => {
     questions: [
         {
             id:1, // Generate a unique ID for the question object
-            question:'',
-            answers:[],
+            question:'What is the name of the USA president?',
+            answers:['Biden', 'Trump', 'Jordan', 'Ahmad'],
             correctAnswers:'',
             points:0
-        }
+        },
+        {
+          id:1, // Generate a unique ID for the question object
+          question:'What is the name of Canada president?',
+          answers:[],
+          correctAnswers:'',
+          points:0
+      }
     ]
  }
   ]);
