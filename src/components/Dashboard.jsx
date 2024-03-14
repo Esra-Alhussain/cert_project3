@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 import EditQuiz from "./EditQuiz"
 import { v4 as uuidv4 } from 'uuid';
 
+import { Route, Routes } from 'react-router-dom';
 
 const Dashboard = ({ quizData , createQuiz, deleteQuiz}) => {
 
@@ -13,12 +14,17 @@ const Dashboard = ({ quizData , createQuiz, deleteQuiz}) => {
                     {quizData.map((quiz) => (
                         <div key={quiz.id} className="quiz">
                         <h3 className="quizTitle">{quiz.name}</h3>
+
+                        <Link to={`/editQuiz/${quiz.id}`}>
+
                         <Link to="/editQuiz">
+
                             <button className="editQuiz">Edit</button>
                         </Link>
                             <button className="deleteQuiz" onClick={ () => deleteQuiz(quiz.id)}>Delete</button>
                         </div>
                     ))}
+                    
                     {/* 
                         <h3 className="quizTitle">Quiz Name</h3>
                         <Link to="/editQuiz">
@@ -76,6 +82,21 @@ const Dashboard = ({ quizData , createQuiz, deleteQuiz}) => {
                 <br/>
                 {/* <Link to="/createQuiz"> */}
                 {/* </Link> */}
+
+
+                <Routes>
+                    {/* iterate over quizData using map to generate `Route component dynamically ` */}
+                    {quizData.map((quiz) => {
+                    <Route>
+                        key={quiz.id}
+                        path={`/editQuiz/${quiz.id}`}
+                        element={<EditQuiz quiz={quiz} />} //pass the quizdata to the EditQuiz component
+                    </Route> 
+                })}
+                    {/* Redirect the user back to the dashboard when they navigates to non exist route */}
+                    <Route path="*" element={<Navigate to="/dashboard" />} />
+                </Routes>
+
         </div>
     )
 }
