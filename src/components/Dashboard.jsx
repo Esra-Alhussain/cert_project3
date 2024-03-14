@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Link } from 'react-router-dom';
-import EditQuiz from "./EditQuiz"
+import EditQuiz from "./Quiz"
 import { v4 as uuidv4 } from 'uuid';
 import { Navigate } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
@@ -16,7 +16,7 @@ const Dashboard = ({ quizData , createQuiz, deleteQuiz}) => {
                         <div key={quiz.id} className="quiz">
                         <h3 className="quizTitle">{quiz.name}</h3>
 
-                        <Link to={`/editQuiz/${quiz.id}`}>
+                        <Link to={`editQuiz/${quiz.id}`}>
                             <button className="editQuiz">Edit</button>
                         </Link>
                             <button className="deleteQuiz" onClick={ () => deleteQuiz(quiz.id)}>Delete</button>
@@ -86,7 +86,7 @@ const Dashboard = ({ quizData , createQuiz, deleteQuiz}) => {
                 
                 {/* the dynamic quiz routes  */}
                 {quizData.map((quiz) => (
-                    <Route key={quiz.id} path={`/editQuiz/${quiz.id}`} element={<EditQuiz quiz={quiz} />} />
+                    <Route key={quiz.id} path={`editQuiz/${quiz.id}`} element={<EditQuiz quiz={quiz} />} />
                 ))}
             
             {/* </Route> */}

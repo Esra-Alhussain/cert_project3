@@ -14,7 +14,7 @@ import Home from './components/Home';
 import Login from './components/Login'
 import Dashboard from './components/Dashboard'
 import DoQuiz from './components/DoQuiz'
-import EditQuiz from './components/EditQuiz'
+import EditQuiz from './components/Quiz'
 import Discovery from './components/Discovery'
 // import { v4 as uuidv4 } from 'uuid';
 
@@ -265,7 +265,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} deleteQuiz={deleteQuiz}/>} />
+          <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} deleteQuiz={deleteQuiz}/>} />
           {/* <Route path="/doQuiz" element={<DoQuiz />} /> */}
           {/* <Route path="/editQuiz" element={<EditQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion } />} /> */}
         </Routes>
