@@ -87,19 +87,26 @@ const App = () => {
 
   //Delete a Question and their answers from a Quiz
   const deleteQuestion = ( questionId) => {
-    //filter out the Question with the specified Id
-    const updatedQuestionsAfterDelete = quizData.questions.filter((question) => {
-      if (question.id === questionId){
-        return false;
-      } else {
-        return true;
+    // Find the quiz containing the question to be deleted
+    const updatedQuizzes = quizData.map((quiz) => {
+      if (quiz.id === questionId){
+        // Filter out the question with the specified ID
+        const updatedQuestions = quiz.questions.filter((question) => question.id !== questionId);
+            return { ...quiz, questions: updatedQuestions };
+      }else{
+        return quiz;
       }
-    });
-
-    setQuizData(prevState => ({
-      ...prevState,
-      questions: updatedQuestionsAfterDelete
-    }));
+    })
+    //filter out the Question with the specified Id
+    // const updatedQuestionsAfterDelete = quizData.questions.filter((question) => {
+    //   {
+    //     return false;
+    //   } else {
+    //     return true;
+    //   }
+    // });
+    // Update the state with the updated quizzes data
+    setQuizData(updatedQuizzes);
     console.log(`this is index ${index}`);
     alert("Question deleted!")
   };
@@ -332,7 +339,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz}/>} />
+          <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteQuestion={deleteQuestion}/>} />
           {/* <Route path="/doQuiz" element={<DoQuiz />} /> */}
           {/* <Route path="/editQuiz" element={<EditQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion } />} /> */}
         </Routes>

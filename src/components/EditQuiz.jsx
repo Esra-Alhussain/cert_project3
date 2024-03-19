@@ -1,23 +1,22 @@
 
-const EditQuiz =({quiz, addQuestionToQuiz}) => {
+const EditQuiz =({quiz, addQuestionToQuiz,deleteQuestion}) => {
     console.log("quiz:", quiz);
     return(
         <div className="editQuiz">
-             <h2>Quiz name :</h2><h2 className="quizTitle">{quiz.name}</h2>
-           <div  className="quizQuestions">
-             <h3>{quiz.questions[0].question}</h3>
-             <h4>The Answers:</h4> 
-             
-             <ul>
-                <li>{quiz.questions[0].answers[0]}</li>
-                <li>{quiz.questions[0].answers[1]}</li>
-                <li>{quiz.questions[0].answers[2]}</li>
-                <li>{quiz.questions[0].answers[3]}</li>
-             </ul>
-              {/* <button className="Delete" onClick={() => { deleteQuestion(quizData.questions[index].id); } }> Delete Question </button> */}
-
-           </div>
-
+            <h2>Quiz name :</h2><h2 className="quizTitle">{quiz.name}</h2>
+            {quiz.questions.map((question, index) => (
+                <div key={index}>
+                  <h3>Question: {question.question}</h3>
+                  <h4>The Answers:</h4> 
+                  <ul>
+                    {question.answers.map((answer, ansIndex) =>{
+                        return <li key={ansIndex}>{answer}</li>
+                    })}
+                  </ul>
+                  <button className="Delete" onClick={() => { deleteQuestion(question.id); } }> Delete Question </button>
+                </div>
+            ))}
+           <br/>
            <div className="editQuiz">
             <h2>Add Question: </h2>
               <form className="editQuizForm" onSubmit={(e) =>addQuestionToQuiz(e,quiz.id,quiz.questions.length+1)}>

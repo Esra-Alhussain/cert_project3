@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
 
 
-const Dashboard = ({ quizData , createQuiz, deleteQuiz, addQuestionToQuiz}) => {
+const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, addQuestionToQuiz}) => {
    
 
     return(
@@ -87,7 +87,7 @@ const Dashboard = ({ quizData , createQuiz, deleteQuiz, addQuestionToQuiz}) => {
                 
                 {/* the dynamic quiz routes  */}
                 {quizData.map((quiz) => (
-                    <Route key={quiz.id} path={`editQuiz/${quiz.id}`} element={<EditQuiz quiz={quiz} addQuestionToQuiz={addQuestionToQuiz} />} />
+                    <Route key={quiz.id} path={`editQuiz/${quiz.id}`} element={<EditQuiz quiz={quiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuestion={deleteQuestion}/>} />
                 ))}
             
             {/* </Route> */}
