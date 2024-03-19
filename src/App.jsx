@@ -56,7 +56,7 @@ const App = () => {
             points:0
         },
         {
-          id:1, // Generate a unique ID for the question object
+          id:2, // Generate a unique ID for the question object
           question:'What is the name of Canada president?',
           answers:[],
           correctAnswers:'',
@@ -86,46 +86,62 @@ const App = () => {
   };
 
   //Delete a Question and their answers from a Quiz
-  const deleteQuestion = ( questionId) => {
-    // Find the quiz containing the question to be deleted
-    const updatedQuizzes = quizData.map((quiz) => {
-      if (quiz.id === questionId){
-        // Filter out the question with the specified ID
-        const updatedQuestions = quiz.questions.filter((question) => question.id !== questionId);
-            return { ...quiz, questions: updatedQuestions };
-      }else{
-        return quiz;
-      }
-    })
-    //filter out the Question with the specified Id
-    // const updatedQuestionsAfterDelete = quizData.questions.filter((question) => {
-    //   {
-    //     return false;
-    //   } else {
-    //     return true;
-    //   }
+    const deleteQuestion = (questionId) => {
+  // Filter out the question with the specified ID
+    const updatedQuizzes = quizData.map(quiz => {
+    // Filter out the question from each quiz's questions array
+    const updatedQuestions = quiz.questions.filter(question => question.id !== questionId);
+    return { ...quiz, questions: updatedQuestions };
+  });
+  // Update the state with the updated quiz data
+  setQuizData(updatedQuizzes);
+  alert("Question deleted!")
+};
+
+    //     // Filter out the question with the specified ID
+    //     const updatedQuestions = quiz.questions.filter((question) => {
+    //       if (question.id !== questionId){
+    //         return true;   //Keep the question if its ID doesnot match
+    //       }else{
+    //         return false;  //Exclude the question if its ID matches
+    //       }     
+    //   });
+    //  // Update the quiz object with the updated questions array
+    //  const updatedQuiz ={...quiz, quesions:updatedQuestions};
+
+    // // Update the state with the updated quiz object
+    // setQuizData((prevQuizSata) => {
+    //   const updatedQuizData = prevQuizSata.map((q) => {
+    //     //if this is the quiz we are updating, return the updated quiz
+    //     if(q.id === quiz.id){
+    //       return updatedQuiz;
+    //     }
+    //     //otherwise return the original quiz
+    //     return q;
+    //   });
+    //   console.log(`delete question:,${updatedQuizData}`)
+
+    //   // Concatenate the updated quiz data with an empty array to ensure it's treated as a new object
+    //   return [].concat(updatedQuizData);
     // });
-    // Update the state with the updated quizzes data
-    setQuizData(updatedQuizzes);
-    console.log(`this is index ${index}`);
-    alert("Question deleted!")
-  };
+    // alert("Question deleted!")
+  // };
 
   //handle the input change for the question text
-  const handleQuestionTextChange = ( index, newText ) => {
-    setQuizData(prevState => {
-        const updatedQuestions = [...prevState.questions];
-        //check first if the index is valid for the updatedQuestions Array
-        if (index >= 0 && index < updatedQuestions.length) { // Check if index is valid
-          updatedQuestions[index].question = newText;
-          return { ...prevState, questions: updatedQuestions };
-        } else {
-          console.error('Invalid question index');
-          console.log(`this is index ${index}`);
-          return prevState; // Return previous state unchanged
-        }
-      });
-  };
+  // const handleQuestionTextChange = ( index, newText ) => {
+  //   setQuizData(prevState => {
+  //       const updatedQuestions = [...prevState.questions];
+  //       //check first if the index is valid for the updatedQuestions Array
+  //       if (index >= 0 && index < updatedQuestions.length) { // Check if index is valid
+  //         updatedQuestions[index].question = newText;
+  //         return { ...prevState, questions: updatedQuestions };
+  //       } else {
+  //         console.error('Invalid question index');
+  //         console.log(`this is index ${index}`);
+  //         return prevState; // Return previous state unchanged
+  //       }
+  //     });
+  // };
 
   //handle the input change for the answer text
   const handleAnswerTextChange = ( questionIndex, answerIndex, newAnswer ) => {
