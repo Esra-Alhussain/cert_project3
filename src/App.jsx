@@ -76,6 +76,14 @@ const App = () => {
     //filter out the Quiz with the specified Id
     const updatedQuizzes = quizData.filter((quiz) => {
       if (quiz.id === quizId) {
+        // Check if the quiz exists in local storage
+        const quizTitle = quiz.name;
+        const quizDataString = localStorage.getItem(quizTitle);
+
+        if (quizDataString){
+          //Remove the quiz data from local storage
+          localStorage.removeItem(quizTitle);
+        }
         return false;
       } else {
         return true;
