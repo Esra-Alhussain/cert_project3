@@ -38,7 +38,7 @@ const App = () => {
             correctAnswers:'',
             points:0
         }
-    ]
+    ]//quiz.question.length+1
  },
    {
     id: 2, //Generate a unique ID for the quiz object
@@ -50,11 +50,18 @@ const App = () => {
     questions: [
         {
             id:1, // Generate a unique ID for the question object
-            question:'',
-            answers:[],
+            question:'What is the name of the USA president?',
+            answers:['Biden', 'Trump', 'Jordan', 'Ahmad'],
             correctAnswers:'',
             points:0
-        }
+        },
+        {
+          id:2, // Generate a unique ID for the question object
+          question:'What is the name of Canada president?',
+          answers:[],
+          correctAnswers:'',
+          points:0
+      }
     ]
  }
   ]);
@@ -79,39 +86,62 @@ const App = () => {
   };
 
   //Delete a Question and their answers from a Quiz
-  const deleteQuestion = ( questionId) => {
-    //filter out the Question with the specified Id
-    const updatedQuestionsAfterDelete = quizData.questions.filter((question) => {
-      if (question.id === questionId){
-        return false;
-      } else {
-        return true;
-      }
-    });
+    const deleteQuestion = (questionId) => {
+  // Filter out the question with the specified ID
+    const updatedQuizzes = quizData.map(quiz => {
+    // Filter out the question from each quiz's questions array
+    const updatedQuestions = quiz.questions.filter(question => question.id !== questionId);
+    return { ...quiz, questions: updatedQuestions };
+  });
+  // Update the state with the updated quiz data
+  setQuizData(updatedQuizzes);
+  alert("Question deleted!")
+};
 
-    setQuizData(prevState => ({
-      ...prevState,
-      questions: updatedQuestionsAfterDelete
-    }));
-    console.log(`this is index ${index}`);
-    alert("Question deleted!")
-  };
+    //     // Filter out the question with the specified ID
+    //     const updatedQuestions = quiz.questions.filter((question) => {
+    //       if (question.id !== questionId){
+    //         return true;   //Keep the question if its ID doesnot match
+    //       }else{
+    //         return false;  //Exclude the question if its ID matches
+    //       }     
+    //   });
+    //  // Update the quiz object with the updated questions array
+    //  const updatedQuiz ={...quiz, quesions:updatedQuestions};
+
+    // // Update the state with the updated quiz object
+    // setQuizData((prevQuizSata) => {
+    //   const updatedQuizData = prevQuizSata.map((q) => {
+    //     //if this is the quiz we are updating, return the updated quiz
+    //     if(q.id === quiz.id){
+    //       return updatedQuiz;
+    //     }
+    //     //otherwise return the original quiz
+    //     return q;
+    //   });
+    //   console.log(`delete question:,${updatedQuizData}`)
+
+    //   // Concatenate the updated quiz data with an empty array to ensure it's treated as a new object
+    //   return [].concat(updatedQuizData);
+    // });
+    // alert("Question deleted!")
+  // };
 
   //handle the input change for the question text
-  const handleQuestionTextChange = ( index, newText ) => {
-    setQuizData(prevState => {
-        const updatedQuestions = [...prevState.questions];
-        //check first if the index is valid for the updatedQuestions Array
-        if (index >= 0 && index < updatedQuestions.length) { // Check if index is valid
-          updatedQuestions[index].question = newText;
-          return { ...prevState, questions: updatedQuestions };
-        } else {
-          console.error('Invalid question index');
-          console.log(`this is index ${index}`);
-          return prevState; // Return previous state unchanged
-        }
-      });
-  };
+  // const handleQuestionTextChange = ( index, newText ) => {
+  //   setQuizData(prevState => {
+  //       const updatedQuestions = [...prevState.questions];
+  //       //check first if the index is valid for the updatedQuestions Array
+  //       if (index >= 0 && index < updatedQuestions.length) { // Check if index is valid
+  //         updatedQuestions[index].question = newText;
+  //         return { ...prevState, questions: updatedQuestions };
+  //       } else {
+  //         console.error('Invalid question index');
+  //         console.log(`this is index ${index}`);
+  //         return prevState; // Return previous state unchanged
+  //       }
+  //     });
+  // };
 
   //handle the input change for the answer text
   const handleAnswerTextChange = ( questionIndex, answerIndex, newAnswer ) => {
@@ -194,28 +224,111 @@ const App = () => {
       setQuizData(questions.map((question, i ) => (i === index ? updatedQuestion : question )));
   };
 
-  //handle saving the quiz
-  // const saveQuiz = (newQuiz ) => {
-  //   //bring all the data entered by the user
-  //   const quizTitle= quizData.name;
-  //   const questions = quizData.questions;
-  //   const answers = quizData.questions.answers;
-  //   const correctAnswers = quizData.questions.answers.correctAnswers;
-  //   const pointPerQuestion= quizData.questions.answers.points;
 
-  //   console.log("Quiz Title:", quizTitle);
-  //   console.log("Questions:", questions);
+  const addQuestionToQuiz=(e,quizId,questionId)=>{
+    //Get the Quiz ID and the Question ID
+    e.preventDefault()
+    console.log('clicked');
+    console.log('event',e);
+    console.log('quizId',quizId);
+    console.log('target',e.target);
+    console.log('questionId',questionId);
 
-  //   setQuizData(prevData => ({
-  //     ...prevData,
-  //     name: quizTitle,
-  //     questions: questions,
+    //Update the state with the new question
+    const newQuestion = {
+      id: questionId,
+      question: e.target.question.value,
+      answers: [
+        e.target.answer1.value,
+        e.target.answer2.value,
+        e.target.answer3.value,
+        e.target.answer4.value,
+      ],
+      correctAnswers:e.target.correctAnswers.value,
+      points: e.target.points.value,
+    };
+    //Find the quiz in the QuizData state by its ID
+    const updatedQuizData = quizData.map(quiz=> {
+      if(quiz.id === quizId){
+        //Add the new Question to the questions array of this quiz
+        return{
+          ...quiz,
+          questions: [...quiz.questions, newQuestion]
+        };
+      }
+      return quiz;
+    });
+    //Update the state with the updated quiz data 
+    setQuizData(updatedQuizData);
+    console.log(`quizData,${quizData}`)
+  }
+
+  const editQuiz = (e, quizId) => {
+    e.preventDefault();
+
+    // Extracting data entered by the user
+    // const quizTitle= e.target.quizTitle.value;
+    const questionId = parseInt(e.target.ID.value);   //Get the question ID from the input
+    const question = e.target.question.value;
+    const answers = [
+       e.target.answer1.value,
+       e.target.answer2.value,
+       e.target.answer3.value,
+       e.target.answer4.value
+      ];
+    const correctAnswers = e.target.correctAnswers.value;
+    const pointPerQuestion= e.target.points.value;
+
+    // console.log("Quiz Title:", quizTitle);
+    console.log("Questions:", question);
+    console.log("questionId:", questionId);
+
+  //   // Constructing the new question object
+  //   const newQuestion = {
+  //     id: questionId,
+  //     question: questions,
   //     answers: answers,
   //     correctAnswers: correctAnswers,
   //     points: pointPerQuestion
-  //   }));
+  // };
+    //Update the specific question in the quiz data
+    const updateQuizData = quizData.map(quiz => {
+      if (quiz.id === quizId){
+        const updatedQuestions = quiz.questions.map(q => {
+          if (q.id === questionId){
+            console.log("questionId:", questionId);
 
-  // }
+            return{
+              ...q,
+              question: question,
+              answers: answers,
+              correctAnswers: correctAnswers,
+              points: pointPerQuestion
+            };
+            
+          }else{
+            console.log("the id is not found:", questionId);
+            console.log("this is the q:", q);
+
+            return q;
+          }
+        });
+        return {...quiz, questions: updatedQuestions};
+      }else{
+        return quiz;
+      }
+    });
+    
+    // Updating the quiz data state with the new quiz object
+    console.log("questionId:", questionId);
+
+    setQuizData(updateQuizData);
+    console.log("updateQuizData:", updateQuizData);
+    console.log("updated")
+    // Reset the form fields or perform any other necessary actions
+    e.target.reset();
+    alert("Quiz updated successfully!");
+  }
 
   const createQuiz = (e) => {
     //get the QuizName and then update the state with it 
@@ -268,7 +381,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} deleteQuiz={deleteQuiz}/>} />
+          <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteQuestion={deleteQuestion} editQuiz={editQuiz} saveQuiz={saveQuiz} />} />
           {/* <Route path="/doQuiz" element={<DoQuiz />} /> */}
           {/* <Route path="/editQuiz" element={<EditQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion } />} /> */}
         </Routes>

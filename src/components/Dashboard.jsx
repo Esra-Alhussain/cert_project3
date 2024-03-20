@@ -1,22 +1,26 @@
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import EditQuiz from "./EditQuiz"
 import { v4 as uuidv4 } from 'uuid';
+import { Navigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 
-const Dashboard = ({ quizData , createQuiz, deleteQuiz}) => {
-
+const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, addQuestionToQuiz, editQuiz, saveQuiz}) => {
+   
     return(
         <div>
             <h1 className="dashboardTitle">User Dashboard</h1>
-            <br/>
+              <br/>
                 <div className="quizDetail">
                     {quizData.map((quiz) => (
                         <div key={quiz.id} className="quiz">
                         <h3 className="quizTitle">{quiz.name}</h3>
-                        <Link to="/editQuiz">
+
+                        <Link target="_blank" to={`editQuiz/${quiz.id}`}>
                             <button className="editQuiz">Edit</button>
                         </Link>
                             <button className="deleteQuiz" onClick={ () => deleteQuiz(quiz.id)}>Delete</button>
+                            <button className="saveQuiz" onClick={ () => saveQuiz(quiz.id)}>Save Quiz</button>
                         </div>
                     ))}
                     {/* 
@@ -76,6 +80,22 @@ const Dashboard = ({ quizData , createQuiz, deleteQuiz}) => {
                 <br/>
                 {/* <Link to="/createQuiz"> */}
                 {/* </Link> */}
+
+        <Routes>
+            {/* the parent route for your dynamic quiz routes */}
+            {/* <Route path="/dashboard/*"> */}
+                
+                {/* the dynamic quiz routes  */}
+                {quizData.map((quiz) => (
+                    <Route key={quiz.id} path={`editQuiz/${quiz.id}`} element={<EditQuiz quiz={quiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuestion={deleteQuestion} editQuiz={editQuiz}/>} />
+                ))}
+            
+            {/* </Route> */}
+            {/* Redirect the user back to the dashboard when they navigate to a non-existent route */}
+            {/* <Route path="*" element={<Navigate to="/dashboard" />} /> */}
+        </Routes>
+
+
         </div>
     )
 }
