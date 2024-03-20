@@ -261,6 +261,10 @@ const App = () => {
     //Update the state with the updated quiz data 
     setQuizData(updatedQuizData);
     console.log(`quizData,${quizData}`)
+
+     // Reset the form fields 
+     e.target.reset();
+     alert("Question added successfully!");
   }
 
   const editQuiz = (e, quizId) => {
@@ -325,7 +329,7 @@ const App = () => {
     setQuizData(updateQuizData);
     console.log("updateQuizData:", updateQuizData);
     console.log("updated")
-    // Reset the form fields or perform any other necessary actions
+    // Reset the form fields 
     e.target.reset();
     alert("Quiz updated successfully!");
   }
