@@ -377,7 +377,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteQuestion={deleteQuestion} editQuiz={editQuiz} />} />
+          <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteQuestion={deleteQuestion} editQuiz={editQuiz} saveQuiz={saveQuiz} />} />
           {/* <Route path="/doQuiz" element={<DoQuiz />} /> */}
           {/* <Route path="/editQuiz" element={<EditQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion } />} /> */}
         </Routes>

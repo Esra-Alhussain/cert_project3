@@ -5,13 +5,12 @@ import { Navigate } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
 
 
-const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, addQuestionToQuiz, editQuiz}) => {
+const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, addQuestionToQuiz, editQuiz, saveQuiz}) => {
    
-
     return(
         <div>
             <h1 className="dashboardTitle">User Dashboard</h1>
-            <br/>
+              <br/>
                 <div className="quizDetail">
                     {quizData.map((quiz) => (
                         <div key={quiz.id} className="quiz">
@@ -21,6 +20,7 @@ const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, addQuesti
                             <button className="editQuiz">Edit</button>
                         </Link>
                             <button className="deleteQuiz" onClick={ () => deleteQuiz(quiz.id)}>Delete</button>
+                            <button className="saveQuiz" onClick={ () => saveQuiz(quiz.id)}>Save Quiz</button>
                         </div>
                     ))}
                     {/* 
