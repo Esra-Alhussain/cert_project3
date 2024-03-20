@@ -262,13 +262,14 @@ const App = () => {
     setQuizData(updatedQuizData);
     console.log(`quizData,${quizData}`)
   }
-  //handle saving the quiz
-  const editQuiz = (e ) => {
+
+  const editQuiz = (e, quizId) => {
     e.preventDefault();
 
     // Extracting data entered by the user
     // const quizTitle= e.target.quizTitle.value;
-    const questions = e.target.question.value;
+    const questionId = parseInt(e.target.ID.value);   //Get the question ID from the input
+    const question = e.target.question.value;
     const answers = [
        e.target.answer1.value,
        e.target.answer2.value,
@@ -276,32 +277,53 @@ const App = () => {
        e.target.answer4.value
       ];
     const correctAnswers = e.target.correctAnswers.value;
-    // const pointPerQuestion= e.target.points.value;
+    const pointPerQuestion= e.target.points.value;
 
     // console.log("Quiz Title:", quizTitle);
-    console.log("Questions:", questions);
+    console.log("Questions:", question);
+    console.log("questionId:", questionId);
 
-    // Generating a unique ID for the new question
-    const questionId = uuidv4();
+  //   // Constructing the new question object
+  //   const newQuestion = {
+  //     id: questionId,
+  //     question: questions,
+  //     answers: answers,
+  //     correctAnswers: correctAnswers,
+  //     points: pointPerQuestion
+  // };
+    //Update the specific question in the quiz data
+    const updateQuizData = quizData.map(quiz => {
+      if (quiz.id === quizId){
+        const updatedQuestions = quiz.questions.map(q => {
+          if (q.id === questionId){
+            console.log("questionId:", questionId);
 
-    // Constructing the new question object
-    const newQuestion = {
-      id: questionId,
-      question: questions,
-      answers: answers,
-      correctAnswers: correctAnswers,
-      points: pointPerQuestion
-  };
-    // Constructing the new quiz object with the updated question
-    const updateQuiz ={
-      name: quizTitle,
-      questions: [
-        ...quizData.questions,newQuestion]  
-       };
+            return{
+              ...q,
+              question: question,
+              answers: answers,
+              correctAnswers: correctAnswers,
+              points: pointPerQuestion
+            };
+            
+          }else{
+            console.log("the id is not found:", questionId);
+            console.log("this is the q:", q);
+
+            return q;
+          }
+        });
+        return {...quiz, questions: updatedQuestions};
+      }else{
+        return quiz;
+      }
+    });
     
     // Updating the quiz data state with the new quiz object
-    setQuizData(prevQuizData => [...prevQuizData, updateQuiz]);
+    console.log("questionId:", questionId);
 
+    setQuizData(updateQuizData);
+    console.log("updateQuizData:", updateQuizData);
     console.log("updated")
     // Reset the form fields or perform any other necessary actions
     e.target.reset();
@@ -355,7 +377,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteQuestion={deleteQuestion}/>} />
+          <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteQuestion={deleteQuestion} editQuiz={editQuiz} />} />
           {/* <Route path="/doQuiz" element={<DoQuiz />} /> */}
           {/* <Route path="/editQuiz" element={<EditQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion } />} /> */}
         </Routes>

@@ -1,5 +1,5 @@
 
-const EditQuiz =({quiz, addQuestionToQuiz,deleteQuestion}) => {
+const EditQuiz =({quiz, addQuestionToQuiz,deleteQuestion, editQuiz}) => {
     console.log("quiz:", quiz);
     return(
         <div className="editQuiz">
@@ -47,6 +47,38 @@ const EditQuiz =({quiz, addQuestionToQuiz,deleteQuestion}) => {
                  </div>
                  <button className="addQuestion" type="submit"> Add new Question </button>
 
+              </form>   
+           </div>
+
+           <div className="editQuiz">
+            <h2>Edit Question: </h2>
+              <form className="editQuizForm" onSubmit={(e) => editQuiz(e,quiz.id, e.target.ID .value)}>
+                 {/* <button className="addQuestion" onClick={handleAddQuestion} >Add Question</button> */}
+                    <input type="text"  name="question" placeholder="Enter the Question" />
+              
+                <div>
+                    <input type="number"  name="ID" placeholder="Enter the question ID to edit" />
+                </div>
+                <div>
+                    <input type="text"  name="correctAnswers" placeholder="Enter the correct answer" />
+                </div>
+                <div>
+                    <input type="text" name="answer1" placeholder="Enter the answer" />
+                 </div>
+                 <div >
+                    <input type="text"name="answer2" placeholder="Enter the answer" />
+                </div>
+                
+                  <div >
+                 <input type="text"  name="answer3" placeholder="Enter the answer" />
+                 </div>
+                 <div >
+                 <input type="text"  name="answer4" placeholder="Enter the answer" />
+                 </div>
+                 <div >
+                 <input type="number"  name="points" placeholder="Enter the points per Quesstion" />
+                 </div>
+                 <button className="addQuestion" type="submit"> Edit the Question </button>
               </form>   
            </div>
         </div>
