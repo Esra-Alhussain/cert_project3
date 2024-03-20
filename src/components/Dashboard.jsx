@@ -16,7 +16,7 @@ const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, addQuesti
                         <div key={quiz.id} className="quiz">
                         <h3 className="quizTitle">{quiz.name}</h3>
 
-                        <Link target="_blank" to={`editQuiz/${quiz.id}`}>
+                        <Link to={`editQuiz/${quiz.id}`}>
                             <button className="editQuiz">Edit</button>
                         </Link>
                             <button className="deleteQuiz" onClick={ () => deleteQuiz(quiz.id)}>Delete</button>

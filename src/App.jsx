@@ -354,6 +354,10 @@ const App = () => {
   console.log("clicked")
   }
 
+  const saveQuiz = () => {
+    return{ }
+    alert("Quiz saved successfully!");
+  }
   return (
     <Router>
       <div>
