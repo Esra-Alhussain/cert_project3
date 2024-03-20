@@ -1,64 +1,86 @@
 
-
-const EditQuiz = ({ quizData, setQuizData ,handleQuestionTextChange, handleAddQuestion, deleteQuestion, questionIndexes, handleAddName, handleAnswerTextChange, saveQuiz}) => {
-  
+const EditQuiz =({quiz, addQuestionToQuiz,deleteQuestion, editQuiz}) => {
+    console.log("quiz:", quiz);
     return(
-        <div className="createQuiz">
-          {/* Sidebar with question list */}
-            {/* <div className="sideBar">
-                {questionIndexes.map(index => (
-                <div className="questionContainer">
-                    <h3 className="questionNumber">Q1</h3>
-                    <div className="" >
-                        <h6 className="question">Q1: What is the first cause for the global warm?</h6>
-                        <ul className="answers">
-                            <li>First Answer</li>
-                            <li>Second Answer</li>
-                            <li>Third Answer</li>
-                            <li>Fourth Answer</li>
-                        </ul>      
-                    </div>
+        <div className="editQuiz">
+            <h2>Quiz name :</h2><h2 className="quizTitle">{quiz.name}</h2>
+            {quiz.questions.map((question, index) => (
+                <div key={index}>
+                  <h3>Question: {question.question}</h3>
+                  <h4>The Answers:</h4> 
+                  <ul>
+                    {question.answers.map((answer, ansIndex) =>{
+                        return <li key={ansIndex}>{answer}</li>
+                    })}
+                  </ul>
+                  <button className="Delete" onClick={() => { deleteQuestion(question.id); } }> Delete Question </button>
                 </div>
-             ))}
+            ))}
+           <br/>
+           <div className="editQuiz">
+            <h2>Add Question: </h2>
+              <form className="editQuizForm" onSubmit={(e) =>addQuestionToQuiz(e,quiz.id,quiz.questions.length+1)}>
+                 {/* <button className="addQuestion" onClick={handleAddQuestion} >Add Question</button> */}
+                    <input type="text"  name="question" placeholder="Enter the Question" />
+                {/* <div key={uuidv4()}>
+                    <label htmlFor={uuidv4()} >Question ID</label>
+                    <input type="text" id={uuidv4()} name="questionId" placeholder="Enter the Question ID" />
+                </div> */}
+                <div>
+                    <input type="text"  name="correctAnswers" placeholder="Enter the correct answer" />
+                </div>
+                <div>
+                    <input type="text" name="answer1" placeholder="Enter the answer" />
+                 </div>
+                 <div >
+                    <input type="text"name="answer2" placeholder="Enter the answer" />
+                </div>
                 
-            </div> */}
-            <div className="quizTitle">
-                <label htmlFor="quizTitle">Quiz Title</label>
-                <input type="text"  id="quizTitle" name="quizTitle" placeholder="Enter the Quiz title" onChange={handleAddName}/>
-            </div>
-            <button className="addQuestion" onClick={handleAddQuestion} >Add Question</button>
-            {quizData.map((quiz, index) => (
-                       <><div key={quiz.id} className="questions&answers">
-                             <form className="createQuizForm">
-                                 <label htmlFor={`question${index}`}>Question</label>
-                                 <input type="text" id={`question${index}`} name="question" placeholder="Enter your Question" onChange={(e) => handleQuestionTextChange(index, e.target.value)} />
-                                 <div className="answers">
-                                    { [0,1,2,3].map((answerIndex) => (
-                                     <><div className={`answer${answerIndex+1}`} key={answerIndex}>
-                                            <input 
-                                                type="text" 
-                                                id={`answer${answerIndex+1}-${quiz.id}`}
-                                                name={`answer${answerIndex+1}`} 
-                                                placeholder={`Enter your ${answerIndex+1} answer`}  
-                                                onChange={(e) => handleAnswerTextChange(index, answerIndex, e.target.value)} />
-                                             <input 
-                                                    type="checkbox" 
-                                                    id= {`answer${answerIndex + 1}Checkbox-${quiz.id}`} 
-                                                    name={`answer${answerIndex + 1}Checkbox`} 
-                                                    />
-                                            <button className="Delete"> Delete</button>
-                                        </div>
-                                       </>
-                                    ))}
-                                 </div>
-                                 <button className="Delete" onClick={() => { deleteQuestion(quizData.questions[index].id); } }> Delete Question </button>
-                             </form>
-                         </div>
-                       </>
-                        ))}
+                  <div >
+                 <input type="text"  name="answer3" placeholder="Enter the answer" />
+                 </div>
+                 <div >
+                 <input type="text"  name="answer4" placeholder="Enter the answer" />
+                 </div>
+                 <div >
+                 <input type="number"  name="points" placeholder="Enter the points per Quesstion" />
+                 </div>
+                 <button className="addQuestion" type="submit"> Add new Question </button>
 
+              </form>   
+           </div>
 
-            <button className="saveQuiz" onClick={saveQuiz}>Save Quiz</button> 
+           <div className="editQuiz">
+            <h2>Edit Question: </h2>
+              <form className="editQuizForm" onSubmit={(e) => editQuiz(e,quiz.id, e.target.ID .value)}>
+                 {/* <button className="addQuestion" onClick={handleAddQuestion} >Add Question</button> */}
+                    <input type="text"  name="question" placeholder="Enter the Question" />
+              
+                <div>
+                    <input type="number"  name="ID" placeholder="Enter the question ID to edit" />
+                </div>
+                <div>
+                    <input type="text"  name="correctAnswers" placeholder="Enter the correct answer" />
+                </div>
+                <div>
+                    <input type="text" name="answer1" placeholder="Enter the answer" />
+                 </div>
+                 <div >
+                    <input type="text"name="answer2" placeholder="Enter the answer" />
+                </div>
+                
+                  <div >
+                 <input type="text"  name="answer3" placeholder="Enter the answer" />
+                 </div>
+                 <div >
+                 <input type="text"  name="answer4" placeholder="Enter the answer" />
+                 </div>
+                 <div >
+                 <input type="number"  name="points" placeholder="Enter the points per Quesstion" />
+                 </div>
+                 <button className="addQuestion" type="submit"> Edit the Question </button>
+              </form>   
+           </div>
         </div>
     )
 }
