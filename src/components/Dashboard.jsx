@@ -66,7 +66,7 @@ const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, loadQuiz,
 
                     <div className="loadQuiz">
                         <div className="quizTitle">
-                            <form onSubmit={loadQuiz}>
+                            <form onSubmit={(e)=>loadQuiz(e,e.target.quizTitle.value)}>
                                 <label htmlFor="quizTitle">Quiz Title</label>
                                 <input 
                                     type="text"  

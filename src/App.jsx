@@ -355,7 +355,9 @@ const App = () => {
   }
 
    //function to load the quiz data from local storage
-   const loadQuiz =(quizTitle) => {
+   const loadQuiz =(e,quizTitle) => {
+    e.preventDefault();
+
     try{
       //Retrive the JSON string from local storage
       const quizDataString= localStorage.getItem(quizTitle);
@@ -364,11 +366,18 @@ const App = () => {
       if(quizDataString){
         const parsedQuizData = JSON.parse(quizDataString);
 
-        //update the quizData state with the loaded data 
-        setQuizData(parsedQuizData)
-        console.log('quizDataString',quizDataString)
-      }
+        //update the quizData state by appending the loaded data
+        setQuizData(prevQuizState => [...prevQuizState, parsedQuizData]);
 
+        console.log('quizDataString',quizDataString)
+        console.log('Quiz data loaded successfully:', parsedQuizData);
+        alert("Quiz data loaded successfully!")
+      }else{
+        console.log('Quiz data not found for title:', quizTitle);
+        console.log('quizTitle:', quizTitle);
+
+        alert('Quiz not found in local storage!');
+      }
     }catch(error){
       console.error('Error loading quiz:', error);
       alert("Failed to load quiz!")
