@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
 
 
-const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, addQuestionToQuiz, editQuiz, saveQuiz}) => {
+const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, loadQuiz,addQuestionToQuiz, editQuiz, saveQuiz}) => {
    
     return(
         <div>
@@ -20,7 +20,7 @@ const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, addQuesti
                             <button className="editQuiz">Edit</button>
                         </Link>
                             <button className="deleteQuiz" onClick={ () => deleteQuiz(quiz.id)}>Delete</button>
-                            <button className="saveQuiz" onClick={ () => saveQuiz(quiz.id)}>Save Quiz</button>
+                            <button className="saveQuiz" onClick={ () => saveQuiz(quiz.name)}>Save Quiz</button>
                         </div>
                     ))}
                     {/* 
@@ -62,17 +62,23 @@ const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, addQuesti
 
                             </form>
                         </div>
-                     {/* {quizData.map((quiz, index) => (
-                       <><div key={quiz.id} className="questions&answers">
-                             <form className="createQuizForm">
-                                 <label htmlFor={`question${index}`}>Question</label>
-                                 <input type="text" id={`question${index}`} name="question" placeholder="Enter your Question" onChange={(e) => handleQuestionTextChange(index, e.target.value)} />
-        
-                                 <button className="Delete" onClick={() => { deleteQuestion(quizData.questions[index].id); } }> Delete Question </button>
-                             </form>
-                         </div>
-                       </>
-                        ))} */}
+                    </div>
+
+                    <div className="loadQuiz">
+                        <div className="quizTitle">
+                            <form onSubmit={loadQuiz}>
+                                <label htmlFor="quizTitle">Quiz Title</label>
+                                <input 
+                                    type="text"  
+                                    id="quizTitle" 
+                                    name="quizTitle" 
+                                    placeholder="Enter the Quiz title to load it" 
+                                    />
+
+                                <button className="loadQuiz" type="submit"> Load a Quiz</button>
+
+                            </form>
+                        </div>
                     </div>
                 
                 {/* <button className="addQuestion" onClick={handleAddQuestion} >Add Question</button> */}

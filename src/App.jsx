@@ -16,57 +16,56 @@ import Dashboard from './components/Dashboard'
 import DoQuiz from './components/DoQuiz'
 import EditQuiz from './components/EditQuiz'
 import Discovery from './components/Discovery'
-// import { v4 as uuidv4 } from 'uuid';
+import { useEffect } from 'react';
 
 
 const App = () => {
     // State to manage quiz data
     const [quizData, setQuizData] = useState([
+      {
+        id: 1, //Generate a unique ID for the quiz object
+        name:'Math Quiz',
+        difficulty:'',
+        subject:'',
+        highestScore:'',
+        likes: 0,
+        questions: [
+            {
+                id:1, // Generate a unique ID for the question object
+                question:'',
+                answers:[],
+                correctAnswers:'',
+                points:0
+            }
+        ]//quiz.question.length+1
+     },
+       {
+        id: 2, //Generate a unique ID for the quiz object
+        name:'History Quiz',
+        difficulty:'',
+        subject:'',
+        highestScore:'',
+        likes: 0,
+        questions: [
+            {
+                id:1, // Generate a unique ID for the question object
+                question:'What is the name of the USA president?',
+                answers:['Biden', 'Trump', 'Jordan', 'Ahmad'],
+                correctAnswers:'',
+                points:0
+            },
+            {
+              id:2, // Generate a unique ID for the question object
+              question:'What is the name of Canada president?',
+              answers:[],
+              correctAnswers:'',
+              points:0
+          }
+        ]
+     }
+      ]);
    
-   {
-    id: 1, //Generate a unique ID for the quiz object
-    name:'Math Quiz',
-    difficulty:'',
-    subject:'',
-    highestScore:'',
-    likes: 0,
-    questions: [
-        {
-            id:1, // Generate a unique ID for the question object
-            question:'',
-            answers:[],
-            correctAnswers:'',
-            points:0
-        }
-    ]//quiz.question.length+1
- },
-   {
-    id: 2, //Generate a unique ID for the quiz object
-    name:'History Quiz',
-    difficulty:'',
-    subject:'',
-    highestScore:'',
-    likes: 0,
-    questions: [
-        {
-            id:1, // Generate a unique ID for the question object
-            question:'What is the name of the USA president?',
-            answers:['Biden', 'Trump', 'Jordan', 'Ahmad'],
-            correctAnswers:'',
-            points:0
-        },
-        {
-          id:2, // Generate a unique ID for the question object
-          question:'What is the name of Canada president?',
-          answers:[],
-          correctAnswers:'',
-          points:0
-      }
-    ]
- }
-  ]);
-
-
+   
    // Generate unique indexes for questions
   //  const questionIndexes = Array.from(Array(quizData.questions.length).keys());
 
@@ -183,9 +182,9 @@ const App = () => {
   //   };
 
   //handle adding a name to the quiz
-  const handleAddName = (event) => {
-    setQuizData({ ...quizData, name:event.target.value });
-  };
+  // const handleAddName = (event) => {
+  //   setQuizData({ ...quizData, name:event.target.value });
+  // };
 
   //Add new answers to a question
   // const AddAnswers = (questionIndex) => {
@@ -202,27 +201,27 @@ const App = () => {
   // };
 
   //function allows the user to edit the answers 
-  const handleAnswerEdit = (questionIndex, answerIndex, updatedAnswer) => {
-    const updatedQuestions = [...questions]
-    updatedQuestions[questionIndex].answers[answerIndex] = updatedAnswer;
-    setQuizData (updatedQuestions)
-};
+//   const handleAnswerEdit = (questionIndex, answerIndex, updatedAnswer) => {
+//     const updatedQuestions = [...questions]
+//     updatedQuestions[questionIndex].answers[answerIndex] = updatedAnswer;
+//     setQuizData (updatedQuestions)
+// };
 
   
 
-    //function to handle changes in the Quiz name
-  //   const handleQuizNameChange = (event)=> {
-  //     setQuizData({...quizData, name:event.target.value });
-  //     console.log(`This is quizData: ${quizData}`)
-  // };
+//     //function to handle changes in the Quiz name
+//   //   const handleQuizNameChange = (event)=> {
+//   //     setQuizData({...quizData, name:event.target.value });
+//   //     console.log(`This is quizData: ${quizData}`)
+//   // };
 
 
-    //function allows the user to edit the text of the question 
-  const handleQuestionEdit = (index, updatedQuestion) => {
-      //update the question at the specified index in the questions Array by iterating over each question
-      //map function returns a new array with the updated question at the specified index
-      setQuizData(questions.map((question, i ) => (i === index ? updatedQuestion : question )));
-  };
+//     //function allows the user to edit the text of the question 
+//   const handleQuestionEdit = (index, updatedQuestion) => {
+//       //update the question at the specified index in the questions Array by iterating over each question
+//       //map function returns a new array with the updated question at the specified index
+//       setQuizData(questions.map((question, i ) => (i === index ? updatedQuestion : question )));
+//   };
 
 
   const addQuestionToQuiz=(e,quizId,questionId)=>{
@@ -267,6 +266,7 @@ const App = () => {
      alert("Question added successfully!");
   }
 
+  //edit Quiz feature
   const editQuiz = (e, quizId) => {
     e.preventDefault();
 
@@ -354,10 +354,51 @@ const App = () => {
   console.log("clicked")
   }
 
-  const saveQuiz = () => {
-    return{ }
-    alert("Quiz saved successfully!");
-  }
+   //function to load the quiz data from local storage
+   const loadQuiz =(quizTitle) => {
+    try{
+      //Retrive the JSON string from local storage
+      const quizDataString= localStorage.getItem(quizTitle);
+
+      //parse the JSON string back into JS objects
+      if(quizDataString){
+        const parsedQuizData = JSON.parse(quizDataString);
+
+        //update the quizData state with the loaded data 
+        setQuizData(parsedQuizData)
+        console.log('quizDataString',quizDataString)
+      }
+
+    }catch(error){
+      console.error('Error loading quiz:', error);
+      alert("Failed to load quiz!")
+    }
+  };
+
+  const saveQuiz = (quizTitle) => {
+    console.log('quiztitle:', quizTitle);
+
+      const quizToSave = quizData.find(quiz => quiz.name === quizTitle);
+      if(quizToSave){
+         try{
+
+          //Convert quizData to a JSON string
+          //Save the JSON to local storage
+          localStorage.setItem(quizTitle, JSON.stringify(quizToSave));
+          console.log('quiztitle:', quizTitle);
+          console.log('quizDataString:', quizToSave);
+
+          alert("Quiz saved successfully!")
+        }catch(error){
+          //Handle any errors that occurs during saving
+          console.error('Error saving quiz:',error);
+          alert("Failed to save a quiz!");
+        }
+     }else {
+      alert('Quiz not found!');
+     };
+  };
+
   return (
     <Router>
       <div>
@@ -385,7 +426,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteQuestion={deleteQuestion} editQuiz={editQuiz} saveQuiz={saveQuiz} />} />
+          <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteQuestion={deleteQuestion} editQuiz={editQuiz} saveQuiz={saveQuiz} loadQuiz={loadQuiz} />} />
           {/* <Route path="/doQuiz" element={<DoQuiz />} /> */}
           {/* <Route path="/editQuiz" element={<EditQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion } />} /> */}
         </Routes>
