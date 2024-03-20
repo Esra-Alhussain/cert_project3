@@ -195,28 +195,27 @@ const App = () => {
   };
 
   //handle saving the quiz
-  const saveQuiz = (newQuiz ) => {
-    //bring all the data entered by the user
-    const quizTitle= quizData.name;
-    const questions = quizData.questions;
-    const answers = quizData.questions.answers;
-    const correctAnswers = quizData.questions.answers.correctAnswers;
-    const pointPerQuestion= quizData.questions.answers.points;
+  // const saveQuiz = (newQuiz ) => {
+  //   //bring all the data entered by the user
+  //   const quizTitle= quizData.name;
+  //   const questions = quizData.questions;
+  //   const answers = quizData.questions.answers;
+  //   const correctAnswers = quizData.questions.answers.correctAnswers;
+  //   const pointPerQuestion= quizData.questions.answers.points;
 
-    console.log("Quiz Title:", quizTitle);
-    console.log("Questions:", questions);
+  //   console.log("Quiz Title:", quizTitle);
+  //   console.log("Questions:", questions);
 
-    setQuizData(prevData => ({
-      ...prevData,
-      name: quizTitle,
-      questions: questions,
-      answers: answers,
-      correctAnswers: correctAnswers,
-      points: pointPerQuestion
-    }));
+  //   setQuizData(prevData => ({
+  //     ...prevData,
+  //     name: quizTitle,
+  //     questions: questions,
+  //     answers: answers,
+  //     correctAnswers: correctAnswers,
+  //     points: pointPerQuestion
+  //   }));
 
-    alert("Quiz saved successfully!");
-  }
+  // }
 
   const createQuiz = (e) => {
     //get the QuizName and then update the state with it 
@@ -238,6 +237,10 @@ const App = () => {
   console.log("clicked")
   }
 
+  const saveQuiz = () => {
+    return{ }
+    alert("Quiz saved successfully!");
+  }
   return (
     <Router>
       <div>
