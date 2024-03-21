@@ -442,6 +442,23 @@ const App = () => {
     }));
   };
 
+  const calculateScore = () => {
+    let totalScore = 0;
+    quiz.questions.forEach(question => {
+        if (question.correctAnswer === selectedAnswer) {
+            totalScore += question.points;
+        }
+    });
+    return totalScore;
+};
+
+
+  const handleSubmit = () => {
+    const finalScore = calculateScore();
+    alert(`Your final score is: ${finalScore}`);
+};
+
+
   const handleAnswerSubmission = (selectedAnswer, quiz, questionId) => {
     // Find the question object in the quiz data based on the questionId
     const question = quiz.questions.find(q => q.id === questionId);
@@ -488,7 +505,7 @@ const App = () => {
             Furthermore, notice how the content above always renders? On each page? */}
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/home/*" element={<Home quizData={quizData} selectedAnswer={selectedAnswer} setSelectedAnswer={setSelectedAnswer} handleUpdateScore={handleUpdateScore} updateScore ={updateScore} handleAnswerSubmission={handleAnswerSubmission} />} />
+          <Route path="/home/*" element={<Home quizData={quizData} selectedAnswer={selectedAnswer} setSelectedAnswer={setSelectedAnswer} handleUpdateScore={handleUpdateScore} updateScore ={updateScore} handleAnswerSubmission={handleAnswerSubmission} calculateScore={calculateScore} handleSubmit={handleSubmit} />} />
           <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteQuestion={deleteQuestion} editQuiz={editQuiz} saveQuiz={saveQuiz} loadQuiz={loadQuiz} />} />
           <Route path="/playQuiz/:id" element={<PlayQuiz />} />
           {/* <Route path="/" element={<Discovery quizData={quizData}  />} /> */}

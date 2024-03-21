@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PlayQuiz from './playQuiz';
 import { Route, Routes } from 'react-router-dom';
 
-const Discovery = ({ quizData, updateScore,handleAnswerSubmission,handleUpdateScore,setSelectedAnswer, selectedAnswer }) => {
+const Discovery = ({ quizData, updateScore,handleAnswerSubmission,handleUpdateScore,setSelectedAnswer, selectedAnswer,calculateScore }) => {
     console.log('quizData:',quizData)
     return(
         <div>
@@ -22,7 +22,7 @@ const Discovery = ({ quizData, updateScore,handleAnswerSubmission,handleUpdateSc
           <Routes>
               {/* the dynamic quiz routes  */}
               {quizData.map((quiz) => (
-              <Route key={quiz.id} path={`playQuiz/${quiz.id}`} element={<PlayQuiz quiz={quiz} setSelectedAnswer={setSelectedAnswer} handleUpdateScore={handleUpdateScore} updateScore ={updateScore} handleAnswerSubmission ={handleAnswerSubmission} selectedAnswer={selectedAnswer}/>} />
+              <Route key={quiz.id} path={`playQuiz/${quiz.id}`} element={<PlayQuiz quiz={quiz} setSelectedAnswer={setSelectedAnswer} calculateScore={calculateScore}  handleUpdateScore={handleUpdateScore} updateScore ={updateScore} handleAnswerSubmission ={handleAnswerSubmission} selectedAnswer={selectedAnswer}/>} />
                 ))}
          </Routes>
         </div>
