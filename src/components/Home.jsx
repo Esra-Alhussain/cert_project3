@@ -1,9 +1,12 @@
 import Discovery from "./Discovery"
+import { Route, Routes } from 'react-router-dom';
 
-const Home = () => {
+const Home = ({ quizData }) => {
+  console.log("quizData:", quizData);
+
   return (
     <div>
-          <Discovery />
+           <Discovery quizData={quizData}/>
     </div>
   )
 }

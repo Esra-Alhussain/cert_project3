@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DoQuiz = () => {
+const playQuiz = () => {
 
     return(
         <div className="quizDisplay">
@@ -21,4 +21,4 @@ const DoQuiz = () => {
     )
 }
 
-export default DoQuiz
+export default playQuiz

@@ -13,11 +13,7 @@ import React, { useState } from 'react';
 import Home from './components/Home';
 import Login from './components/Login'
 import Dashboard from './components/Dashboard'
-import DoQuiz from './components/DoQuiz'
-import EditQuiz from './components/EditQuiz'
 import Discovery from './components/Discovery'
-import { useEffect } from 'react';
-
 
 const App = () => {
     // State to manage quiz data
@@ -76,6 +72,14 @@ const App = () => {
     //filter out the Quiz with the specified Id
     const updatedQuizzes = quizData.filter((quiz) => {
       if (quiz.id === quizId) {
+        // Check if the quiz exists in local storage
+        const quizTitle = quiz.name;
+        const quizDataString = localStorage.getItem(quizTitle);
+
+        if (quizDataString){
+          //Remove the quiz data from local storage
+          localStorage.removeItem(quizTitle);
+        }
         return false;
       } else {
         return true;
@@ -434,7 +438,7 @@ const App = () => {
             Furthermore, notice how the content above always renders? On each page? */}
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<Home quizData={quizData} />} />
           <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteQuestion={deleteQuestion} editQuiz={editQuiz} saveQuiz={saveQuiz} loadQuiz={loadQuiz} />} />
           {/* <Route path="/doQuiz" element={<DoQuiz />} /> */}
           {/* <Route path="/editQuiz" element={<EditQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion } />} /> */}
