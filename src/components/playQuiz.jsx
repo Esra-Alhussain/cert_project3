@@ -1,24 +1,46 @@
 import React from 'react';
+import { useState } from 'react';
 
-const playQuiz = () => {
+const PlayQuiz = ({quiz, updateScore, setSelectedAnswer, selectedAnswer, handleAnswerSubmission,handleUpdateScore}) => {
+ 
 
+  
+console.log('quiz info:', quiz)
+const questionLength = quiz.questions.length
+console.log(' question.length:', questionLength)
     return(
         <div className="quizDisplay">
             <div className="quiz">
-                <h1 className="quizTitle">The Weather </h1>
-                   <div className="" >
-                        <h3 className="question">Q1: What is the first cause for the global warm?</h3>
-                        <ul className="answers">
-                            <li>First Answer</li>
-                            <li>Second Answer</li>
-                            <li>Third Answer</li>
-                            <li>Fourth Answer</li>
-                        </ul>
-                   </div>
-            <h3 className="finalScore">Your Score is: 50</h3>       
+              <h2 className="quizTitle">Quiz Title: {quiz.name}</h2>
+              {quiz.questions.map((question, index) => (
+                <div key={index}>
+                  <h3>Question {questionLength}: {question.question}</h3>
+                  <h4>The Answers:</h4> 
+                  {/* <ul>
+                    {question.answers.map((answer, ansIndex) =>{
+                        return <li key={ansIndex}>{answer}</li>
+                    })}
+                  </ul> */}
+
+                  {question.answers.map((answer, ansIndex) => (
+                    <div key={ansIndex}>
+                      <input type="radio" id={`answer-${ansIndex}`} name="answers" value={answer}  onChange={(e) => setSelectedAnswer(e.target.value)}/>
+                      <label htmlFor={`answer-${ansIndex}`}>{answer}</label>
+                      
+                    </div>
+                  ))}
+
+                  <button className= "answerSubmission" onClick={() => handleAnswerSubmission(selectedAnswer, quiz, question.id)}>Submit the Answer </button>
+                  {/* onClick={() => { answerSubmission(answer.id); } } */}
+                </div>
+                
+              ))}
             </div>
+            {/* <h3 className="finalScore">Your Score is: 50</h3>    */}
+
+
         </div>
     )
 }
 
-export default playQuiz
+export default PlayQuiz

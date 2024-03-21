@@ -14,51 +14,59 @@ import Home from './components/Home';
 import Login from './components/Login'
 import Dashboard from './components/Dashboard'
 import Discovery from './components/Discovery'
+import PlayQuiz from './components/playQuiz';
 
 const App = () => {
     // State to manage quiz data
     const [quizData, setQuizData] = useState([
       {
-        id: 1, //Generate a unique ID for the quiz object
-        name:'Math Quiz',
-        difficulty:'',
-        subject:'',
-        highestScore:'',
+        id: 1,
+        name: 'Math Quiz',
+        difficulty: '',
+        subject: '',
+        highestScore: '',
         likes: 0,
         questions: [
-            {
-                id:1, // Generate a unique ID for the question object
-                question:'',
-                answers:[],
-                correctAnswers:'',
-                points:0
-            }
+          {
+            id: 1,
+            question: 'What is 2 + 2?',
+            answers: ['3', '4', '5', '6'],
+            correctAnswer: '4',
+            points: 2,
+          },
+          {
+            id: 2,
+            question: 'What is the square root of 16?',
+            answers: ['2', '4', '6', '8'],
+            correctAnswer: '4',
+            points: 2,
+          },
         ]//quiz.question.length+1
      },
-       {
-        id: 2, //Generate a unique ID for the quiz object
-        name:'History Quiz',
-        difficulty:'',
-        subject:'',
-        highestScore:'',
+      {
+        id: 2,
+        name: 'History Quiz',
+        difficulty: '',
+        subject: '',
+        highestScore: '',
         likes: 0,
         questions: [
-            {
-                id:1, // Generate a unique ID for the question object
-                question:'What is the name of the USA president?',
-                answers:['Biden', 'Trump', 'Jordan', 'Ahmad'],
-                correctAnswers:'',
-                points:0
-            },
-            {
-              id:2, // Generate a unique ID for the question object
-              question:'What is the name of Canada president?',
-              answers:[],
-              correctAnswers:'',
-              points:0
-          }
-        ]
-     }
+          {
+            id: 1,
+            question: 'What is the name of the USA president?',
+            answers: ['Biden', 'Trump', 'Jordan', 'Ahmad'],
+            correctAnswer: 'Biden',
+            points: 2,
+          },
+          {
+            id: 2,
+            question: 'What is the capital of Canada?',
+            answers: ['Toronto', 'Ottawa', 'Montreal', 'Vancouver'],
+            correctAnswer: 'Ottawa',
+            points: 2,
+          },
+        ],
+      },
       ]);
    
    
@@ -375,6 +383,8 @@ const App = () => {
 
         console.log('quizDataString',quizDataString)
         console.log('Quiz data loaded successfully:', parsedQuizData);
+        console.log('quizData',quizData)
+
         alert("Quiz data loaded successfully!")
       }else{
         console.log('Quiz data not found for title:', quizTitle);
@@ -412,6 +422,46 @@ const App = () => {
      };
   };
 
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+
+  const handleUpdateScore = (quizId, newScore) => {
+    updateScore(quizId, newScore);
+  };
+
+
+  //update the score in the quizData state
+  const updateScore =(quizId, score) =>{
+    setQuizData(prevQuizState => prevQuizState.map(quiz => {
+      if(quiz.id === quizId){
+        //update the highestScore property if the new score is higher
+        if(score > quiz.highestScore){
+          return {...quiz, highestScore: score };
+        }
+      }
+      return quiz;
+    }));
+  };
+
+  const handleAnswerSubmission = (selectedAnswer, quiz, questionId) => {
+    // Find the question object in the quiz data based on the questionId
+    const question = quiz.questions.find(q => q.id === questionId);
+
+    // Check if the selected answer matches the correct answer in the question object
+    const isCorrectAnswer = selectedAnswer === question.correctAnswer;
+
+    // Update the score if the answer is correct
+    if (isCorrectAnswer) {
+        const newScore = quiz.points + 2; //each correct answer gives 2 points
+        updateScore(quiz.id, newScore);
+        //display an alert to inform the user about the correct answer
+        alert('Correct answer! Your score has been updated.');
+    } else {
+        // Display an alert to inform the user about the incorrect answer
+        alert('Incorrect answer! Try again.');
+    }
+};
+
+
   return (
     <Router>
       <div>
@@ -438,12 +488,11 @@ const App = () => {
             Furthermore, notice how the content above always renders? On each page? */}
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/home" element={<Home quizData={quizData} />} />
+          <Route path="/home/*" element={<Home quizData={quizData} selectedAnswer={selectedAnswer} setSelectedAnswer={setSelectedAnswer} handleUpdateScore={handleUpdateScore} updateScore ={updateScore} handleAnswerSubmission={handleAnswerSubmission} />} />
           <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteQuestion={deleteQuestion} editQuiz={editQuiz} saveQuiz={saveQuiz} loadQuiz={loadQuiz} />} />
-          {/* <Route path="/doQuiz" element={<DoQuiz />} /> */}
-          {/* <Route path="/editQuiz" element={<EditQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion } />} /> */}
+          <Route path="/playQuiz/:id" element={<PlayQuiz />} />
+          {/* <Route path="/" element={<Discovery quizData={quizData}  />} /> */}
         </Routes>
-        {/* saveQuiz={ saveQuiz} */}
       </div>
     </Router>
   );
