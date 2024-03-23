@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 import EditQuiz from "./EditQuiz"
 import { Navigate } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
-
+import '../styles/dashboard.css';
 
 const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, loadQuiz,addQuestionToQuiz, editQuiz, saveQuiz}) => {
    
@@ -87,18 +87,11 @@ const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, loadQuiz,
                 {/* </Link> */}
 
         <Routes>
-            {/* the parent route for your dynamic quiz routes */}
-            {/* <Route path="/dashboard/*"> */}
-                
                 {/* the dynamic quiz routes  */}
                 {quizData.map((quiz) => (
                     <Route key={quiz.id} path={`editQuiz/${quiz.id}`} element={<EditQuiz quiz={quiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuestion={deleteQuestion} editQuiz={editQuiz}/>} />
                 ))}
-            
-            {/* </Route> */}
-            {/* Redirect the user back to the dashboard when they navigate to a non-existent route */}
-            {/* <Route path="*" element={<Navigate to="/dashboard" />} /> */}
-        </Routes>
+         </Routes>
 
 
         </div>

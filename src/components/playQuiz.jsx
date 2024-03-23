@@ -1,24 +1,45 @@
 import React from 'react';
+import { useState } from 'react';
+import '../styles/playQuiz.css';
 
-const playQuiz = () => {
+const PlayQuiz = ({quiz, handleAnswerSubmission}) => {
+console.log('quiz info:', quiz)
+const questionLength = quiz.questions.length
+console.log(' question.length:', questionLength)
+
 
     return(
         <div className="quizDisplay">
             <div className="quiz">
-                <h1 className="quizTitle">The Weather </h1>
-                   <div className="" >
-                        <h3 className="question">Q1: What is the first cause for the global warm?</h3>
-                        <ul className="answers">
-                            <li>First Answer</li>
-                            <li>Second Answer</li>
-                            <li>Third Answer</li>
-                            <li>Fourth Answer</li>
-                        </ul>
-                   </div>
-            <h3 className="finalScore">Your Score is: 50</h3>       
+              <h2 className="quizTitle">Quiz Title: {quiz.name}</h2>
+              <form className='submitAnswers' onSubmit={(e) => handleAnswerSubmission(e,quiz, question)}>
+
+                {quiz.questions.map((question, index) => (
+                  <div key={index}>
+                    <h3>Question : {question.question}</h3>
+                    <h4>The Answers:</h4> 
+                    <select name="answer">
+                      {question.answers.map((answer, ansIndex) => (
+                        // <div key={ansIndex}>
+                        //   <input 
+                        //     type="radio" 
+                        //     id={`answer-${ansIndex}`} 
+                        //     name={`answers-${index}`} // Unique name for each question
+                        //     // value={answer}  
+                        //     />
+                        //   <label htmlFor={`answer-${ansIndex}`}>{answer}</label>
+                        // </div>
+                        <option key={ansIndex} value={answer}>{answer}</option>
+                      ))}
+                      
+                    </select>
+                    </div>
+                    ))}
+                   <button className= "answerSubmission" type="submit" >Submit the Answers</button>
+                  </form>               
             </div>
         </div>
     )
 }
 
-export default playQuiz
+export default PlayQuiz
