@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 import EditQuiz from "./EditQuiz"
 import { Navigate } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
-
+import '../styles/dashboard.css';
 
 const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, loadQuiz,addQuestionToQuiz, editQuiz, saveQuiz}) => {
    

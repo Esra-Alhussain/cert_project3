@@ -19,6 +19,7 @@ import testReducer from './reducers/testReducer.js'
  */
 const store = configureStore({
   reducer: {
+    
     test: testReducer
   }
 })

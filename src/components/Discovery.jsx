@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PlayQuiz from './playQuiz';
 import { Route, Routes } from 'react-router-dom';
-
-const Discovery = ({ quizData, updateScore,handleAnswerSubmission,handleUpdateScore,setSelectedAnswer, selectedAnswer,calculateScore }) => {
+import '../styles/discovery.css';
+const Discovery = ({ quizData,handleAnswerSubmission,setSelectedAnswer, selectedAnswer }) => {
     console.log('quizData:',quizData)
     return(
         <div>
-            <h2>Popular Quizzes </h2>
+            <h2 className='popularQuizzes'>Popular Quizzes </h2>
                 <div className='popularQuizzes'>
                 {quizData.map((quiz) => (   
                         <div key={quiz.id} className="quiz">
@@ -22,7 +22,7 @@ const Discovery = ({ quizData, updateScore,handleAnswerSubmission,handleUpdateSc
           <Routes>
               {/* the dynamic quiz routes  */}
               {quizData.map((quiz) => (
-              <Route key={quiz.id} path={`playQuiz/${quiz.id}`} element={<PlayQuiz quiz={quiz} setSelectedAnswer={setSelectedAnswer} calculateScore={calculateScore}  handleUpdateScore={handleUpdateScore} updateScore ={updateScore} handleAnswerSubmission ={handleAnswerSubmission} selectedAnswer={selectedAnswer}/>} />
+              <Route key={quiz.id} path={`playQuiz/${quiz.id}`} element={<PlayQuiz quiz={quiz} setSelectedAnswer={setSelectedAnswer} handleAnswerSubmission ={handleAnswerSubmission} selectedAnswer={selectedAnswer}/>} />
                 ))}
          </Routes>
         </div>

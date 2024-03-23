@@ -1,0 +1,66 @@
+
+.dashboardTitle {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .quizDetail {
+    margin-top: 20px;
+  }
+  
+  .quiz {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .quizTitle {
+    font-size: 18px;
+    color: #444;
+  }
+  
+  .editQuiz,
+  .deleteQuiz,
+  .saveQuiz,
+  .createQuiz,
+  .loadQuiz {
+    background-color: #96c3f3;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .editQuiz:hover,
+  .deleteQuiz:hover,
+  .saveQuiz:hover,
+  .createQuiz:hover,
+  .loadQuiz:hover {
+    background-color: #0056b3;
+   
+  }
+  
+  .createQuiz,
+  .loadQuiz {
+    margin-top: 20px;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input[type="text"] {
+    padding: 8px;
+    margin-right: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  
