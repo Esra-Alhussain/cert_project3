@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PlayQuiz from './playQuiz';
+import PlayQuiz from './PlayQuiz';
 import { Route, Routes } from 'react-router-dom';
 import '../styles/discovery.css';
 const Discovery = ({ quizData,handleAnswerSubmission,setSelectedAnswer, selectedAnswer }) => {

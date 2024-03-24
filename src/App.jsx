@@ -14,7 +14,8 @@ import Home from './components/Home';
 import Login from './components/Login'
 import Dashboard from './components/Dashboard'
 import Discovery from './components/Discovery'
-import PlayQuiz from './components/playQuiz';
+import PlayQuiz from './components/PlayQuiz';
+
 import './styles/app.css';
 
 const App = () => {
@@ -25,7 +26,7 @@ const App = () => {
         name: 'Math Quiz',
         difficulty: '',
         subject: '',
-        highestScore: '',
+        highestScore: 0,
         likes: 0,
         questions: [
           {
@@ -49,7 +50,7 @@ const App = () => {
         name: 'History Quiz',
         difficulty: '',
         subject: '',
-        highestScore: '',
+        highestScore: 0,
         likes: 0,
         questions: [
           {
@@ -423,8 +424,6 @@ const App = () => {
      };
   };
 
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-
   const handleUpdateScore = (quizId, newScore) => {
     e.preventDefault(); // Prevent the default form submission behavior
 
@@ -524,36 +523,31 @@ const App = () => {
   // handleUpdateScore(highestScore);
 // }
 
-let UserSelectedAnswer = null; // Variable to hold the selected answer
+// let UserSelectedAnswer = null; // Variable to hold the selected answer
+//
 
-const handleAnswerSubmission = (e, quiz,question) => {
-    e.preventDefault();
 
-     console.log('event',e)
-    // Get the selected answer from the dropdown
-    const submittedAnswer = e.target.elements['answer'].value;
-    console.log('submittedAnswer:', submittedAnswer);
 
-    let score = 0; // Variable to hold the current score
+    // let score = 0; // Variable to hold the current score
 
-    // Compare the submitted answer with the correct answer
-    if (submittedAnswer === question.correctAnswer) {
-        // Calculate the score
-         score += question.points;
+    // // Compare the submitted answer with the correct answer
+    //  if (submittedAnswer === quiz.question.correctAnswer) {
+    //     // Calculate the score
+    //      score += quiz.question.points;
 
-        // Check if the score is higher than the highest score
-        if (score > quiz.highestScore) {
-            // Update the highest score in quizData
-            quiz.highestScore = score;
-        }
+    //     // Check if the score is higher than the highest score
+    //     if (score > quiz.highestScore) {
+    //         // Update the highest score in quizData
+    //         quiz.highestScore = score;
+    //     }
 
-        // Display an alert for a correct answer
-        alert('Correct answer! Your score is: ' + score);
-    } else {
-        // Display an alert for an incorrect answer
-        alert('Incorrect answer! Try again.');
-    }
-};
+    //     // Display an alert for a correct answer
+    //     alert('Correct answer! Your score is: ' + score);
+    // } else {
+    //     // Display an alert for an incorrect answer
+    //     alert('Incorrect answer! Try again.');
+    // }
+
 
   return (
     <Router>
@@ -574,9 +568,9 @@ const handleAnswerSubmission = (e, quiz,question) => {
        
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/home/*" element={<Home quizData={quizData} selectedAnswer={selectedAnswer} setSelectedAnswer={setSelectedAnswer} handleAnswerSubmission={handleAnswerSubmission} />} />
+          <Route path="/home/*" element={<Home quizData={quizData} />} />
           <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteQuestion={deleteQuestion} editQuiz={editQuiz} saveQuiz={saveQuiz} loadQuiz={loadQuiz} />} />
-          <Route path="/playQuiz/:id" element={<PlayQuiz />} />
+          <Route path="/playQuiz/:id" element={<PlayQuiz quizData={quizData} setQuizData={setQuizData} />} />
         </Routes>
       </div>
     </Router>
