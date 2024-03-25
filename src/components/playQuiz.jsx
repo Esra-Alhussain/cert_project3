@@ -2,34 +2,27 @@ import React from 'react';
 import { useState } from 'react';
 import '../styles/playQuiz.css';
 
-const PlayQuiz = ({quiz, quizData,setQuizData}) => {
-  // State to handle the Array of selected answers instead of being overwritten each time
-  const [selectedAnswers, setSelectedAnswers] = useState({});
+const PlayQuiz = ({quiz,updateHighestScore }) => {
+   // State to handle the Array of selected answers instead of being overwritten each time
+   const [selectedAnswers, setSelectedAnswers] = useState({});
 
-  // Pass the selected answer to the submission handler
-  const handleSubmit =(e) => {
-    e.preventDefault();
-    //retrieves an array of the keys (question ids) from the selectedAnswers object and then calculates the length of this array
-    //it counts how many questions have been answered by checking how many keys are present in the selectedAnswers object.
-    if(Object.keys(selectedAnswers).length === 0){
-      alert('Please select an answer for all questions.');
-      return;   //prevent the form from proceeding further
+   console.log('quiz info:', quiz)
+   const questionLength = quiz.questions.length
+  
+    // Pass the selected answer to the submission handler
+    const handleSubmit =(e) => {
+      e.preventDefault();
+      //retrieves an array of the keys (question ids) from the selectedAnswers object and then calculates the length of this array
+      //it counts how many questions have been answered by checking how many keys are present in the selectedAnswers object.
+      if(Object.keys(selectedAnswers).length === 0){
+        alert('Please select an answer for all questions.');
+        return;   //prevent the form from proceeding further
+      }
+      handleAnswerSubmission(selectedAnswers, quiz);
     }
-    handleAnswerSubmission(selectedAnswers, quiz);
-  }
 
-    // Update the selected answers state when an option is selected
-    // This function is triggered when an option in the dropdown menu is selected.
-    // It updates the selectedAnswers state to associate each selected answer with its corresponding question.
-    //the ID of the current question is obtained from the question object being mapped over by map function
-    const handleSelectChange =(e,questionId)=>{
-    setSelectedAnswers(prevSelectedAnswers => ({    
-      ...prevSelectedAnswers,         // Spread the previous selectedAnswers to preserve existing selections
-      [questionId]:e.target.value,  //assigns the value of questionId as the key of the new property in the object
-    }))
-  };
 
-  const handleAnswerSubmission = (selectedAnswers,quiz) => {
+   const handleAnswerSubmission = (selectedAnswers,quiz) => {
     console.log('Selected answer:', selectedAnswers);
 
     // Initialize score variable
@@ -55,31 +48,46 @@ const PlayQuiz = ({quiz, quizData,setQuizData}) => {
       if(correctAnswer === selectedAnswer){
         totalScore += question.points;
         console.log(`You answerd the question number (${questionId}) : ${selectedAnswer} which is correct!!`);
-        alert(`Your score is : ${totalScore}:`);
-
       }else{
         console.log(`You answerd the question number (${questionId}) : ${selectedAnswer} which is Wrong!!`);
       }
       console.log(`Question: ${questionId}`);
-     
     }else{
       alert(`Question ${questionId} not found in the quiz object.`)
      }
     })
-    console.log('QuizData:', quizData)
+    alert(`Your total score is : ${totalScore}`);
+    // if (totalScore > quiz.highestScore) {
+    //   const updatedQuizData = quizData.map((item) =>
+    //     item.id === quiz.id ? { ...item, highestScore: totalScore } : item
+    //   );
+    //   console.log('QuizData:', quizData)
 
-    if (totalScore > quiz.highestScore) {
-      const updatedQuizData = quizData.map((item) =>
-        item.id === quiz.id ? { ...item, highestScore: totalScore } : item
-      );
-      console.log('QuizData:', quizData)
+    //   setQuizData(updatedQuizData);
+    // }
 
-      setQuizData(updatedQuizData);
-    }
+    console.log(`quiz.highestScore ${quiz.highestScore} `)
+    console.log(`quiz.id,${quiz.id}`)
+
+  // Check if the total score is higher than the current highest score
+  if (totalScore > quiz.highestScore) {
+    // Update the highest score in the parent component
+    updateHighestScore(quiz.id, totalScore);
+    console.log(`quiz.id,${quiz.id}`)
+    console.log(`Inside the update function`)
+}
   };
 
-  console.log('quiz info:', quiz)
-  const questionLength = quiz.questions.length
+    // Update the selected answers state when an option is selected
+    // This function is triggered when an option in the dropdown menu is selected.
+    // It updates the selectedAnswers state to associate each selected answer with its corresponding question.
+    //the ID of the current question is obtained from the question object being mapped over by map function
+    const handleSelectChange =(e,questionId)=>{
+      setSelectedAnswers(prevSelectedAnswers => ({     
+        ...prevSelectedAnswers,         // Spread the previous selectedAnswers to preserve existing selections
+        [questionId]:e.target.value,  //assigns the value of questionId as the key of the new property in the object
+      }))
+    };
 
 
     return(

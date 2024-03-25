@@ -50,7 +50,7 @@ const App = () => {
         name: 'History Quiz',
         difficulty: '',
         subject: '',
-        highestScore: 0,
+        highestScore: 5,
         likes: 0,
         questions: [
           {
@@ -424,12 +424,6 @@ const App = () => {
      };
   };
 
-  const handleUpdateScore = (quizId, newScore) => {
-    e.preventDefault(); // Prevent the default form submission behavior
-
-    updateScore(quizId, newScore);
-  };
-
 
   //update the score in the quizData state
   // const updateScore =(quizId, score) =>{
@@ -549,6 +543,17 @@ const App = () => {
     // }
 
 
+    ///////////////////////////////////////
+
+  // Function to update the highest score in the parent component
+  const updateHighestScore = (quizId, totalScore) => {
+    setQuizData((prevQuizData) =>
+      prevQuizData.map((quiz) =>
+        quiz.id === quizId ? { ...quiz, highestScore: totalScore } : quiz
+      )
+    );
+  };
+
   return (
     <Router>
       <div>
@@ -565,12 +570,11 @@ const App = () => {
             </li>
           </ul>
         </nav>
-       
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/home/*" element={<Home quizData={quizData} />} />
+          <Route path="/home/*" element={<Home quizData={quizData}  updateHighestScore={updateHighestScore} />} />
           <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteQuestion={deleteQuestion} editQuiz={editQuiz} saveQuiz={saveQuiz} loadQuiz={loadQuiz} />} />
-          <Route path="/playQuiz/:id" element={<PlayQuiz quizData={quizData} setQuizData={setQuizData} />} />
+          <Route path="/playQuiz/:id" element={<PlayQuiz />} />
         </Routes>
       </div>
     </Router>
