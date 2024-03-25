@@ -1,30 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DoQuiz from "./DoQuiz"
-
-const Discovery = () => {
+import PlayQuiz from './PlayQuiz';
+import { Route, Routes } from 'react-router-dom';
+import '../styles/discovery.css';
+const Discovery = ({ quizData,updateHighestScore}) => {
+    console.log('quizData:',quizData)
     return(
         <div>
-            <h2>Popular Quizzes </h2>
- 
-                <div className="quiz">
-                    <h3 className="quizTitle">Quiz Name</h3>
-                    <p className="quizDescription">Quiz Description</p>
-                    <Link to="/doQuiz">Start Quiz</Link>
-                </div>
+            <h2 className='popularQuizzes'>Popular Quizzes </h2>
+                <div className='popularQuizzes'>
+                {quizData.map((quiz) => (   
+                        <div key={quiz.id} className="quiz">
+                        <h3 className="quizTitle">{quiz.name}</h3>
 
-                <div className="quiz">
-                    <h3 className="quizTitle">Quiz Name</h3>
-                    <p className="quizDescription">Quiz Description</p>
-                    <Link to="/doQuiz">Start Quiz</Link>
+                        <Link to={`playQuiz/${quiz.id}`}>
+                            <button className="playQuiz">Play the Quiz</button>
+                        </Link>
+                        </div>
+                    ))}
                 </div>
-
-                <div className="quiz">
-                    <h3 className="quizTitle">Quiz Name</h3>
-                    <p className="quizDescription">Quiz Description</p>
-                    <Link to="/doQuiz">Start Quiz</Link>
-                </div>
+          <Routes>
+              {/* the dynamic quiz routes  */}
+              {quizData.map((quiz) => (
+              <Route key={quiz.id} path={`playQuiz/${quiz.id}`} element={<PlayQuiz quiz={quiz}  updateHighestScore={updateHighestScore} />} />
+                ))}
+         </Routes>
         </div>
+        
     )
 }
 
