@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PlayQuiz from './playQuiz';
+import PlayQuiz from './PlayQuiz';
 import { Route, Routes } from 'react-router-dom';
 import '../styles/discovery.css';
-const Discovery = ({ quizData,handleAnswerSubmission,setSelectedAnswer, selectedAnswer }) => {
+const Discovery = ({ quizData,updateHighestScore}) => {
     console.log('quizData:',quizData)
     return(
         <div>
@@ -22,7 +22,7 @@ const Discovery = ({ quizData,handleAnswerSubmission,setSelectedAnswer, selected
           <Routes>
               {/* the dynamic quiz routes  */}
               {quizData.map((quiz) => (
-              <Route key={quiz.id} path={`playQuiz/${quiz.id}`} element={<PlayQuiz quiz={quiz} setSelectedAnswer={setSelectedAnswer} handleAnswerSubmission ={handleAnswerSubmission} selectedAnswer={selectedAnswer}/>} />
+              <Route key={quiz.id} path={`playQuiz/${quiz.id}`} element={<PlayQuiz quiz={quiz}  updateHighestScore={updateHighestScore} />} />
                 ))}
          </Routes>
         </div>
