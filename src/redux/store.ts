@@ -12,6 +12,6 @@ export const store = configureStore({
 
     } 
 });
-
+//connect the store and the entire Redux state to react 
 // export type RootState = ReturnType<typeof store.getState>;
 // export type AppDispatch = typeof store.dispatch;
