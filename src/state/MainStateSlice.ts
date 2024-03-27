@@ -27,14 +27,14 @@ const initialState = {
           correctAnswer: '4',
           points: 2,
         },
-      ]//quiz.question.length+1
+      ] 
    },
     {
       id: 2,
       name: 'History Quiz',
       difficulty: '',
       subject: '',
-      highestScore: 5,
+      highestScore: 0,
       likes: 0,
       questions: [
         {
@@ -118,8 +118,23 @@ const mainSlice = createSlice({
     // Reducer to save a new quiz to the state 
     saveQuiz(state, action) {
         const saveQuiz = action.payload; // Extract the new quiz object from the action payload
-        // Add the new quiz object to the quizData array in the state
-        state.quizData.push(saveQuiz);
+        try {
+            // Convert the new quiz object to a JSON string
+            const quizString = JSON.stringify(saveQuiz);
+            // Save the JSON string to local storage using the quiz name as the key
+            localStorage.setItem(saveQuiz.name, quizString);
+            // Display a success message if the quiz was saved successfully
+            alert("Quiz saved successfully!");
+            // Return the current state without modifying it
+            return state;
+          } catch (error) {
+            // Handle any errors that occur during saving
+            console.error('Error saving quiz:', error);
+             // Display an error message if saving the quiz failed
+             alert("Failed to save a quiz!");
+            // Return the current state without modifying it
+            return state;
+          }
       },
 
      //Reducer to Update the highest score of a quiz 
@@ -158,7 +173,8 @@ export const {
     editQuiz, 
     createQuiz, 
     saveQuiz,
-    updateHighestScore  } = mainSlice.actions;
+    updateHighestScore,
+    loadQuizData  } = mainSlice.actions;
 
 // Export reducer
 export default mainSlice.reducer;

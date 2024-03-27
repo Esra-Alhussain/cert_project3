@@ -6,8 +6,7 @@ import {
 } from 'react-router-dom'
 
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux'; // Importing useSelector
 
 /**
  * Importing other components
@@ -27,7 +26,8 @@ import {
   editQuiz, 
   createQuiz, 
   saveQuiz,
-  updateHighestScore }
+  updateHighestScore,
+  loadQuizData }
   from './state/MainStateSlice';
 
 const App = () => {
@@ -219,12 +219,15 @@ const addQuestionToQuiz=(e,quizId,questionId)=>{
       if(quizDataString){
         const parsedQuizData = JSON.parse(quizDataString);
 
-        //update the quizData state by appending the loaded data
-        setQuizData(prevQuizState => [...prevQuizState, parsedQuizData]);
+        // //update the quizData state by appending the loaded data
+        // setQuizData(prevQuizState => [...prevQuizState, parsedQuizData]);
 
-        console.log('quizDataString',quizDataString)
-        console.log('Quiz data loaded successfully:', parsedQuizData);
-        console.log('quizData',quizData)
+        // console.log('quizDataString',quizDataString)
+        // console.log('Quiz data loaded successfully:', parsedQuizData);
+        // console.log('quizData',quizData)
+
+        // Dispatch the loadQuizData action with the parsed quiz data
+        dispatch(loadQuizData(parsedQuizData));
 
         alert("Quiz data loaded successfully!")
       }else{
@@ -240,14 +243,28 @@ const addQuestionToQuiz=(e,quizId,questionId)=>{
   };
 
   const saveQuiz = (quizTitle) => {
-     // Find the quiz object by its name
+     // Find the quiz object in quizData array whose name matches the given quizTitle
      const quizToSave = quizData.find((quiz) => quiz.name === quizTitle);
+
+     // Check if a quiz object with the given title was found
      if (quizToSave) {
-       // Dispatch the saveQuiz action with the quiz object
-       dispatch(saveQuiz(quizToSave));
-     } else {
+        //save the quiz object to the local storage after converting it to a JSON string
+        try{
+          localStorage.setItem(quizTitle, JSON.stringify(quizToSave));
+          // Display a success message if the quiz was saved successfully
+          alert("Quiz saved successfully!");
+        }
+          // Catch any errors that occur during the saving process
+          catch(error) {
+            console.error('Error saving quiz:', error);
+            // Display an error message if saving the quiz failed
+            alert("Failed to save a quiz!");
+          }
+     } 
+      // If no quiz object with the given title was found, display a message indicating that the quiz was not found
+     else {
        alert('Quiz not found!');
-     }
+     };
     // console.log('quiztitle:', quizTitle);
 
     //   const quizToSave = quizData.find(quiz => quiz.name === quizTitle);

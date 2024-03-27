@@ -65,6 +65,7 @@ const PlayQuiz = ({quiz, handleUpdateHighestScore }) => {
   if (totalScore > quiz.highestScore) {
     // Update the highest score in the parent component
     handleUpdateHighestScore(quiz.id, totalScore);
+    console.log(`quiz.highestScore ${quiz.highestScore} `)
     console.log(`quiz.id: ${quiz.id}`)
     console.log(`Inside the if condition to update highestscore`)
 }
