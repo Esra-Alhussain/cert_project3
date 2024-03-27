@@ -64,13 +64,24 @@ const mainSlice = createSlice({
     // Reducer to delete a quiz by its ID
     deleteQuiz(state, action) {
         // The action payload contains the ID of the quiz to delete
-        const quizIdToDelete = action.payload; // Extract the quiz ID from the action payload
+        // Extract the quiz ID from the action payload
+        const quizIdToDelete = action.payload; 
         // Use the filter method to remove the quiz with the specified ID from the state
         state.quizData = state.quizData.filter(quiz => quiz.id !== quizIdToDelete);
       },
-
+    // Reducer to delete a question from a quiz by its ID  
     deleteQuestion(state,action){
-
+        // The action payload contains the IDs of the quiz and question to delete
+        //Extract the quiz ID and question ID from the action payload
+        const {quizId, questionId } = action.payload; 
+        // Find the quiz by its ID in the state
+        state.quizData = state.quizData.map(quiz => {
+            if (quiz.id === quizId){
+               // Use the filter method to remove the question with the specified ID from the quiz
+               quiz.questions = quiz.questions.filter(question => question.id !- questionId);
+            }
+            return quiz;
+        })
     },
 
     addQuestionToQuiz(state,action){
