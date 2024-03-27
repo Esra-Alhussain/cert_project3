@@ -139,20 +139,14 @@ const mainSlice = createSlice({
         quizToUpdate.highestScore = totalScore;
        }
       },
+
+      //Reducer to load the quiz data from the local storage
+      loadQuizData(state, action) {
+        // Extract the quiz data from the action payload
+        const { quizData } = action.payload;
+        return { ...state, quizData }; // Update the quizData state with the loaded data
+      }
    
-    // updateQuiz(state, action) {
-    //     const updatedQuiz = action.payload;
-    //     state.quizData = state.quizData.map(quiz => {
-    //       if (quiz.id === updatedQuiz.id) {
-    //         return updatedQuiz;
-    //       }
-    //       return quiz;
-    //     });
-    //   }
-        
-      
-      
-    // Add other reducers as needed
   }
 });
 
