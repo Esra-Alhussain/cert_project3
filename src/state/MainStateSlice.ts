@@ -98,8 +98,16 @@ const mainSlice = createSlice({
 
 
     editQuiz(state, action) {
-        state.quizData = action.payload;
-      },
+        const { quizId, updatedQuiz } = action.payload; // Extract the quiz ID and updated quiz object from the action payload
+        // Find the quiz by its ID in the state and replace it with the updated quiz object
+      state.quizData = state.quizData.map(quiz => {
+        if (quiz.id === quizId) {
+          return updatedQuiz;
+        }
+        return quiz;
+      });
+    },
+
     // Reducer to create a new quiz and add it to the state
     createQuiz(state, action) {
         const newQuiz = action.payload; // Extract the new quiz object from the action payload
@@ -149,7 +157,14 @@ const mainSlice = createSlice({
 });
 
 // Extract actions from slice and export them
-export const { deleteQuiz, deleteQuestion,  addQuestionToQuiz, editQuiz, createQuiz, saveQuiz,updateHighestScore  } = mainSlice.actions;
+export const { 
+    deleteQuiz, 
+    deleteQuestion,  
+    addQuestionToQuiz, 
+    editQuiz, 
+    createQuiz, 
+    saveQuiz,
+    updateHighestScore  } = mainSlice.actions;
 
 // Export reducer
 export default mainSlice.reducer;
