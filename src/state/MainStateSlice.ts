@@ -83,10 +83,20 @@ const mainSlice = createSlice({
             return quiz;
         })
     },
-
+    // Reducer to add a new question to a quiz
     addQuestionToQuiz(state,action){
+        //Extract the quiz ID and new question object from the action payload
+        const { quizId, question } = action.payload; 
 
+        // Find the quiz by its ID in the state
+        const quizToUpdate = state.quizData.find(quiz => quiz.id === quizId);
+            if(quizToUpdate){
+                // If the quiz is found, push the new question into its questions array
+                quizToUpdate.questions.push(question);
+            }
     },
+
+    
     editQuiz(state, action) {
         state.quizData = action.payload;
       },
