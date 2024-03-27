@@ -298,9 +298,11 @@ const addQuestionToQuiz=(e,quizId,questionId)=>{
   };
 
   // Function to update the highest score in the parent component
-  const updateHighestScore = (quizId, totalScore) => {
+  const handleUpdateHighestScore = (quizId, totalScore) => {
     // Dispatch an action containing the quiz ID and the new total score
     dispatch(updateHighestScore({ quizId, totalScore })); // Dispatch the action
+    console.log(`Inside the update function`)
+
   };
 
   return (
@@ -321,7 +323,7 @@ const addQuestionToQuiz=(e,quizId,questionId)=>{
         </nav>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/home/*" element={<Home quizData={quizData}  updateHighestScore={updateHighestScore} />} />
+          <Route path="/home/*" element={<Home quizData={quizData}  handleUpdateHighestScore={handleUpdateHighestScore} />} />
           <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteQuestion={deleteQuestion} editQuiz={editQuiz} saveQuiz={saveQuiz} loadQuiz={loadQuiz} />} />
           <Route path="/playQuiz/:id" element={<PlayQuiz />} />
         </Routes>

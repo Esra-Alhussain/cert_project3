@@ -61,8 +61,11 @@ const mainSlice = createSlice({
   name: "main",   //slice  name
   initialState,    //the state that is going to be the state that the slice will start with
   reducers: {
+    // Reducer to delete a quiz by its ID
     deleteQuiz(state, action) {
-        const quizIdToDelete = action.payload;
+        // The action payload contains the ID of the quiz to delete
+        const quizIdToDelete = action.payload; // Extract the quiz ID from the action payload
+        // Use the filter method to remove the quiz with the specified ID from the state
         state.quizData = state.quizData.filter(quiz => quiz.id !== quizIdToDelete);
       },
 

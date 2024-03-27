@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import '../styles/playQuiz.css';
 
-const PlayQuiz = ({quiz,updateHighestScore }) => {
+const PlayQuiz = ({quiz, handleUpdateHighestScore }) => {
    // State to handle the Array of selected answers instead of being overwritten each time
    const [selectedAnswers, setSelectedAnswers] = useState({});
 
@@ -57,14 +57,6 @@ const PlayQuiz = ({quiz,updateHighestScore }) => {
      }
     })
     alert(`Your total score is : ${totalScore}`);
-    // if (totalScore > quiz.highestScore) {
-    //   const updatedQuizData = quizData.map((item) =>
-    //     item.id === quiz.id ? { ...item, highestScore: totalScore } : item
-    //   );
-    //   console.log('QuizData:', quizData)
-
-    //   setQuizData(updatedQuizData);
-    // }
 
     console.log(`quiz.highestScore ${quiz.highestScore} `)
     console.log(`quiz.id,${quiz.id}`)
@@ -72,9 +64,9 @@ const PlayQuiz = ({quiz,updateHighestScore }) => {
   // Check if the total score is higher than the current highest score
   if (totalScore > quiz.highestScore) {
     // Update the highest score in the parent component
-    updateHighestScore(quiz.id, totalScore);
-    console.log(`quiz.id,${quiz.id}`)
-    console.log(`Inside the update function`)
+    handleUpdateHighestScore(quiz.id, totalScore);
+    console.log(`quiz.id: ${quiz.id}`)
+    console.log(`Inside the if condition to update highestscore`)
 }
   };
 
