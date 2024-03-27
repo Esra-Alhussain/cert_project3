@@ -100,16 +100,18 @@ const mainSlice = createSlice({
     editQuiz(state, action) {
         state.quizData = action.payload;
       },
-
+    // Reducer to create a new quiz and add it to the state
     createQuiz(state, action) {
-        state.quizData.push(action.payload);   //how the state will be updated
-      },
-
-    // Reducer to save a new quiz to the state 
-    saveQuiz(state, action) {
         const newQuiz = action.payload; // Extract the new quiz object from the action payload
         // Add the new quiz object to the quizData array in the state
         state.quizData.push(newQuiz);
+     },
+
+    // Reducer to save a new quiz to the state 
+    saveQuiz(state, action) {
+        const saveQuiz = action.payload; // Extract the new quiz object from the action payload
+        // Add the new quiz object to the quizData array in the state
+        state.quizData.push(saveQuiz);
       },
 
      //Reducer to Update the highest score of a quiz 
