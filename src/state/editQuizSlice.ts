@@ -11,10 +11,12 @@ const initialState: editQuizState = {
 };
 
 //create the slice
-const editQuizSlice = createSlice ({
-    name: "counter",
-    initialState,
-    reducers: {},
-});
+// const editQuizSlice = createSlice ({
+//     name: "counter",
+//     initialState,
+//     reducers: {
+//          increment: 
+//     }
+// });
 
-export default editQuizSlice.reducer;
+// export default editQuizSlice.reducer;

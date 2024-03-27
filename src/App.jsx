@@ -6,6 +6,8 @@ import {
 } from 'react-router-dom'
 
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
 
 /**
  * Importing other components
@@ -18,7 +20,12 @@ import PlayQuiz from './components/PlayQuiz';
 
 import './styles/app.css';
 
+import { updateHighestScore } from './state/MainStateSlice';
+
 const App = () => {
+  
+  const dispatch = useDispatch();
+
     // State to manage quiz data
     const [quizData, setQuizData] = useState([
       {
@@ -75,7 +82,7 @@ const App = () => {
    // Generate unique indexes for questions
   //  const questionIndexes = Array.from(Array(quizData.questions.length).keys());
 
- //question.length+1
+  //question.length+1
   //Functions for Quiz editing 
   //Delete Quiz
   const deleteQuiz = (quizId) => {
@@ -99,8 +106,8 @@ const App = () => {
   };
 
   //Delete a Question and their answers from a Quiz
-    const deleteQuestion = (questionId) => {
-  // Filter out the question with the specified ID
+  const deleteQuestion = (questionId) => {
+    // Filter out the question with the specified ID
     const updatedQuizzes = quizData.map(quiz => {
     // Filter out the question from each quiz's questions array
     const updatedQuestions = quiz.questions.filter(question => question.id !== questionId);
@@ -111,134 +118,8 @@ const App = () => {
   alert("Question deleted!")
 };
 
-    //     // Filter out the question with the specified ID
-    //     const updatedQuestions = quiz.questions.filter((question) => {
-    //       if (question.id !== questionId){
-    //         return true;   //Keep the question if its ID doesnot match
-    //       }else{
-    //         return false;  //Exclude the question if its ID matches
-    //       }     
-    //   });
-    //  // Update the quiz object with the updated questions array
-    //  const updatedQuiz ={...quiz, quesions:updatedQuestions};
 
-    // // Update the state with the updated quiz object
-    // setQuizData((prevQuizSata) => {
-    //   const updatedQuizData = prevQuizSata.map((q) => {
-    //     //if this is the quiz we are updating, return the updated quiz
-    //     if(q.id === quiz.id){
-    //       return updatedQuiz;
-    //     }
-    //     //otherwise return the original quiz
-    //     return q;
-    //   });
-    //   console.log(`delete question:,${updatedQuizData}`)
-
-    //   // Concatenate the updated quiz data with an empty array to ensure it's treated as a new object
-    //   return [].concat(updatedQuizData);
-    // });
-    // alert("Question deleted!")
-  // };
-
-  //handle the input change for the question text
-  // const handleQuestionTextChange = ( index, newText ) => {
-  //   setQuizData(prevState => {
-  //       const updatedQuestions = [...prevState.questions];
-  //       //check first if the index is valid for the updatedQuestions Array
-  //       if (index >= 0 && index < updatedQuestions.length) { // Check if index is valid
-  //         updatedQuestions[index].question = newText;
-  //         return { ...prevState, questions: updatedQuestions };
-  //       } else {
-  //         console.error('Invalid question index');
-  //         console.log(`this is index ${index}`);
-  //         return prevState; // Return previous state unchanged
-  //       }
-  //     });
-  // };
-
-  //handle the input change for the answer text
-  const handleAnswerTextChange = ( questionIndex, answerIndex, newAnswer ) => {
-    setQuizData(prevData => {
-      const updatedAnswersQuestions = [...prevData.questions];
-      // if (questionIndex >= 0 && questionIndex < updatedAnswersQuestions.length &&
-      //     answerIndex >= 0 && answerIndex < updatedAnswersQuestions[questionIndex].answers.length
-      //     ){
-      //       //update the answer text at the specified question and answer index
-      //       updatedAnswersQuestions[questionIndex].answers[answerIndex] = newAnswer;
-      //     return { ...prevData, questions: updatedAnswersQuestions};
-      //   } else {
-      //     console.error('Invalid questions or answers index');
-      //     console.log(`this is questionIndex ${questionIndex}`);
-      //     console.log(`this is answerIndex ${answerIndex}`);
-      //     return prevData;
-      //   }
-            updatedAnswersQuestions[questionIndex].answers[answerIndex] = newAnswer;
-            return { ...prevData, questions: updatedAnswersQuestions};
-      });
-    };
-
-  //Add a new question object to the questions Array in the state
-  // const handleAddQuestion = () => {
-  //   const newQuestionId = uuidv4();
-  //       setQuizData(prevQuizData => ({
-  //           ...prevQuizData,
-  //           questions: [
-  //               ...prevQuizData.questions,
-  //               {
-  //                 id:newQuestionId,
-  //                question: '',
-  //                answers:[], 
-  //                correctAnswer:'',
-  //                points:0
-  //               }
-  //           ]
-  //       }));
-  //   };
-
-  //handle adding a name to the quiz
-  // const handleAddName = (event) => {
-  //   setQuizData({ ...quizData, name:event.target.value });
-  // };
-
-  //Add new answers to a question
-  // const AddAnswers = (questionIndex) => {
-  //     const updatedAnswers = [...quizData.questions[questionIndex].answers];
-  //     //Generate a unique ID for the new answer
-  //     //Add new empty answer array to the answers array
-  //     updatedAnswers.push('');
-  //     //create a copy of the quizData object and update the answers array for the specified question
-  //       setQuizData(prevState => {
-  //           const updatedQuizData = { ...prevState};
-  //           updatedQuizData.questions[questionIndex].answers = updatedAnswers;
-  //           return updatedQuizData;
-  //       });
-  // };
-
-  //function allows the user to edit the answers 
-//   const handleAnswerEdit = (questionIndex, answerIndex, updatedAnswer) => {
-//     const updatedQuestions = [...questions]
-//     updatedQuestions[questionIndex].answers[answerIndex] = updatedAnswer;
-//     setQuizData (updatedQuestions)
-// };
-
-  
-
-//     //function to handle changes in the Quiz name
-//   //   const handleQuizNameChange = (event)=> {
-//   //     setQuizData({...quizData, name:event.target.value });
-//   //     console.log(`This is quizData: ${quizData}`)
-//   // };
-
-
-//     //function allows the user to edit the text of the question 
-//   const handleQuestionEdit = (index, updatedQuestion) => {
-//       //update the question at the specified index in the questions Array by iterating over each question
-//       //map function returns a new array with the updated question at the specified index
-//       setQuizData(questions.map((question, i ) => (i === index ? updatedQuestion : question )));
-//   };
-
-
-  const addQuestionToQuiz=(e,quizId,questionId)=>{
+const addQuestionToQuiz=(e,quizId,questionId)=>{
     //Get the Quiz ID and the Question ID
     e.preventDefault()
     console.log('clicked');
@@ -301,14 +182,6 @@ const App = () => {
     console.log("Questions:", question);
     console.log("questionId:", questionId);
 
-  //   // Constructing the new question object
-  //   const newQuestion = {
-  //     id: questionId,
-  //     question: questions,
-  //     answers: answers,
-  //     correctAnswers: correctAnswers,
-  //     points: pointPerQuestion
-  // };
     //Update the specific question in the quiz data
     const updateQuizData = quizData.map(quiz => {
       if (quiz.id === quizId){
@@ -424,134 +297,10 @@ const App = () => {
      };
   };
 
-
-  //update the score in the quizData state
-  // const updateScore =(quizId, score) =>{
-  //   setQuizData(prevQuizState => prevQuizState.map(quiz => {
-  //     if(quiz.id === quizId){
-  //       //update the highestScore property if the new score is higher
-  //       if(score > quiz.highestScore){
-  //         return {...quiz, highestScore: score };
-  //       }
-  //     }
-  //     return quiz;
-  //   }));
-  // };
-
-//   const calculateScore = () => {
-//     let totalScore = 0;
-//     quiz.questions.forEach(question => {
-//         if (question.correctAnswer === selectedAnswer) {
-//             totalScore += question.points;
-//         }
-//     });
-//     return totalScore;
-// };
-
-
-//   const handleSubmit = () => {
-//     const finalScore = calculateScore();
-//     alert(`Your final score is: ${finalScore}`);
-// };
-
-
-//   const handleAnswerSubmission = (selectedAnswer, quiz, questionId) => {
-//     // Find the question object in the quiz data based on the questionId
-//     const question = quiz.questions.find(q => q.id === questionId);
-
-//     // Check if the selected answer matches the correct answer in the question object
-//     const isCorrectAnswer = selectedAnswer === question.correctAnswer;
-
-//     // Update the score if the answer is correct
-//     if (isCorrectAnswer) {
-//         const newScore = quiz.points + 2; //each correct answer gives 2 points
-//         updateScore(quiz.id, newScore);
-//         //display an alert to inform the user about the correct answer
-//         alert('Correct answer! Your score has been updated.');
-//     } else {
-//         // Display an alert to inform the user about the incorrect answer
-//         alert('Incorrect answer! Try again.');
-//     }
-// };
-
-// const handleAnswerSubmission= (e, selectedAnswer, quiz, index) => {
-//   console.log('event',e)
-//   try{
-//     e.preventDefault(); // Prevent the default form submission behavior
-
-//   }catch(error){
-//     console.error('error',error)
-//   }
-
-  // console.log("inside the handleAnswerSubmission")
-  // //Find the question object in the quiz data based on the questioId
-  // const question = quiz.questions.find(q=> q.id === index);
-
-  // //Get the value of the selected answer from the form submission event
-  // const submittedAnswer = e.target.elements[`answers-${index}`].value;
-
-  // //check if the submitted  answer matches the correct answer in the question object
-  // const isCorrectAnswer = submittedAnswer === question.correctAnswer;
-
-  // //Initialize a variable to hold the updated score 
-  // let updatedScore = 0;
-
-  // //Update the score if the answer is correct 
-  // if (isCorrectAnswer) {
-  //   //Increase the score by the points specified for the question
-  //   updatedScore+= question.points;
-
-  //   console.log("inside the handleAnswerSubmission")
-
-  //   //Display an alert to inform the user about the score
-  //   alert('Correct answer! Your score is:', updatedScore);
-  // }else{
-  // console.log("inside the handleAnswerSubmission")
-  //   alert('Incorrect answer! Your score is:', updatedScore);
-  // }
-
-  // //Compare the updated score with the highest score in the quiz using the Math.max function that takes multiple arguments and returns the largest of them
-  // const highestScore = Math.max(quiz.highestScore, updatedScore);
-
-  // // Update the highestScore in the state if the updated score is higher
-  // handleUpdateScore(highestScore);
-// }
-
-// let UserSelectedAnswer = null; // Variable to hold the selected answer
-//
-
-
-
-    // let score = 0; // Variable to hold the current score
-
-    // // Compare the submitted answer with the correct answer
-    //  if (submittedAnswer === quiz.question.correctAnswer) {
-    //     // Calculate the score
-    //      score += quiz.question.points;
-
-    //     // Check if the score is higher than the highest score
-    //     if (score > quiz.highestScore) {
-    //         // Update the highest score in quizData
-    //         quiz.highestScore = score;
-    //     }
-
-    //     // Display an alert for a correct answer
-    //     alert('Correct answer! Your score is: ' + score);
-    // } else {
-    //     // Display an alert for an incorrect answer
-    //     alert('Incorrect answer! Try again.');
-    // }
-
-
-    ///////////////////////////////////////
-
   // Function to update the highest score in the parent component
   const updateHighestScore = (quizId, totalScore) => {
-    setQuizData((prevQuizData) =>
-      prevQuizData.map((quiz) =>
-        quiz.id === quizId ? { ...quiz, highestScore: totalScore } : quiz
-      )
-    );
+    // Dispatch an action containing the quiz ID and the new total score
+    dispatch(updateHighestScore({ quizId, totalScore })); // Dispatch the action
   };
 
   return (
