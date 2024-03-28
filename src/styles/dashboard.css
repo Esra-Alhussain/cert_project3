@@ -17,32 +17,41 @@
   
   .quizTitle {
     font-size: 18px;
-    color: #444;
+    color: black;
   }
-  
-  .editQuiz,
+
+  .quizDisplay{
+    background-color:white;
+  }
+  .createQuiz,
+  .loadQuiz, 
   .deleteQuiz,
   .saveQuiz,
-  .createQuiz,
-  .loadQuiz {
-    background-color: #96c3f3;
+  .addQuestion,
+  .quizDisplay,
+  .editQuestion,
+  .editQuizbtn,
+  .deleteBtn{
+    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 3px;
     padding: 8px 12px;
     cursor: pointer;
-    margin-right: 10px;
+    margin: 10px;
+    border: white solid 2px;
   }
-  
-  .editQuiz:hover,
+  /* .quizDisplay:hover,
   .deleteQuiz:hover,
   .saveQuiz:hover,
   .createQuiz:hover,
   .loadQuiz:hover {
     background-color: #0056b3;
-   
+  } */
+  .quizDisplay
+  {
+    border: white solid 2px;
   }
-  
   .createQuiz,
   .loadQuiz {
     margin-top: 20px;

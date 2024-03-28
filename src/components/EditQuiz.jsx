@@ -3,6 +3,8 @@ const EditQuiz =({quiz, addQuestionToQuiz,deleteTheQuestion, editQuestionInQuiz}
     console.log("quiz:", quiz);
     return(
         <div className="editQuiz">
+            <div className="quizDisplay">
+                <div className=""></div>
             <h2>Quiz name :</h2><h2 className="quizTitle">{quiz.name}</h2>
             {quiz.questions.map((question, index) => (
                 <div key={index}>
@@ -13,11 +15,12 @@ const EditQuiz =({quiz, addQuestionToQuiz,deleteTheQuestion, editQuestionInQuiz}
                         return <li key={ansIndex}>{answer}</li>
                     })}
                   </ul>
-                  <button className="Delete" onClick={() => { deleteTheQuestion(quiz.id,question.id); } }> Delete Question </button>
+                  <button className="deleteBtn" onClick={() => { deleteTheQuestion(quiz.id,question.id); } }> Delete Question </button>
                 </div>
-            ))}
+                 ))}   
+            </div>
            <br/>
-           <div className="editQuiz">
+           <div className="addQuestion">
             <h2>Add Question: </h2>
               <form className="editQuizForm" onSubmit={(e) =>addQuestionToQuiz(e,quiz.id,quiz.questions.length+1)}>
                  {/* <button className="addQuestion" onClick={handleAddQuestion} >Add Question</button> */}
@@ -50,7 +53,7 @@ const EditQuiz =({quiz, addQuestionToQuiz,deleteTheQuestion, editQuestionInQuiz}
               </form>   
            </div>
 
-           <div className="editQuiz">
+           <div className="editQuestion">
             <h2>Edit Question: </h2>
               <form className="editQuizForm" onSubmit={(e) => editQuestionInQuiz(e,quiz.id)}>
                  {/* <button className="addQuestion" onClick={handleAddQuestion} >Add Question</button> */}

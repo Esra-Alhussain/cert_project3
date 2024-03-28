@@ -17,10 +17,10 @@ const Dashboard = ({ quizData,createNewQuiz,deleteTheQuestion, loadQuiz,addQuest
                 <div className="quizDetail">
                     {quizData.map((quiz) => (
                         <div key={quiz.id} className="quiz">
-                        <h3 className="quizTitle">{quiz.name}</h3>
+                        <h3 className="quizTitleEdit">{quiz.name}</h3>
 
                         <Link to={`editQuiz/${quiz.id}`}>
-                            <button className="editQuiz">Edit</button>
+                            <button className="editQuizbtn">Edit</button>
                         </Link>
                             {/* Dispatch the saveQuiz action with the quiz object */}
                             <button className="deleteQuiz" onClick={() => dispatch(deleteQuiz(quiz.id))}>Delete</button>
@@ -28,28 +28,7 @@ const Dashboard = ({ quizData,createNewQuiz,deleteTheQuestion, loadQuiz,addQuest
                         </div> 
      
                     ))}   
-                    {/* 
-                        <h3 className="quizTitle">Quiz Name</h3>
-                        <Link to="/editQuiz">
-                            <button className="editQuiz">Edit</button>
-                        </Link>
-                        <button className="deleteQuiz">Delete</button>
-                    </div>
-
-                    <h3 className="quizTitle">Quiz Name</h3>
-                        <Link to="/editQuiz">
-                            <button className="editQuiz">Edit</button>
-                        </Link><button className="deleteQuiz">Delete</button>
-
-
-
-                    <div className="quiz">
-                        <h3 className="quizTitle">Quiz Name</h3>
-                        <Link to="/editQuiz">
-                            <button className="editQuiz">Edit</button>
-                        </Link>                        
-                        <button className="deleteQuiz">Delete</button>
-                    </div> */}
+                   
                     <br/>
                 </div>
                     <div className="createQuiz">
@@ -85,12 +64,6 @@ const Dashboard = ({ quizData,createNewQuiz,deleteTheQuestion, loadQuiz,addQuest
                             </form>
                         </div>
                     </div>
-                
-                {/* <button className="addQuestion" onClick={handleAddQuestion} >Add Question</button> */}
-
-                <br/>
-                {/* <Link to="/createQuiz"> */}
-                {/* </Link> */}
 
         <Routes>
                 {/* the dynamic quiz routes  */}
