@@ -17,6 +17,7 @@ const Dashboard = ({ quizData,createNewQuiz,deleteTheQuestion, loadQuiz,addQuest
                 <div className="quizDetail">
                     {quizData.map((quiz) => (
                         <div key={quiz.id} className="quiz">
+                         <h3 className="quizTitleEdit">{quiz.id}</h3>
                         <h3 className="quizTitleEdit">{quiz.name}</h3>
 
                         <Link to={`editQuiz/${quiz.id}`}>
