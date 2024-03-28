@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'; // Importing useSelector
 
 /**
  * Importing other components
@@ -13,230 +14,185 @@ import React, { useState } from 'react';
 import Home from './components/Home';
 import Login from './components/Login'
 import Dashboard from './components/Dashboard'
-import DoQuiz from './components/DoQuiz'
-import EditQuiz from './components/EditQuiz'
-import Discovery from './components/Discovery'
-// import { v4 as uuidv4 } from 'uuid';
 
+
+import './styles/app.css';
+
+import { 
+  deleteQuiz, 
+  deleteQuestion,  
+  addQuestion, 
+  editQuestion, 
+  createQuiz, 
+  saveQuiz,
+  updateHighestScore,
+  loadQuizData }
+  from './state/MainStateSlice';
 
 const App = () => {
-    // State to manage quiz data
-    const [quizData, setQuizData] = useState([
-   
-   {
-    id: 1, //Generate a unique ID for the quiz object
-    name:'Math Quiz',
-    difficulty:'',
-    subject:'',
-    highestScore:'',
-    likes: 0,
-    questions: [
-        {
-            id:1, // Generate a unique ID for the question object
-            question:'',
-            answers:[],
-            correctAnswers:'',
-            points:0
-        }
-    ]
- },
-   {
-    id: 2, //Generate a unique ID for the quiz object
-    name:'History Quiz',
-    difficulty:'',
-    subject:'',
-    highestScore:'',
-    likes: 0,
-    questions: [
-        {
-            id:1, // Generate a unique ID for the question object
-            question:'',
-            answers:[],
-            correctAnswers:'',
-            points:0
-        }
-    ]
- }
-  ]);
-
-
-   // Generate unique indexes for questions
-  //  const questionIndexes = Array.from(Array(quizData.questions.length).keys());
-
- //question.length+1
-  //Functions for Quiz editing 
+  //connect the component to redux to access the state and to make it able to dispatch some actions
+  const dispatch = useDispatch();
+  const quizData = useSelector((state) => state.main.quizData);
+  
   //Delete Quiz
   const deleteQuiz = (quizId) => {
-    //filter out the Quiz with the specified Id
-    const updatedQuizzes = quizData.filter((quiz) => {
-      if (quiz.id === quizId) {
-        return false;
-      } else {
-        return true;
-      }
-    });
-    setQuizData(updatedQuizzes);
+      // Dispatch the deleteQuiz action with the quiz ID
+      dispatch(deleteQuiz(quizId));
   };
 
   //Delete a Question and their answers from a Quiz
-  const deleteQuestion = ( questionId) => {
-    //filter out the Question with the specified Id
-    const updatedQuestionsAfterDelete = quizData.questions.filter((question) => {
-      if (question.id === questionId){
-        return false;
-      } else {
-        return true;
-      }
-    });
-
-    setQuizData(prevState => ({
-      ...prevState,
-      questions: updatedQuestionsAfterDelete
-    }));
-    console.log(`this is index ${index}`);
-    alert("Question deleted!")
-  };
-
-  //handle the input change for the question text
-  const handleQuestionTextChange = ( index, newText ) => {
-    setQuizData(prevState => {
-        const updatedQuestions = [...prevState.questions];
-        //check first if the index is valid for the updatedQuestions Array
-        if (index >= 0 && index < updatedQuestions.length) { // Check if index is valid
-          updatedQuestions[index].question = newText;
-          return { ...prevState, questions: updatedQuestions };
-        } else {
-          console.error('Invalid question index');
-          console.log(`this is index ${index}`);
-          return prevState; // Return previous state unchanged
-        }
-      });
-  };
-
-  //handle the input change for the answer text
-  const handleAnswerTextChange = ( questionIndex, answerIndex, newAnswer ) => {
-    setQuizData(prevData => {
-      const updatedAnswersQuestions = [...prevData.questions];
-      // if (questionIndex >= 0 && questionIndex < updatedAnswersQuestions.length &&
-      //     answerIndex >= 0 && answerIndex < updatedAnswersQuestions[questionIndex].answers.length
-      //     ){
-      //       //update the answer text at the specified question and answer index
-      //       updatedAnswersQuestions[questionIndex].answers[answerIndex] = newAnswer;
-      //     return { ...prevData, questions: updatedAnswersQuestions};
-      //   } else {
-      //     console.error('Invalid questions or answers index');
-      //     console.log(`this is questionIndex ${questionIndex}`);
-      //     console.log(`this is answerIndex ${answerIndex}`);
-      //     return prevData;
-      //   }
-            updatedAnswersQuestions[questionIndex].answers[answerIndex] = newAnswer;
-            return { ...prevData, questions: updatedAnswersQuestions};
-      });
-    };
-
-  //Add a new question object to the questions Array in the state
-  // const handleAddQuestion = () => {
-  //   const newQuestionId = uuidv4();
-  //       setQuizData(prevQuizData => ({
-  //           ...prevQuizData,
-  //           questions: [
-  //               ...prevQuizData.questions,
-  //               {
-  //                 id:newQuestionId,
-  //                question: '',
-  //                answers:[], 
-  //                correctAnswer:'',
-  //                points:0
-  //               }
-  //           ]
-  //       }));
-  //   };
-
-  //handle adding a name to the quiz
-  const handleAddName = (event) => {
-    setQuizData({ ...quizData, name:event.target.value });
-  };
-
-  //Add new answers to a question
-  // const AddAnswers = (questionIndex) => {
-  //     const updatedAnswers = [...quizData.questions[questionIndex].answers];
-  //     //Generate a unique ID for the new answer
-  //     //Add new empty answer array to the answers array
-  //     updatedAnswers.push('');
-  //     //create a copy of the quizData object and update the answers array for the specified question
-  //       setQuizData(prevState => {
-  //           const updatedQuizData = { ...prevState};
-  //           updatedQuizData.questions[questionIndex].answers = updatedAnswers;
-  //           return updatedQuizData;
-  //       });
-  // };
-
-  //function allows the user to edit the answers 
-  const handleAnswerEdit = (questionIndex, answerIndex, updatedAnswer) => {
-    const updatedQuestions = [...questions]
-    updatedQuestions[questionIndex].answers[answerIndex] = updatedAnswer;
-    setQuizData (updatedQuestions)
+  const deleteTheQuestion = (quizId,questionId) => {
+  dispatch(deleteQuestion({ quizId, questionId }));
+  alert("Question deleted!")
 };
 
-  
 
-    //function to handle changes in the Quiz name
-  //   const handleQuizNameChange = (event)=> {
-  //     setQuizData({...quizData, name:event.target.value });
-  //     console.log(`This is quizData: ${quizData}`)
-  // };
-
-
-    //function allows the user to edit the text of the question 
-  const handleQuestionEdit = (index, updatedQuestion) => {
-      //update the question at the specified index in the questions Array by iterating over each question
-      //map function returns a new array with the updated question at the specified index
-      setQuizData(questions.map((question, i ) => (i === index ? updatedQuestion : question )));
+const addQuestionToQuiz=(e,quizId,questionId)=>{
+  e.preventDefault();
+  console.log('clicked');
+    console.log('event',e);
+    console.log('quizId',quizId);
+  const newQuestion = {
+    id: questionId,
+    question: e.target.question.value,
+    answers: [
+      e.target.answer1.value,
+      e.target.answer2.value,
+      e.target.answer3.value,
+      e.target.answer4.value,
+    ],
+    correctAnswers: e.target.correctAnswers.value,
+    points: e.target.points.value,
+  };
+  // Dispatch the action to add the new question to the quiz
+  dispatch(addQuestion({ quizId, question: newQuestion }));
+  // Reset the form fields
+  e.target.reset();
+  alert('Question added successfully!'); 
   };
 
-  //handle saving the quiz
-  const saveQuiz = (newQuiz ) => {
-    //bring all the data entered by the user
-    const quizTitle= quizData.name;
-    const questions = quizData.questions;
-    const answers = quizData.questions.answers;
-    const correctAnswers = quizData.questions.answers.correctAnswers;
-    const pointPerQuestion= quizData.questions.answers.points;
-
-    console.log("Quiz Title:", quizTitle);
-    console.log("Questions:", questions);
-
-    setQuizData(prevData => ({
-      ...prevData,
-      name: quizTitle,
-      questions: questions,
-      answers: answers,
-      correctAnswers: correctAnswers,
-      points: pointPerQuestion
-    }));
-
-    alert("Quiz saved successfully!");
-  }
-
-  const createQuiz = (e) => {
-    //get the QuizName and then update the state with it 
+  //edit Quiz feature
+  const editQuestionInQuiz = (e, quizId) => {
     e.preventDefault();
-    const newQuiz = {
-      id: quizData.length+1,
-      name: e.target.quizTitle.value,
-      difficulty: '',
-      subject: '',
-      highestScore: '',
-      likes: 0,
-      questions: [ ]
-  };
-  const newQuizData = quizData.concat(newQuiz)
-  setQuizData(newQuizData);
+    console.log('quizId',quizId)
 
-  //update the state to include the new quiz object
-  // setQuizData(prevData => [...prevData, newQuiz])
-  console.log("clicked")
-  }
+    // Extracting data entered by the user
+    const questionId = parseInt(e.target.id.value);
+    const question = e.target.question.value;
+  
+    const answers = [
+       e.target.answer1.value,
+       e.target.answer2.value,
+       e.target.answer3.value,
+       e.target.answer4.value
+    ];
+    const correctAnswers = e.target.correctAnswers.value;
+    const pointPerQuestion = e.target.points.value;
+
+    console.log('questionId',questionId)
+    console.log('correctAnswers',correctAnswers)
+    console.log('question',question)
+    console.log('answers',answers)
+
+    // Dispatch the action to edit the question in the quiz
+    dispatch(editQuestion({ quizId, questionId, question, answers, correctAnswers, pointPerQuestion }));
+    alert("Quiz updated successfully!");
+
+    // Reset the form fields 
+    e.target.reset();
+  };
+
+  const createNewQuiz = (e) => {
+    e.preventDefault();
+  const newQuiz = {
+    id: quizData.length + 1,
+    name: e.target.quizTitle.value,
+    difficulty: '',
+    subject: '',
+    highestScore: '',
+    likes: 0,
+    questions: [],
+  };
+  console.log('newQuiz',newQuiz)
+
+  dispatch(createQuiz(newQuiz));
+  console.log("clicked");
+  console.log('newQuiz',newQuiz)
+
+  };
+
+   //function to load the quiz data from local storage
+   const loadQuiz =(e,quizTitle) => {
+    e.preventDefault();
+
+    try{
+      //Retrive the JSON string from local storage
+      const quizDataString=JSON.parse(localStorage.getItem(quizTitle));
+      console.log('quizDataString:', quizDataString);
+
+      //parse the JSON string back into JS objects
+      if(quizDataString){
+        console.log('name inside load :', quizDataString.name);
+
+        const newLoadedQuiz = {
+          id: quizDataString.id,
+          name: quizDataString.name,
+          difficulty:quizDataString.difficulty,
+          subject: quizDataString.subject,
+          highestScore:quizDataString.highestScore,
+          likes:quizDataString.likes,
+          questions:[]
+        }
+    
+        // Dispatch the loadQuizData action with the parsed quiz data'
+        console.log('newLoadedQuiz:', newLoadedQuiz);
+
+        dispatch(loadQuizData(newLoadedQuiz));
+
+        alert("Quiz data loaded successfully!")
+        return
+      }else{
+        console.log('Quiz data not found for title:', quizTitle);
+        alert('Quiz not found in local storage!');
+      }
+    }catch(error){
+      console.error('Error loading quiz:', error);
+      alert("Failed to load quiz!")
+    }
+  };
+
+  const saveQuiz = (quizTitle) => {
+     // Find the quiz object in quizData array whose name matches the given quizTitle
+     const quizToSave = quizData.find((quiz) => quiz.name === quizTitle);
+
+     // Check if a quiz object with the given title was found
+     if (quizToSave) {
+        //save the quiz object to the local storage after converting it to a JSON string
+        try{
+          localStorage.setItem(quizTitle, JSON.stringify(quizToSave));
+          // Display a success message if the quiz was saved successfully
+          alert("Quiz saved successfully!");
+        }
+          // Catch any errors that occur during the saving process
+          catch(error) {
+            console.error('Error saving quiz:', error);
+            // Display an error message if saving the quiz failed
+            alert("Failed to save a quiz!");
+          }
+     } 
+      // If no quiz object with the given title was found, display a message indicating that the quiz was not found
+     else {
+       alert('Quiz not found!');
+     };
+  };
+
+  // Function to update the highest score in the parent component
+  const handleUpdateHighestScore = (quizId, totalScore) => {
+    // Dispatch an action containing the quiz ID and the new total score
+    dispatch(updateHighestScore({ quizId, totalScore })); // Dispatch the action
+    console.log(`Inside the update function`)
+
+  };
 
   return (
     <Router>
@@ -252,24 +208,13 @@ const App = () => {
             <li>
               <Link to="/dashboard">Dashboard</Link>
             </li>
-           
-            {/* <li>
-              <Link to="/about">About</Link>
-            </li> */}
           </ul>
         </nav>
-       
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL.
-            Furthermore, notice how the content above always renders? On each page? */}
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} deleteQuiz={deleteQuiz}/>} />
-          {/* <Route path="/doQuiz" element={<DoQuiz />} /> */}
-          {/* <Route path="/editQuiz" element={<EditQuiz quizData= { quizData } setQuizData = { setQuizData } handleAddName= { handleAddName } handleAddQuestion={ handleAddQuestion } handleQuestionTextChange={ handleQuestionTextChange }  handleAnswerTextChange={ handleAnswerTextChange } deleteQuestion={ deleteQuestion } />} /> */}
+          <Route path="/home/*" element={<Home quizData={quizData}  handleUpdateHighestScore={handleUpdateHighestScore} />} />
+          <Route path="/dashboard/*" element={<Dashboard quizData={quizData} createNewQuiz={createNewQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteTheQuestion={deleteTheQuestion} editQuestionInQuiz={editQuestionInQuiz} saveQuiz={saveQuiz} loadQuiz={loadQuiz} />} />
         </Routes>
-        {/* saveQuiz={ saveQuiz} */}
       </div>
     </Router>
   );

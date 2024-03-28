@@ -1,0 +1,85 @@
+
+.dashboardTitle {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .quizDetail {
+    margin-top: 20px;
+  }
+  
+  .quiz {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .quizTitle {
+    font-size: 18px;
+    color: black;
+  }
+
+  .quizDisplay{
+    background-color:white;
+  }
+  .createQuiz,
+  .loadQuiz, 
+  .deleteQuiz,
+  .saveQuiz,
+  .addQuestion,
+  .quizDisplay,
+  .editQuestion,
+  .editQuizbtn,
+  .deleteBtn{
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin: 10px;
+    border: white solid 2px;
+  }
+  /* .quizDisplay:hover,
+  .deleteQuiz:hover,
+  .saveQuiz:hover,
+  .createQuiz:hover,
+  .loadQuiz:hover {
+    background-color: #0056b3;
+  } */
+  .quizDisplayInPlayQuiz
+  {
+    background-color: white;
+    color: #131212;
+    border: 2px solid #007bff;
+    border-radius: 3px;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin: 10px;
+  }
+  .quizDisplay
+  {
+    border: white solid 2px;
+  }
+  .createQuiz,
+  .loadQuiz {
+    margin-top: 20px;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input[type="text"] {
+    padding: 8px;
+    margin-right: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  
