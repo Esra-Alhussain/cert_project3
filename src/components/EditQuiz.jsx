@@ -1,5 +1,5 @@
 
-const EditQuiz =({quiz, addQuestionToQuiz,deleteQuestion, editQuiz}) => {
+const EditQuiz =({quiz, addQuestionToQuiz,deleteTheQuestion, editQuestionInQuiz}) => {
     console.log("quiz:", quiz);
     return(
         <div className="editQuiz">
@@ -13,7 +13,7 @@ const EditQuiz =({quiz, addQuestionToQuiz,deleteQuestion, editQuiz}) => {
                         return <li key={ansIndex}>{answer}</li>
                     })}
                   </ul>
-                  <button className="Delete" onClick={() => { deleteQuestion(question.id); } }> Delete Question </button>
+                  <button className="Delete" onClick={() => { deleteTheQuestion(quiz.id,question.id); } }> Delete Question </button>
                 </div>
             ))}
            <br/>
@@ -52,12 +52,12 @@ const EditQuiz =({quiz, addQuestionToQuiz,deleteQuestion, editQuiz}) => {
 
            <div className="editQuiz">
             <h2>Edit Question: </h2>
-              <form className="editQuizForm" onSubmit={(e) => editQuiz(e,quiz.id, e.target.ID .value)}>
+              <form className="editQuizForm" onSubmit={(e) => editQuestionInQuiz(e,quiz.id)}>
                  {/* <button className="addQuestion" onClick={handleAddQuestion} >Add Question</button> */}
                     <input type="text"  name="question" placeholder="Enter the Question" />
               
                 <div>
-                    <input type="number"  name="ID" placeholder="Enter the question ID to edit" />
+                    <input type="number"  name="id" placeholder="Enter the question ID to edit" />
                 </div>
                 <div>
                     <input type="text"  name="correctAnswers" placeholder="Enter the correct answer" />

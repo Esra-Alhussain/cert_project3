@@ -3,9 +3,13 @@ import EditQuiz from "./EditQuiz"
 import { Navigate } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
 import '../styles/dashboard.css';
+import { useDispatch,useSelector } from 'react-redux'; // Import useDispatch to dispatch actions
+import { deleteQuiz, saveQuiz,createQuiz } from '../state/MainStateSlice'; // Import deleteQuiz and saveQuiz actions
 
-const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, loadQuiz,addQuestionToQuiz, editQuiz, saveQuiz}) => {
-   
+const Dashboard = ({ quizData,createNewQuiz,deleteTheQuestion, loadQuiz,addQuestionToQuiz, editQuestionInQuiz }) => {
+    const dispatch = useDispatch(); // Initialize useDispatch hook
+    // const quizData = useSelector((state) => state.main.quizData);
+    console.log("quizData",quizData)
     return(
         <div>
             <h1 className="dashboardTitle">User Dashboard</h1>
@@ -18,10 +22,12 @@ const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, loadQuiz,
                         <Link to={`editQuiz/${quiz.id}`}>
                             <button className="editQuiz">Edit</button>
                         </Link>
-                            <button className="deleteQuiz" onClick={ () => deleteQuiz(quiz.id)}>Delete</button>
-                            <button className="saveQuiz" onClick={ () => saveQuiz(quiz.name)}>Save Quiz</button>
-                        </div>
-                    ))}
+                            {/* Dispatch the saveQuiz action with the quiz object */}
+                            <button className="deleteQuiz" onClick={() => dispatch(deleteQuiz(quiz.id))}>Delete</button>
+                            <button className="saveQuiz" onClick={() => dispatch(saveQuiz(quiz))}>Save Quiz</button>
+                        </div> 
+     
+                    ))}   
                     {/* 
                         <h3 className="quizTitle">Quiz Name</h3>
                         <Link to="/editQuiz">
@@ -48,7 +54,7 @@ const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, loadQuiz,
                 </div>
                     <div className="createQuiz">
                         <div className="quizTitle">
-                            <form onSubmit={createQuiz}>
+                            <form onSubmit={createNewQuiz}>
                                 <label htmlFor="quizTitle">Quiz Title</label>
                                 <input 
                                     type="text"  
@@ -89,7 +95,7 @@ const Dashboard = ({ quizData , createQuiz, deleteQuiz,deleteQuestion, loadQuiz,
         <Routes>
                 {/* the dynamic quiz routes  */}
                 {quizData.map((quiz) => (
-                    <Route key={quiz.id} path={`editQuiz/${quiz.id}`} element={<EditQuiz quiz={quiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuestion={deleteQuestion} editQuiz={editQuiz}/>} />
+                    <Route key={quiz.id} path={`editQuiz/${quiz.id}`} element={<EditQuiz quiz={quiz} addQuestionToQuiz={addQuestionToQuiz} deleteTheQuestion={deleteTheQuestion} editQuestionInQuiz={editQuestionInQuiz}/>} />
                 ))}
          </Routes>
 
