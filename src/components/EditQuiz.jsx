@@ -11,9 +11,9 @@ const EditQuiz =({quiz, addQuestionToQuiz,deleteTheQuestion, editQuestionInQuiz}
                   <h3>Question: {question.question}</h3>
                   <h4>The Answers:</h4> 
                   <ul>
-                    {question.answers.map((answer, ansIndex) =>{
-                           <li key={ansIndex}>{answer}</li>
-                    })}
+                  {question.answers.map((answer, ansIndex) => 
+                        <li key={ansIndex}>{answer}</li>
+                    )}
                   </ul>
                   <button className="deleteBtn" onClick={() => { deleteTheQuestion(quiz.id,question.id); } }> Delete Question </button>
                 </div>

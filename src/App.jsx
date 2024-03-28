@@ -212,6 +212,7 @@ const addQuestionToQuiz=(e,quizId,questionId)=>{
         </nav>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Home quizData={quizData}  handleUpdateHighestScore={handleUpdateHighestScore} />} />
           <Route path="/home/*" element={<Home quizData={quizData}  handleUpdateHighestScore={handleUpdateHighestScore} />} />
           <Route path="/dashboard/*" element={<Dashboard quizData={quizData} createNewQuiz={createNewQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteTheQuestion={deleteTheQuestion} editQuestionInQuiz={editQuestionInQuiz} saveQuiz={saveQuiz} loadQuiz={loadQuiz} />} />
         </Routes>
