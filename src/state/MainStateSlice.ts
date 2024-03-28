@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // Define initial state
 const initialState = {
-  settings: {}, // global settings
   quizData: [
     {
       id: 1,
@@ -62,7 +61,7 @@ const mainSlice = createSlice({
   initialState,    //the state that is going to be the state that the slice will start with
   reducers: {
     // Reducer to delete a quiz by its ID
-    deleteQuiz(state, action) {
+    deleteQuiz: (state, action) => {
         // The action payload contains the ID of the quiz to delete
         // Extract the quiz ID from the action payload
         const quizIdToDelete = action.payload; 
@@ -70,7 +69,7 @@ const mainSlice = createSlice({
         state.quizData = state.quizData.filter(quiz => quiz.id !== quizIdToDelete);
       },
     // Reducer to delete a question from a quiz by its ID  
-    deleteQuestion(state,action){
+    deleteQuestion: (state,action) => {
         // The action payload contains the IDs of the quiz and question to delete
         //Extract the quiz ID and question ID from the action payload
         const {quizId, questionId } = action.payload; 
@@ -84,7 +83,7 @@ const mainSlice = createSlice({
         })
     },
     // Reducer to add a new question to a quiz
-    addQuestionToQuiz(state,action){
+    addQuestionToQuiz: (state,action) =>{
         //Extract the quiz ID and new question object from the action payload
         const { quizId, question } = action.payload; 
 
@@ -97,7 +96,7 @@ const mainSlice = createSlice({
     },
 
 
-    editQuiz(state, action) {
+    editQuiz:(state, action)=> {
         const { quizId, updatedQuiz } = action.payload; // Extract the quiz ID and updated quiz object from the action payload
         // Find the quiz by its ID in the state and replace it with the updated quiz object
       state.quizData = state.quizData.map(quiz => {
@@ -110,14 +109,15 @@ const mainSlice = createSlice({
 
     // Reducer to create a new quiz and add it to the state
     createQuiz(state, action) {
-        const newQuiz = action.payload; // Extract the new quiz object from the action payload
-        // Add the new quiz object to the quizData array in the state
-        state.quizData.push(newQuiz);
-     },
-
+      // Payload contains the new quiz object to be created
+        // Add the new quiz to the quizData array
+        console.log("inside reducer")
+        state.quizData.push(action.payload);
+    },
     // Reducer to save a new quiz to the state 
     saveQuiz(state, action) {
         const saveQuiz = action.payload; // Extract the new quiz object from the action payload
+        console.log('saveQuiz',saveQuiz)
         try {
             // Convert the new quiz object to a JSON string
             const quizString = JSON.stringify(saveQuiz);
@@ -137,8 +137,8 @@ const mainSlice = createSlice({
           }
       },
 
-     //Reducer to Update the highest score of a quiz 
-    updateHighestScore(state, action) {
+       //Reducer to Update the highest score of a quiz 
+      updateHighestScore (state, action) {
        // This reducer takes the current state and an action as parameters
        // The action payload contains the quiz ID and the new total score
        //Extract the quizId and new totalscore from the action payload
@@ -156,14 +156,16 @@ const mainSlice = createSlice({
       },
 
       //Reducer to load the quiz data from the local storage
-      loadQuizData(state, action) {
-        // Extract the quiz data from the action payload
-        const { quizData } = action.payload;
-        return { ...state, quizData }; // Update the quizData state with the loaded data
-      }
-   
-  }
+      loadQuizData: (state, action) => {
+        // Extract the quiz data from the action payload        
+        console.log(`action.payload`, action.payload)
+
+       // Update the quizData state with the loaded data
+       state.quizData.push(action.payload)
+      },
+   },
 });
+
 
 // Extract actions from slice and export them
 export const { 

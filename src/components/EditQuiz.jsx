@@ -1,5 +1,5 @@
 
-const EditQuiz =({quiz, addQuestionToQuiz,deleteQuestion, editQuiz}) => {
+const EditQuiz =({quiz, addQuestionToQuiz,deleteTheQuestion, editQuiz}) => {
     console.log("quiz:", quiz);
     return(
         <div className="editQuiz">
@@ -13,7 +13,7 @@ const EditQuiz =({quiz, addQuestionToQuiz,deleteQuestion, editQuiz}) => {
                         return <li key={ansIndex}>{answer}</li>
                     })}
                   </ul>
-                  <button className="Delete" onClick={() => { deleteQuestion(question.id); } }> Delete Question </button>
+                  <button className="Delete" onClick={() => { deleteTheQuestion(quiz.id,question.id); } }> Delete Question </button>
                 </div>
             ))}
            <br/>

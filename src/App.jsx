@@ -31,10 +31,10 @@ import {
   from './state/MainStateSlice';
 
 const App = () => {
-  
+  //connect the component to redux to access the state and to make it able to dispatch some actions
   const dispatch = useDispatch();
   const quizData = useSelector((state) => state.main.quizData);
-   
+  
   //Delete Quiz
   const deleteQuiz = (quizId) => {
     // //filter out the Quiz with the specified Id
@@ -59,7 +59,7 @@ const App = () => {
   };
 
   //Delete a Question and their answers from a Quiz
-  const deleteQuestion = (questionId) => {
+  const deleteTheQuestion = (quizId,questionId) => {
   //   // Filter out the question with the specified ID
   //   const updatedQuizzes = quizData.map(quiz => {
   //   // Filter out the question from each quiz's questions array
@@ -184,27 +184,23 @@ const addQuestionToQuiz=(e,quizId,questionId)=>{
 
   };
 
-  const createQuiz = (e) => {
-    //get the QuizName and then update the state with it 
-  //   e.preventDefault();
-  //   const newQuiz = {
-  //     id: quizData.length+1,
-  //     name: e.target.quizTitle.value,
-  //     difficulty: '',
-  //     subject: '',
-  //     highestScore: '',
-  //     likes: 0,
-  //     questions: [ ]
-  // };
-  // const newQuizData = quizData.concat(newQuiz)
-  // setQuizData(newQuizData);
-
-  // //update the state to include the new quiz object
-  // // setQuizData(prevData => [...prevData, newQuiz])
-  // console.log("clicked")
+  const createNewQuiz = (e) => {
     e.preventDefault();
-    // Dispatch the createQuiz action with the new quiz object
-    dispatch(createQuiz(newQuiz));
+  const newQuiz = {
+    id: quizData.length + 1,
+    name: e.target.quizTitle.value,
+    difficulty: '',
+    subject: '',
+    highestScore: '',
+    likes: 0,
+    questions: [],
+  };
+  console.log('newQuiz',newQuiz)
+
+  dispatch(createQuiz(newQuiz));
+  console.log("clicked");
+  console.log('newQuiz',newQuiz)
+
   };
 
    //function to load the quiz data from local storage
@@ -213,12 +209,29 @@ const addQuestionToQuiz=(e,quizId,questionId)=>{
 
     try{
       //Retrive the JSON string from local storage
-      const quizDataString= localStorage.getItem(quizTitle);
+      const quizDataString=JSON.parse(localStorage.getItem(quizTitle));
+      console.log('quizDataString:', quizDataString);
 
       //parse the JSON string back into JS objects
       if(quizDataString){
-        const parsedQuizData = JSON.parse(quizDataString);
+        console.log('name inside load :', quizDataString.name);
 
+        const newLoadedQuiz = {
+          id: quizDataString.id,
+          name: quizDataString.name,
+          difficulty:quizDataString.difficulty,
+          subject: quizDataString.subject,
+          highestScore:quizDataString.highestScore,
+          likes:quizDataString.likes,
+          questions:[]
+        }
+        // const parsedQuizData = JSON.parse(quizDataString);
+        // for (let i = 0; i < localStorage.length; i++) 
+        //    {
+        // const key = localStorage.key(i);
+        // const value = JSON.parse(localStorage.getItem(key));
+        // console.log(value.name.toLowerCase())
+          // }
         // //update the quizData state by appending the loaded data
         // setQuizData(prevQuizState => [...prevQuizState, parsedQuizData]);
 
@@ -226,14 +239,15 @@ const addQuestionToQuiz=(e,quizId,questionId)=>{
         // console.log('Quiz data loaded successfully:', parsedQuizData);
         // console.log('quizData',quizData)
 
-        // Dispatch the loadQuizData action with the parsed quiz data
-        dispatch(loadQuizData(parsedQuizData));
+        // Dispatch the loadQuizData action with the parsed quiz data'
+        console.log('newLoadedQuiz:', newLoadedQuiz);
+
+        dispatch(loadQuizData(newLoadedQuiz));
 
         alert("Quiz data loaded successfully!")
+        return
       }else{
         console.log('Quiz data not found for title:', quizTitle);
-        console.log('quizTitle:', quizTitle);
-
         alert('Quiz not found in local storage!');
       }
     }catch(error){
@@ -315,7 +329,7 @@ const addQuestionToQuiz=(e,quizId,questionId)=>{
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/home/*" element={<Home quizData={quizData}  handleUpdateHighestScore={handleUpdateHighestScore} />} />
-          <Route path="/dashboard/*" element={<Dashboard quizData={ quizData } createQuiz={createQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteQuestion={deleteQuestion} editQuiz={editQuiz} saveQuiz={saveQuiz} loadQuiz={loadQuiz} />} />
+          <Route path="/dashboard/*" element={<Dashboard quizData={quizData} createNewQuiz={createNewQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteTheQuestion={deleteTheQuestion} editQuiz={editQuiz} saveQuiz={saveQuiz} loadQuiz={loadQuiz} />} />
           <Route path="/playQuiz/:id" element={<PlayQuiz />} />
         </Routes>
       </div>
