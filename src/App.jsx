@@ -14,8 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'; // Importing useSelector
 import Home from './components/Home';
 import Login from './components/Login'
 import Dashboard from './components/Dashboard'
-import Discovery from './components/Discovery'
-import PlayQuiz from './components/PlayQuiz';
+
 
 import './styles/app.css';
 
@@ -215,7 +214,6 @@ const addQuestionToQuiz=(e,quizId,questionId)=>{
           <Route path="/login" element={<Login />} />
           <Route path="/home/*" element={<Home quizData={quizData}  handleUpdateHighestScore={handleUpdateHighestScore} />} />
           <Route path="/dashboard/*" element={<Dashboard quizData={quizData} createNewQuiz={createNewQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteTheQuestion={deleteTheQuestion} editQuestionInQuiz={editQuestionInQuiz} saveQuiz={saveQuiz} loadQuiz={loadQuiz} />} />
-          <Route path="/playQuiz/:id" element={<PlayQuiz />} />
         </Routes>
       </div>
     </Router>

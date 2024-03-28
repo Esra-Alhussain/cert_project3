@@ -84,9 +84,9 @@ const PlayQuiz = ({quiz, handleUpdateHighestScore }) => {
 
 
     return(
-        <div className="quizDisplay">
-            <div className="quiz">
-              <h2 className="quizTitle">Quiz Title: {quiz.name}</h2>
+        <div className="quizDisplayInPlayQuiz">
+            <div className="quizInPlayQuiz">
+              <h2 className="quizTitlePlayQuiz">Quiz Title: {quiz.name}</h2>
               <form className='submitAnswers' onSubmit={(e) => handleSubmit(e)}>
 
                 {quiz.questions.map((question, index) => (
@@ -95,15 +95,6 @@ const PlayQuiz = ({quiz, handleUpdateHighestScore }) => {
                     <h4>The Answers:</h4> 
                     <select name="answer" onChange={(e) => handleSelectChange(e, question.id)} required>
                       {question.answers.map((answer, ansIndex) => (
-                        // <div key={ansIndex}>
-                        //   <input 
-                        //     type="radio" 
-                        //     id={`answer-${ansIndex}`} 
-                        //     name={`answers-${index}`} // Unique name for each question
-                        //     // value={answer}  
-                        //     />
-                        //   <label htmlFor={`answer-${ansIndex}`}>{answer}</label>
-                        // </div>
                         <option key={ansIndex} value={answer}>{answer}</option>
                       ))}
                       
