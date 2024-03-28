@@ -83,7 +83,7 @@ const mainSlice = createSlice({
         })
     },
     // Reducer to add a new question to a quiz
-    addQuestionToQuiz: (state,action) =>{
+    addQuestion: (state,action) =>{
         //Extract the quiz ID and new question object from the action payload
         const { quizId, question } = action.payload; 
 
@@ -171,7 +171,7 @@ const mainSlice = createSlice({
 export const { 
     deleteQuiz, 
     deleteQuestion,  
-    addQuestionToQuiz, 
+    addQuestion, 
     editQuiz, 
     createQuiz, 
     saveQuiz,

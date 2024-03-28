@@ -22,7 +22,7 @@ import './styles/app.css';
 import { 
   deleteQuiz, 
   deleteQuestion,  
-  addQuestionToQuiz, 
+  addQuestion, 
   editQuiz, 
   createQuiz, 
   saveQuiz,
@@ -68,13 +68,34 @@ const App = () => {
   // });
   // // Update the state with the updated quiz data
   // setQuizData(updatedQuizzes);
-  // alert("Question deleted!")
   // Dispatch the deleteQuestion action with the quiz ID and question ID
   dispatch(deleteQuestion({ quizId, questionId }));
+  alert("Question deleted!")
 };
 
 
 const addQuestionToQuiz=(e,quizId,questionId)=>{
+  e.preventDefault();
+  console.log('clicked');
+    console.log('event',e);
+    console.log('quizId',quizId);
+  const newQuestion = {
+    id: questionId,
+    question: e.target.question.value,
+    answers: [
+      e.target.answer1.value,
+      e.target.answer2.value,
+      e.target.answer3.value,
+      e.target.answer4.value,
+    ],
+    correctAnswers: e.target.correctAnswers.value,
+    points: e.target.points.value,
+  };
+  // Dispatch the action to add the new question to the quiz
+  dispatch(addQuestion({ quizId, question: newQuestion }));
+  // Reset the form fields
+  e.target.reset();
+  alert('Question added successfully!');
     //Get the Quiz ID and the Question ID
     // e.preventDefault()
     // console.log('clicked');
@@ -113,10 +134,7 @@ const addQuestionToQuiz=(e,quizId,questionId)=>{
 
     //  // Reset the form fields 
     //  e.target.reset();
-    //  alert("Question added successfully!");
-    e.preventDefault();
-    // Dispatch the addQuestionToQuiz action with the quiz ID and new question object
-    dispatch(addQuestionToQuiz({ quizId, question: newQuestion }));
+    //  alert("Question added successfully!");  
   };
 
   //edit Quiz feature
