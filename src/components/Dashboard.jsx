@@ -6,7 +6,7 @@ import '../styles/dashboard.css';
 import { useDispatch,useSelector } from 'react-redux'; // Import useDispatch to dispatch actions
 import { deleteQuiz, saveQuiz,createQuiz } from '../state/MainStateSlice'; // Import deleteQuiz and saveQuiz actions
 
-const Dashboard = ({ quizData,createNewQuiz,deleteTheQuestion, loadQuiz,addQuestionToQuiz, editQuiz }) => {
+const Dashboard = ({ quizData,createNewQuiz,deleteTheQuestion, loadQuiz,addQuestionToQuiz, editQuestionInQuiz }) => {
     const dispatch = useDispatch(); // Initialize useDispatch hook
     // const quizData = useSelector((state) => state.main.quizData);
     console.log("quizData",quizData)
@@ -95,7 +95,7 @@ const Dashboard = ({ quizData,createNewQuiz,deleteTheQuestion, loadQuiz,addQuest
         <Routes>
                 {/* the dynamic quiz routes  */}
                 {quizData.map((quiz) => (
-                    <Route key={quiz.id} path={`editQuiz/${quiz.id}`} element={<EditQuiz quiz={quiz} addQuestionToQuiz={addQuestionToQuiz} deleteTheQuestion={deleteTheQuestion} editQuiz={editQuiz}/>} />
+                    <Route key={quiz.id} path={`editQuiz/${quiz.id}`} element={<EditQuiz quiz={quiz} addQuestionToQuiz={addQuestionToQuiz} deleteTheQuestion={deleteTheQuestion} editQuestionInQuiz={editQuestionInQuiz}/>} />
                 ))}
          </Routes>
 

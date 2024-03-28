@@ -23,7 +23,7 @@ import {
   deleteQuiz, 
   deleteQuestion,  
   addQuestion, 
-  editQuiz, 
+  editQuestion, 
   createQuiz, 
   saveQuiz,
   updateHighestScore,
@@ -37,38 +37,12 @@ const App = () => {
   
   //Delete Quiz
   const deleteQuiz = (quizId) => {
-    // //filter out the Quiz with the specified Id
-    // const updatedQuizzes = quizData.filter((quiz) => {
-    //   if (quiz.id === quizId) {
-    //     // Check if the quiz exists in local storage
-    //     const quizTitle = quiz.name;
-    //     const quizDataString = localStorage.getItem(quizTitle);
-
-    //     if (quizDataString){
-    //       //Remove the quiz data from local storage
-    //       localStorage.removeItem(quizTitle);
-    //     }
-    //     return false;
-    //   } else {
-    //     return true;
-    //   }
-    // });
-    // setQuizData(updatedQuizzes);
       // Dispatch the deleteQuiz action with the quiz ID
       dispatch(deleteQuiz(quizId));
   };
 
   //Delete a Question and their answers from a Quiz
   const deleteTheQuestion = (quizId,questionId) => {
-  //   // Filter out the question with the specified ID
-  //   const updatedQuizzes = quizData.map(quiz => {
-  //   // Filter out the question from each quiz's questions array
-  //   const updatedQuestions = quiz.questions.filter(question => question.id !== questionId);
-  //   return { ...quiz, questions: updatedQuestions };
-  // });
-  // // Update the state with the updated quiz data
-  // setQuizData(updatedQuizzes);
-  // Dispatch the deleteQuestion action with the quiz ID and question ID
   dispatch(deleteQuestion({ quizId, questionId }));
   alert("Question deleted!")
 };
@@ -95,111 +69,38 @@ const addQuestionToQuiz=(e,quizId,questionId)=>{
   dispatch(addQuestion({ quizId, question: newQuestion }));
   // Reset the form fields
   e.target.reset();
-  alert('Question added successfully!');
-    //Get the Quiz ID and the Question ID
-    // e.preventDefault()
-    // console.log('clicked');
-    // console.log('event',e);
-    // console.log('quizId',quizId);
-    // console.log('target',e.target);
-    // console.log('questionId',questionId);
-
-    // //Update the state with the new question
-    // const newQuestion = {
-    //   id: questionId,
-    //   question: e.target.question.value,
-    //   answers: [
-    //     e.target.answer1.value,
-    //     e.target.answer2.value,
-    //     e.target.answer3.value,
-    //     e.target.answer4.value,
-    //   ],
-    //   correctAnswers:e.target.correctAnswers.value,
-    //   points: e.target.points.value,
-    // };
-    // //Find the quiz in the QuizData state by its ID
-    // const updatedQuizData = quizData.map(quiz=> {
-    //   if(quiz.id === quizId){
-    //     //Add the new Question to the questions array of this quiz
-    //     return{
-    //       ...quiz,
-    //       questions: [...quiz.questions, newQuestion]
-    //     };
-    //   }
-    //   return quiz;
-    // });
-    // //Update the state with the updated quiz data 
-    // setQuizData(updatedQuizData);
-    // console.log(`quizData,${quizData}`)
-
-    //  // Reset the form fields 
-    //  e.target.reset();
-    //  alert("Question added successfully!");  
+  alert('Question added successfully!'); 
   };
 
   //edit Quiz feature
-  const editQuiz = (e, quizId) => {
+  const editQuestionInQuiz = (e, quizId) => {
     e.preventDefault();
-    // Dispatch the editQuiz action with the quiz ID and updated quiz object
-    dispatch(editQuiz({ quizId, updatedQuiz }));
-    // e.preventDefault();
+    console.log('quizId',quizId)
 
-    // // Extracting data entered by the user
-    // // const quizTitle= e.target.quizTitle.value;
-    // const questionId = parseInt(e.target.ID.value);   //Get the question ID from the input
-    // const question = e.target.question.value;
-    // const answers = [
-    //    e.target.answer1.value,
-    //    e.target.answer2.value,
-    //    e.target.answer3.value,
-    //    e.target.answer4.value
-    //   ];
-    // const correctAnswers = e.target.correctAnswers.value;
-    // const pointPerQuestion= e.target.points.value;
+    // Extracting data entered by the user
+    const questionId = parseInt(e.target.id.value);
+    const question = e.target.question.value;
+  
+    const answers = [
+       e.target.answer1.value,
+       e.target.answer2.value,
+       e.target.answer3.value,
+       e.target.answer4.value
+    ];
+    const correctAnswers = e.target.correctAnswers.value;
+    const pointPerQuestion = e.target.points.value;
 
-    // // console.log("Quiz Title:", quizTitle);
-    // console.log("Questions:", question);
-    // console.log("questionId:", questionId);
+    console.log('questionId',questionId)
+    console.log('correctAnswers',correctAnswers)
+    console.log('question',question)
+    console.log('answers',answers)
 
-    // //Update the specific question in the quiz data
-    // const updateQuizData = quizData.map(quiz => {
-    //   if (quiz.id === quizId){
-    //     const updatedQuestions = quiz.questions.map(q => {
-    //       if (q.id === questionId){
-    //         console.log("questionId:", questionId);
+    // Dispatch the action to edit the question in the quiz
+    dispatch(editQuestion({ quizId, questionId, question, answers, correctAnswers, pointPerQuestion }));
+    alert("Quiz updated successfully!");
 
-    //         return{
-    //           ...q,
-    //           question: question,
-    //           answers: answers,
-    //           correctAnswers: correctAnswers,
-    //           points: pointPerQuestion
-    //         };
-            
-    //       }else{
-    //         console.log("the id is not found:", questionId);
-    //         console.log("this is the q:", q);
-
-    //         return q;
-    //       }
-    //     });
-    //     return {...quiz, questions: updatedQuestions};
-    //   }else{
-    //     return quiz;
-    //   }
-    // });
-    
-    // // Updating the quiz data state with the new quiz object
-    // console.log("questionId:", questionId);
-
-    // setQuizData(updateQuizData);
-    // console.log("updateQuizData:", updateQuizData);
-    // console.log("updated")
-    // // Reset the form fields 
-    // e.target.reset();
-    // alert("Quiz updated successfully!");
-
-
+    // Reset the form fields 
+    e.target.reset();
   };
 
   const createNewQuiz = (e) => {
@@ -243,20 +144,7 @@ const addQuestionToQuiz=(e,quizId,questionId)=>{
           likes:quizDataString.likes,
           questions:[]
         }
-        // const parsedQuizData = JSON.parse(quizDataString);
-        // for (let i = 0; i < localStorage.length; i++) 
-        //    {
-        // const key = localStorage.key(i);
-        // const value = JSON.parse(localStorage.getItem(key));
-        // console.log(value.name.toLowerCase())
-          // }
-        // //update the quizData state by appending the loaded data
-        // setQuizData(prevQuizState => [...prevQuizState, parsedQuizData]);
-
-        // console.log('quizDataString',quizDataString)
-        // console.log('Quiz data loaded successfully:', parsedQuizData);
-        // console.log('quizData',quizData)
-
+    
         // Dispatch the loadQuizData action with the parsed quiz data'
         console.log('newLoadedQuiz:', newLoadedQuiz);
 
@@ -297,27 +185,6 @@ const addQuestionToQuiz=(e,quizId,questionId)=>{
      else {
        alert('Quiz not found!');
      };
-    // console.log('quiztitle:', quizTitle);
-
-    //   const quizToSave = quizData.find(quiz => quiz.name === quizTitle);
-    //   if(quizToSave){
-    //      try{
-
-    //       //Convert quizData to a JSON string
-    //       //Save the JSON to local storage
-    //       localStorage.setItem(quizTitle, JSON.stringify(quizToSave));
-    //       console.log('quiztitle:', quizTitle);
-    //       console.log('quizDataString:', quizToSave);
-
-    //       alert("Quiz saved successfully!")
-    //     }catch(error){
-    //       //Handle any errors that occurs during saving
-    //       console.error('Error saving quiz:',error);
-    //       alert("Failed to save a quiz!");
-    //     }
-    //  }else {
-    //   alert('Quiz not found!');
-    //  };
   };
 
   // Function to update the highest score in the parent component
@@ -347,7 +214,7 @@ const addQuestionToQuiz=(e,quizId,questionId)=>{
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/home/*" element={<Home quizData={quizData}  handleUpdateHighestScore={handleUpdateHighestScore} />} />
-          <Route path="/dashboard/*" element={<Dashboard quizData={quizData} createNewQuiz={createNewQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteTheQuestion={deleteTheQuestion} editQuiz={editQuiz} saveQuiz={saveQuiz} loadQuiz={loadQuiz} />} />
+          <Route path="/dashboard/*" element={<Dashboard quizData={quizData} createNewQuiz={createNewQuiz} addQuestionToQuiz={addQuestionToQuiz} deleteQuiz={deleteQuiz} deleteTheQuestion={deleteTheQuestion} editQuestionInQuiz={editQuestionInQuiz} saveQuiz={saveQuiz} loadQuiz={loadQuiz} />} />
           <Route path="/playQuiz/:id" element={<PlayQuiz />} />
         </Routes>
       </div>

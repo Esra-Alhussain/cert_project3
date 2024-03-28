@@ -96,16 +96,28 @@ const mainSlice = createSlice({
     },
 
 
-    editQuiz:(state, action)=> {
-        const { quizId, updatedQuiz } = action.payload; // Extract the quiz ID and updated quiz object from the action payload
-        // Find the quiz by its ID in the state and replace it with the updated quiz object
-      state.quizData = state.quizData.map(quiz => {
-        if (quiz.id === quizId) {
-          return updatedQuiz;
+    editQuestion (state, action) {
+      const { quizId, questionId, question, answers, correctAnswers, pointPerQuestion } = action.payload; // Extract the data from the action payload
+
+      // Find the quiz by its ID in the state
+      const quizToUpdate = state.quizData.find(quiz => quiz.id === quizId);
+    
+      // Check if the quiz is found
+      if (quizToUpdate) {
+        // Find the question within the quiz's questions array by its ID
+        const questionToUpdate = quizToUpdate.questions.find(q => q.id === questionId);
+        
+        // Check if the question is found
+        if (questionToUpdate) {
+          // Update the question properties with the new data
+          questionToUpdate.question = question;
+          questionToUpdate.answers = answers;
+          questionToUpdate.correctAnswer= correctAnswers;
+          questionToUpdate.points = pointPerQuestion;
         }
-        return quiz;
-      });
+      }
     },
+  
 
     // Reducer to create a new quiz and add it to the state
     createQuiz(state, action) {
@@ -172,7 +184,7 @@ export const {
     deleteQuiz, 
     deleteQuestion,  
     addQuestion, 
-    editQuiz, 
+    editQuestion, 
     createQuiz, 
     saveQuiz,
     updateHighestScore,

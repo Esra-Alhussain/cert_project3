@@ -10,18 +10,6 @@ import './index.css'
 import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
 
-/**
- * Importing reducers
- */
-import testReducer from './reducers/testReducer.js'
-
-
-// const store = configureStore({
-//   reducer: {
-    
-//     test: testReducer
-//   }
-// })
 
 //Making the store available throughout the application to connect react to redux
 ReactDOM.createRoot(document.getElementById('root')).render(

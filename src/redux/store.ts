@@ -2,9 +2,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import mainReducer  from '../state/MainStateSlice';   //import the mainstateslice
 
-/**
- * Creating the store w/reducers
- */
 
 //export the store by default
 //connect the state slices using the store so they can globally be accissible accross the entire application
