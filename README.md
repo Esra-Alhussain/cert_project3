@@ -33,4 +33,12 @@ Welcome to the Game Quiz Project! This web application allows users to play quiz
 1. Clone the repository:
 
    ```bash
-   git clone 
+   git clone https://github.com/Esra-Alhussain/cert_project3
+
+## Usage
+1. Run the development server:
+   ```bash
+   npm start
+## Live Demo
+Check out the live demo  [here](https://cert-project3.onrender.com/).
+
